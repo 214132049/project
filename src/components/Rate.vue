@@ -31,7 +31,7 @@ export default {
       width: 30px;
       height: 28px;
       margin-right: 14px;
-      background-image: url('@/asset/images/ic-star@2x.png');
+      background-image: url('~@/assets/images/ic-star@2x.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100%;
@@ -39,7 +39,7 @@ export default {
         margin-right: 0;
       }
       &.active {
-        background-image: url('@/asset/images/ic-star-sel@2x.png');
+        background-image: url('~@/assets/images/ic-star-sel@2x.png');
       }
     }
   }

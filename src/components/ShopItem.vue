@@ -13,7 +13,7 @@
       <div class="recommend-box">
         <p class="title">推荐菜品</p>
         <ul class="shop-products">
-          <li v-for="(product, index) in products" :key="index">
+          <li v-for="(product, index) in products" :key="index" class="product">
             <img src="" alt="">
           </li>
         </ul>
@@ -41,9 +41,11 @@ export default {
 <style lang="less" scoped>
   .shop-item_component{
     display: flex;
+    width: 100%;
     .left {
       display: block;
       width: 184px;
+      height: 138px;
       margin-right: 40px;
     }
     .shop-name-status {
@@ -58,14 +60,16 @@ export default {
     }
     .title {
       padding: 5px 0;
-      border-top: 1px solid @border-color; /* no */
+      border-bottom: 1px solid @border-color; /* no */
     }
     .shop-products {
       padding-top: 10px;
       li {
         display: inline-block;
-        width: 128px;
         margin-right: 20px;
+        img {
+          width: 128px;
+        }
       }
     }
   }

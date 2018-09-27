@@ -2,10 +2,10 @@
   <section class="page home-page">
     <scroll class="wrapper" :data="data" :pulldown="pulldown" @pulldown="loadData">
       <img src="@/assets/images/banner@2x.png" class="banner" alt="banner">
-      <part-title style="width: 686px;">院内餐厅</part-title>
+      <part-title>院内餐厅</part-title>
       <ul class="shop-list">
-        <router-link  tag="li" v-for="(item, index) in data" :key="index" :to="{ path: '/shop' }">
-          go to shop
+        <router-link  tag="li" v-for="(item, index) in data" :key="index" :to="{ path: '/shop' }" class="item">
+          <shop-item :shop-info="item"></shop-item>
         </router-link>
       </ul>
       <div class="loading-wrapper"></div>
@@ -15,16 +15,18 @@
 <script>
   import scroll from '@/components/Scroll'
   import PartTitle from '@/components/PartTitle'
+  import ShopItem from '@/components/ShopItem'
 
   export default {
     name: 'HomePage',
     components: {
       scroll,
-      PartTitle
+      PartTitle,
+      ShopItem
     },
     data() {
       return {
-        data: [1],
+        data: [{}],
         pulldown: true
       }
     },
@@ -49,6 +51,9 @@
     .shop-list {
       width: 686px;
       margin: 0 auto;
+      .item {
+        padding: 20px 0;
+      }
     }
   }
 </style>
