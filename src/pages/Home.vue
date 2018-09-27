@@ -1,6 +1,6 @@
 <template>
-  <section class="page home-page">
-    <scroll class="wrapper" :data="data" :pulldown="pulldown" @pulldown="loadData">
+  <scroll class="wrapper" :pullup="pullup" @scrollToEnd="loadData" ref="scroll">
+    <section class="page home-page">
       <img src="@/assets/images/banner@2x.png" class="banner" alt="banner">
       <part-title>院内餐厅</part-title>
       <ul class="shop-list">
@@ -9,8 +9,8 @@
         </router-link>
       </ul>
       <div class="loading-wrapper"></div>
-    </scroll>
-  </section>
+    </section>
+  </scroll>
 </template>
 <script>
   import scroll from '@/components/Scroll'
@@ -26,24 +26,32 @@
     },
     data() {
       return {
-        data: [{}],
-        pulldown: true
+        data: [],
+        pullup: true
       }
     },
-    created() {
+    mounted() {
       this.loadData()
     },
     methods: {
       loadData() {
-        this.$http().then((res) => {
-          this.data = res.data.concat(this.data)
-        })
+        this.$loading.show()
+        this.$refs.scroll.disable()
+        setTimeout(() => {
+          this.data = this.data.concat(new Array(10).fill({}))
+          this.$refs.scroll.enable()
+          this.$loading.hide()
+        }, 1000)
       }
     }
   }
 </script>
 <style lang="less" scoped>
+  .wrapper {
+    height: 100%;
+  }
   .home-page {
+    padding-bottom: 80px;
     .banner {
       display: block;
       width: 100%;
@@ -52,7 +60,7 @@
       width: 686px;
       margin: 0 auto;
       .item {
-        padding: 20px 0;
+        margin: 20px 0 40px 0;
       }
     }
   }

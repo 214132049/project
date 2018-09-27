@@ -4,7 +4,7 @@
     <div class="right">
       <div class="shop-name-status">
         <span class="name">餐厅一</span>
-        <span class="status">正常营业</span>
+        <span class="status" :class="{ open: true }">正常营业</span>
       </div>
       <div class="rate-count">
         <rate :value="3" style="display: inline-block"/>
@@ -13,8 +13,8 @@
       <div class="recommend-box">
         <p class="title">推荐菜品</p>
         <ul class="shop-products">
-          <li v-for="(product, index) in products" :key="index" class="product">
-            <img src="" alt="">
+          <li v-for="(product, index) in 3" :key="index" class="product">
+            <img src="@/assets/images/img@2x.png" alt="">
           </li>
         </ul>
       </div>
@@ -48,27 +48,49 @@ export default {
       height: 138px;
       margin-right: 40px;
     }
+    .right {
+      flex: 1;
+    }
     .shop-name-status {
       display: flex;
       justify-content: space-between;
+      color: #353535;
+      font-size: 36px;
+      line-height: 36px;
       .status {
-        color: @color;
+        color: #c2c2c2;
+        font-size: 22px;
+        &.open {
+          color: #444;
+        }
       }
     }
-    .count {
-      color: @color;
+    .rate-count {
+      margin-top: 20px;
+      height: 30px;
+      line-height: 30px;
+      .count {
+        color: #333;
+        margin-left: 20px;
+        font-size: 24px;
+      }
     }
-    .title {
-      padding: 5px 0;
-      border-bottom: 1px solid @border-color; /* no */
-    }
-    .shop-products {
-      padding-top: 10px;
-      li {
-        display: inline-block;
-        margin-right: 20px;
-        img {
-          width: 128px;
+    .recommend-box {
+      margin-top: 20px;
+      .title {
+        font-size: 22px;
+        padding: 8px 0;
+        color: @color;
+        border-bottom: 1px solid @border-color; /* no */
+      }
+      .shop-products {
+        padding-top: 10px;
+        display: flex;
+        li {
+          margin-right: 20px;
+          img {
+            width: 128px;
+          }
         }
       }
     }

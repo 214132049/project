@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang="less">
-html, body {
+html, body, #app {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -32,7 +32,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-overflow-scrolling: touch;
-  color: #2c3e50;
+  color: #333;
 }
 ul {
   list-style: none;
@@ -41,5 +41,8 @@ ul {
 }
 img {
   content: normal !important;
+}
+p {
+  margin: 0;
 }
 </style>
