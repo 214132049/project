@@ -1,0 +1,31 @@
+<template>
+  <div class="part-title">
+    <span class="line"></span>
+    <span class="content"><slot></slot></span>
+    <span class="line"></span>
+  </div>
+</template>
+<style lang="less" scoped>
+  .part-title {
+    height: 80px;
+    width: 686px;
+    margin: 0 auto;
+    line-height: 80px;
+    text-align: center;
+    font-size:30px;
+    color: #999;
+    font-weight:400;
+    border-bottom: 1px solid #e5e5e5; /* no */
+    .content {
+      margin: 0 32px;
+      vertical-align: middle;
+    }
+    .line {
+      display: inline-block;
+      height: 1px;
+      width: 50px;
+      background: #999;
+      vertical-align: middle;
+    }
+  }
+</style>
