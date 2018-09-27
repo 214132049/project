@@ -1,6 +1,6 @@
-const Home = () => import('@/pages/Home.vue')
-const Order = () => import('@/pages/Order.vue')
-const Shop = () => import('@/pages/Shop.vue')
+const Home = () => import(/* webpackChunkName: "home" */ '@/pages/Home.vue')
+const Order = () => import(/* webpackChunkName: "order" */ '@/pages/Order.vue')
+const Shop = () => import(/* webpackChunkName: "shop" */ '@/pages/Shop.vue')
 
 const routes = [
   {
