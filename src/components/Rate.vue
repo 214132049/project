@@ -28,9 +28,9 @@ export default {
   .rate_component {
     .single-star {
       display: inline-block;
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
+      width: 30px;
+      height: 28px;
+      margin-right: 14px;
       background-image: url('@/asset/images/ic-star@2x.png');
       background-repeat: no-repeat;
       background-position: center;

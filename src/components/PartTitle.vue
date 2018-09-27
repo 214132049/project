@@ -8,7 +8,7 @@
 <style lang="less" scoped>
   .part-title_component {
     height: 80px;
-    width: 686px;
+    width: 100%;
     margin: 0 auto;
     line-height: 80px;
     text-align: center;

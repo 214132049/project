@@ -1,19 +1,23 @@
 <template>
   <div class="shop-item_component">
-    <img src="" alt="">
-    <div>
-      <div class="shop-info">
-        <p class="shop-name-status">
-          <span class="name">餐厅一</span>
-          <span class="status">正常营业</span>
-        </p>
-        <rate :value="3" />
+    <img src="@/assets/images/img@2x.png" alt="图片" class="left">
+    <div class="right">
+      <div class="shop-name-status">
+        <span class="name">餐厅一</span>
+        <span class="status">正常营业</span>
       </div>
-      <ul class="shop-products">
-        <li v-for="(product, index) in products" :key="index">
-          <img src="" alt="">
-        </li>
-      </ul>
+      <div class="rate-count">
+        <rate :value="3" style="display: inline-block"/>
+        <span class="count">月售2836单</span>
+      </div>
+      <div class="recommend-box">
+        <p class="title">推荐菜品</p>
+        <ul class="shop-products">
+          <li v-for="(product, index) in products" :key="index">
+            <img src="" alt="">
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -37,21 +41,31 @@ export default {
 <style lang="less" scoped>
   .shop-item_component{
     display: flex;
-    .shop-info {
-      .shop-name-status {
-        display: flex;
-        justify-content: space-between;
-        .status {
-          color: @color;
-        }
+    .left {
+      display: block;
+      width: 184px;
+      margin-right: 40px;
+    }
+    .shop-name-status {
+      display: flex;
+      justify-content: space-between;
+      .status {
+        color: @color;
       }
+    }
+    .count {
+      color: @color;
+    }
+    .title {
+      padding: 5px 0;
+      border-top: 1px solid @border-color; /* no */
     }
     .shop-products {
       padding-top: 10px;
-      border-top: 1px solid @border-color; /* no */
       li {
         display: inline-block;
-        margin-right: 15px;
+        width: 128px;
+        margin-right: 20px;
       }
     }
   }
