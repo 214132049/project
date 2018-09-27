@@ -1,12 +1,12 @@
 <template>
-  <div class="part-title">
+  <div class="part-title_component">
     <span class="line"></span>
     <span class="content"><slot></slot></span>
     <span class="line"></span>
   </div>
 </template>
 <style lang="less" scoped>
-  .part-title {
+  .part-title_component {
     height: 80px;
     width: 686px;
     margin: 0 auto;

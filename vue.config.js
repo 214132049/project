@@ -5,7 +5,7 @@ module.exports = {
   css: {
     loaderOptions: {
       less: {
-        globalVars: getLessVariables('src/assets/styles/var.less')
+        globalVars: getLessVariables('src/assets/styles/variables.less')
       }
     }
   },

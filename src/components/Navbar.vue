@@ -1,5 +1,5 @@
 <template>
-  <ul class="nav-bar">
+  <ul class="nav-bar_component">
     <router-link tag="li" :to="item.path" v-for="(item, index) in navConfig" :key="index">
       <img class="icon" :src="$route.path === item.path ? item.icon_sel : item.icon"/>
       <div>{{ item.text }}</div>
@@ -20,9 +20,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import "../assets/styles/var.less";
-
-  .nav-bar {
+  .nav-bar_component {
     position: fixed;
     display: flex;
     left: 0;
