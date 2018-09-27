@@ -31,11 +31,15 @@ html, body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-overflow-scrolling: touch;
   color: #2c3e50;
 }
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+img {
+  content: normal !important;
 }
 </style>
