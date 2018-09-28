@@ -1,5 +1,5 @@
 <template>
-  <scroll class="wrapper" :pullup="pullup" @scrollToEnd="loadData" ref="scroll">
+  <scroll class="wrapper" :data="data" :pullup="pullup" @scrollToEnd="loadData" ref="scroll">
     <section class="page home-page">
       <img src="@/assets/images/banner@2x.png" class="banner" alt="banner">
       <part-title>院内餐厅</part-title>

@@ -39,6 +39,13 @@
         default: false
       },
       /**
+       * 列表的数据
+       */
+      data: {
+        type: Array,
+        default: null
+      },
+      /**
        * 是否派发滚动到底部的事件，用于上拉加载
        */
       pullup: {
@@ -150,8 +157,3 @@
     }
   }
 </script>
-<style>
-  .scroll-wrapper {
-    height: 100%;
-  }
-</style>
