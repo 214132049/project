@@ -34,15 +34,7 @@ html, body, #app {
   -webkit-overflow-scrolling: touch;
   color: #333;
 }
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
 img {
   content: normal !important;
-}
-p {
-  margin: 0;
 }
 </style>
