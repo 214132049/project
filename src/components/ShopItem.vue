@@ -12,9 +12,9 @@
       </div>
       <div class="recommend-box">
         <p class="title">推荐菜品</p>
-        <scroll scroll-x :scroll-y="false" class="wrapper">
+        <scroll scroll-x :scroll-y="false">
           <ul class="shop-products">
-            <li v-for="(product, index) in 4" :key="index" class="product">
+            <li v-for="(product, index) in 5" :key="index" class="product">
               <img src="@/assets/images/img@2x.png" alt="">
             </li>
           </ul>
@@ -75,24 +75,25 @@ export default {
     }
     .recommend-box {
       margin-top: 20px;
-      width: 100%;
       .title {
         font-size: 22px;
         padding: 8px 0;
         color: @color;
         border-bottom: 1px solid @border-color; /* no */
       }
-      .wrapper {
-        width: 100%;
-      }
       .shop-products {
         padding-top: 10px;
         white-space: nowrap;
+        display: inline-block;
         li {
           display: inline-block;
           margin-right: 20px;
+          width: 128px;
+          &:last-child {
+            margin-right: 0;
+          }
           img {
-            width: 128px;
+            width: 100%;
           }
         }
       }
