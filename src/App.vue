@@ -1,17 +1,15 @@
 <template>
   <div id="app">
-    <router-view></router-view>
-    <nav-bar v-if="showNarBar"></nav-bar>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <tab-bar v-if="showNarBar"></tab-bar>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
 export default {
   name: 'App',
-  components: {
-   'nav-bar': Navbar
-  },
   computed: {
     showNarBar() {
       return ['/', '/home', '/order'].indexOf(this.$route.path) > -1
@@ -21,6 +19,8 @@ export default {
 </script>
 
 <style lang="less">
+@import "./assets/styles/reset.css";
+
 html, body, #app {
   margin: 0;
   padding: 0;

@@ -13,17 +13,8 @@
   </scroll>
 </template>
 <script>
-  import scroll from '@/components/Scroll'
-  import PartTitle from '@/components/PartTitle'
-  import ShopItem from '@/components/ShopItem'
-
   export default {
     name: 'HomePage',
-    components: {
-      scroll,
-      PartTitle,
-      ShopItem
-    },
     data() {
       return {
         data: [],

@@ -44,12 +44,10 @@
 
 <script>
 import BScroll from "better-scroll";
-import shopcart from "components/shopcart/shopcart";
-import cartcontrol from "components/cartcontrol/cartcontrol";
-import food from "components/food/food";
 
 const ERR_OK = 0;
 export default {
+  name: 'Goods',
   props: {
     seller: {
       type: Object
@@ -118,15 +116,7 @@ export default {
       );
       let el = foodList[index];
       this.foodsScroll.scrollToElement(el, 300);
-      console.log(index);
     },
-    // selectFood(food, event) {
-    //     if (!event._constructed) {
-    //         return
-    //     }
-    //     this.selectedFood = food
-    //     this.$refs.food.show()
-    // },
     addFood(target) {
       this._drop(target);
     },
@@ -161,11 +151,6 @@ export default {
         this.listHeight.push(height);
       }
     }
-  },
-  components: {
-    shopcart,
-    cartcontrol,
-    food
   }
 };
 </script>
@@ -203,21 +188,21 @@ export default {
         margin-right: 2px;
         background-size: 12px 12px;
         background-repeat: no-repeat;
-        &.decrease {
-          .bg-image('decrease_3');
-        }
-        &.discount {
-          .bg-image('discount_3');
-        }
-        &.guarantee {
-          .bg-image('guarantee_3');
-        }
-        &.invoice {
-          .bg-image('invoice_3');
-        }
-        &.special {
-          .bg-image('special_3');
-        }
+        // &.decrease {
+        //   .bg-image('decrease_3');
+        // }
+        // &.discount {
+        //   .bg-image('discount_3');
+        // }
+        // &.guarantee {
+        //   .bg-image('guarantee_3');
+        // }
+        // &.invoice {
+        //   .bg-image('invoice_3');
+        // }
+        // &.special {
+        //   .bg-image('special_3');
+        // }
       }  
       .text {
         display: table-cell;

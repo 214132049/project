@@ -5,6 +5,12 @@
     <span class="line"></span>
   </div>
 </template>
+<script>
+export default {
+  name: 'PartTitle'
+}
+</script>
+
 <style lang="less" scoped>
   .part-title_component {
     height: 80px;

@@ -31,7 +31,7 @@
             <h1 class="title">购物车</h1>
             <span class="empty" @click="empty">清空</span>                
           </div>
-          <div class="list-content" ref="listContent">
+          <scroll class="list-content">
             <ul>
               <li class="food" v-for="food in selectFoods" :key="food.name">
                 <span class="name">{{food.name}}</span>
@@ -43,7 +43,7 @@
                 </div>
               </li>
             </ul>
-          </div>
+          </scroll>
         </div>
       </transition>
     </div>
@@ -54,10 +54,8 @@
 </template>
 
 <script>
-import BScroll from "better-scroll";
-import cartcontrol from "components/cartcontrol/cartcontrol";
-
 export default {
+  name: 'ShopCart',
   props: {
     selectFoods: {
       type: Array,
@@ -81,25 +79,10 @@ export default {
   },
   data() {
     return {
-      balls: [
-        {
-          show: false
-        },
-        {
-          show: false
-        },
-        {
-          show: false
-        },
-        {
-          show: false
-        },
-        {
-          show: false
-        }
-      ],
+      balls: [{ show: false},{show: false},{show: false},{show: false},{show: false}],
       dropBalls: [],
-      fold: true
+      fold: true,
+      scroll: ''
     };
   },
   computed: {
@@ -136,21 +119,9 @@ export default {
     },
     listShow() {
       if (!this.totalCount > 0) {
-        this.fold = true;
         return false;
       }
       let show = !this.fold;
-      if (show) {
-        this.$nextTick(() => {
-          if (!this.scroll) {
-            this.scroll = new BScroll(this.$refs.listContent, {
-              click: true
-            });
-          } else {
-            this.scroll.refresh();
-          }
-        });
-      }
       return show;
     }
   },
@@ -222,9 +193,6 @@ export default {
         el.style.display = "none";
       }
     }
-  },
-  components: {
-    cartcontrol
   }
 };
 </script>

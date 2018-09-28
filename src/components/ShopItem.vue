@@ -7,7 +7,7 @@
         <span class="status" :class="{ open: true }">正常营业</span>
       </div>
       <div class="rate-count">
-        <rate :value="3" style="display: inline-block"/>
+        <star :value="3" style="display: inline-block"/>
         <span class="count">月售2836单</span>
       </div>
       <div class="recommend-box">
@@ -22,13 +22,8 @@
   </div>
 </template>
 <script>
-import Rate from './Rate'
-
 export default {
   name: 'ShopItem',
-  components: {
-    Rate
-  },
   props: {
     shopInfo: {
       type: Object,

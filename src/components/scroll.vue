@@ -7,6 +7,7 @@
   import BScroll from 'better-scroll'
 
   export default {
+    name: 'Scroll',
     props: {
       /**
        * 1 滚动的时候会派发scroll事件，会截流。

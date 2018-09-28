@@ -10,7 +10,7 @@
 import NavConfig from '../nav.config'
 
 export default {
-  name: 'NavBar',
+  name: 'TabBar',
   data() {
     return {
       navConfig: NavConfig

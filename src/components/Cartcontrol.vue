@@ -14,6 +14,7 @@
 import Vue from "vue";
 
 export default {
+  name: 'CartControl',
   props: {
     food: {
       type: Object

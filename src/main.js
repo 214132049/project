@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import routes from './routes'
 import Server from './server'
-import Loading from './plugins/loading'
+import UI from './components'
 
 const FastClick = require('fastclick')
 const viewportUnitsBuggyfill = require('viewport-units-buggyfill')
@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 Vue.prototype.$http = Server
 FastClick.attach(document.body)
 Vue.use(VueRouter)
-Vue.use(Loading)
+Vue.use(UI)
 
 const router = new VueRouter({
   mode: 'hash',
