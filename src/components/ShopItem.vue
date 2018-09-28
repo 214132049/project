@@ -12,11 +12,13 @@
       </div>
       <div class="recommend-box">
         <p class="title">推荐菜品</p>
-        <ul class="shop-products">
-          <li v-for="(product, index) in 3" :key="index" class="product">
-            <img src="@/assets/images/img@2x.png" alt="">
-          </li>
-        </ul>
+        <scroll scroll-x :scroll-y="false" class="wrapper">
+          <ul class="shop-products">
+            <li v-for="(product, index) in 4" :key="index" class="product">
+              <img src="@/assets/images/img@2x.png" alt="">
+            </li>
+          </ul>
+        </scroll>
       </div>
     </div>
   </div>
@@ -45,6 +47,7 @@ export default {
     }
     .right {
       flex: 1;
+      overflow: hidden;
     }
     .shop-name-status {
       display: flex;
@@ -72,16 +75,21 @@ export default {
     }
     .recommend-box {
       margin-top: 20px;
+      width: 100%;
       .title {
         font-size: 22px;
         padding: 8px 0;
         color: @color;
         border-bottom: 1px solid @border-color; /* no */
       }
+      .wrapper {
+        width: 100%;
+      }
       .shop-products {
         padding-top: 10px;
-        display: flex;
+        white-space: nowrap;
         li {
+          display: inline-block;
           margin-right: 20px;
           img {
             width: 128px;

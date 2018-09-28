@@ -33,6 +33,13 @@
         default: false
       },
       /**
+       * 是否开启纵向向滚动
+       */
+      scrollY: {
+        type: Boolean,
+        default: true
+      },
+      /**
        * 是否派发滚动事件
        */
       listenScroll: {
@@ -90,7 +97,8 @@
         this.scroll = new BScroll(this.$refs.wrapper, {
           probeType: this.probeType,
           click: this.click,
-          scrollX: this.scrollX
+          scrollX: this.scrollX,
+          scrollY: this.scrollY
         })
 
         // 是否派发滚动事件
@@ -104,7 +112,7 @@
         if (this.pullup) {
           this.scroll.on('scrollEnd', () => {
             // 滚动到底部
-            if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+            if (this.scroll.y <= this.scroll.maxScrollY) {
               this.$emit('scrollToEnd')
             }
           })

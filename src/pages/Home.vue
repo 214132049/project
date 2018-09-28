@@ -1,6 +1,6 @@
 <template>
   <scroll class="wrapper" :data="data" :pullup="pullup" @scrollToEnd="loadData" ref="scroll">
-    <section class="page home-page">
+    <div class="page home-page">
       <img src="@/assets/images/banner@2x.png" class="banner" alt="banner">
       <part-title>院内餐厅</part-title>
       <ul class="shop-list">
@@ -8,8 +8,13 @@
           <shop-item :shop-info="item"></shop-item>
         </router-link>
       </ul>
-      <div class="loading-wrapper"></div>
-    </section>
+      <div class="loading-tips">
+        <transition name="fade" mode="out-in">
+          <span v-show="loading && data.length > 0 && !all">加载中...</span>
+        </transition>
+        <span v-if="all">没有更多了</span>
+      </div>
+    </div>
   </scroll>
 </template>
 <script>
@@ -18,20 +23,35 @@
     data() {
       return {
         data: [],
-        pullup: true
+        pullup: true,
+        loading: false,
+        all: false
       }
     },
     mounted() {
       this.loadData()
     },
+    watch: {
+      loading(val) {
+        if (val) {
+          this.$refs.scroll.disable()
+        } else {
+          this.$refs.scroll.enable()
+        }
+      }
+    },
     methods: {
       loadData() {
-        this.$loading.show()
-        this.$refs.scroll.disable()
+        if (this.all) {
+          return
+        }
+        this.loading = true
         setTimeout(() => {
           this.data = this.data.concat(new Array(10).fill({}))
-          this.$refs.scroll.enable()
-          this.$loading.hide()
+          this.loading = false
+          if (this.data.length > 20) {
+            this.all = true
+          }
         }, 1000)
       }
     }
@@ -42,7 +62,7 @@
     height: 100%;
   }
   .home-page {
-    padding-bottom: 80px;
+    padding-bottom: 120px;
     .banner {
       display: block;
       width: 100%;
@@ -52,6 +72,26 @@
       margin: 0 auto;
       .item {
         margin: 20px 0 40px 0;
+      }
+    }
+    .loading-tips {
+      text-align: center;
+      height: 40px;
+      font-size: 32px;
+      color: #2c2c2c;
+      .fade-enter-active, .fade-leave-active {
+        animation: fade 1s infinite; 
+      }
+      .fade-enter, .fade-leave-to {
+        animation: none;
+      }
+      @keyframes fade {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
       }
     }
   }
