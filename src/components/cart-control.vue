@@ -17,7 +17,8 @@ export default {
   name: 'CartControl',
   props: {
     food: {
-      type: Object
+      type: Object,
+      default: () => {}
     }
   },
   created() {
