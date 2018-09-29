@@ -1,8 +1,8 @@
 <template>
   <div class="goods">
-    <scroll class="menu-wrapper" ref="MenuWrapper">
+    <scroll class="menu-wrapper">
       <ul>
-        <li v-for="(item, index) in goods" class="menu-item" :class="{'current':currentIndex===index}"
+        <li v-for="(item, index) in goods" class="menu-item" :class="{'current':currentIndex === index}"
           @click="selectMenu(index, $event)" :key="index">
           {{ item.name }}
         </li>
@@ -57,9 +57,10 @@ export default {
   },
   computed: {
     currentIndex() {
-      for (let i = 0; i < this.listHeight.length; i++) {
-        let height1 = this.listHeight[i];
-        let height2 = this.listHeight[i + 1];
+      let listHeight = this.listHeight
+      for (let i = 0; i < listHeight.length; i++) {
+        let height1 = listHeight[i];
+        let height2 = listHeight[i + 1];
         if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
           return i;
         }
@@ -67,11 +68,15 @@ export default {
       return 0;
     }
   },
-  created() {
-    this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
-  },
   mounted() {
-    // this._initScroll()
+    this.$nextTick(() => {
+      this.foodList = document.querySelectorAll('.food-list-hook');
+      this.foodsScroll = this.$refs.foodsWrapper.scroll
+      this.foodsScroll.on("scroll", pos => {
+        this.scrollY = Math.abs(Math.round(pos.y));
+      });
+      this._calculateHeight()
+    })
   },
   methods: {
     selectFood(food, event) {
@@ -84,30 +89,17 @@ export default {
       if (!event._constructed) {
         return;
       }
-      this.foodList = this.foodList || this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
       let el = this.foodList[index];
       this.foodsScroll.scrollToElement(el, 300);
     },
     addFood(target) {
       this.$emit('addFood', target)
     },
-    _initScroll() {
-      this.menuScroll = this.$refs.MenuWrapper.scroll
-      this.foodsScroll = this.$refs.foodsWrapper.scroll
-      this.foodsScroll.on("scroll", pos => {
-        this.scrollY = Math.abs(Math.round(pos.y));
-      });
-    },
     _calculateHeight() {
       // 获取每一个区间的高度，保存到数组中,使用dom方法，food-list-hook方便js选择每一个li的高度
-      this.foodList = this.foodList || this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
       let height = 0;
-      this.listHeight.push(height);
-      for (let i = 0; i < this.foodList.length; i++) {
-        let item = this.foodList[i];
-        height += item.clientHeight;
-        this.listHeight.push(height);
-      }
+      let foodList = [].slice.call(this.foodList)
+      this.listHeight = [height].concat(foodList.map(food => height += food.clientHeight))
     }
   }
 };
@@ -137,11 +129,11 @@ export default {
   .foods-wrapper {
     flex: 1;
     .title {
-      padding-left: 14px;
-      height: 26px;
-      line-height: 26px;
+      padding-left: 28px;
+      height: 52px;
+      line-height: 52px;
       border-left: 2px solid #d9dde1;
-      font-size: 12px;
+      font-size: 24px;
       color: rgb(147, 153, 159);
       background: #f3f5f7;
     }
