@@ -1,4 +1,4 @@
-import Loading from './Loading'
+import Loading from './loading'
 import Vue from 'vue'
 
 let LoadingTip = Vue.extend(Loading)

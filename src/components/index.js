@@ -1,12 +1,12 @@
-import Loading from './Loading'
-import CartControl from './CartControl'
-import Goods from './Goods'
-import TabBar from './TabBar'
-import PartTitle from './PartTitle'
-import Scroll from './Scroll'
-import ShopCart from './ShopCart'
-import ShopItem from './ShopItem'
-import Star from './Star'
+import Loading from './loading'
+import CartControl from './cart-control'
+import Goods from './goods'
+import TabBar from './tab-bar'
+import PartTitle from './part-title'
+import Scroll from './scroll'
+import ShopCart from './shop-cart'
+import ShopItem from './shop-item'
+import Star from './star'
 
 
 const components = [
