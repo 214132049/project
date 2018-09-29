@@ -39,21 +39,47 @@
         </li>
       </ul>
     </div>
-    <goods :seller="{}"></goods>
+    <goods :goods="goods" @add-food="addFood"></goods>
+    <shop-cart
+      ref="shopcart"
+      :select-foods="selectFoods"
+      :delivery-price="0"
+      :min-price="0"></shop-cart>
   </div>
 </template>
 <script>
 export default {
   name: 'Shop',
   data() {
-    let today = new Date().getDay() == 0
+    let today = new Date().getDay()
     today = today == 0 ? 6 : today - 1
+
+    let goods = new Array(20).fill(1).map((item, index) => {
+      return {
+        name: ['三文字', '六个文字文字'][index%2],
+        foods: new Array(3).fill({})}
+    })
+
     return {
       time: 0,
       selDay: today,
       today,
       days: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-      showDays: false
+      showDays: false,
+      goods
+    }
+  },
+  computed: {
+    selectFoods() {
+      let foods = [];
+      this.goods.forEach(good => {
+        good.foods.forEach(food => {
+          if (food.count) {
+            foods.push(food);
+          }
+        });
+      });
+      return foods;
     }
   },
   methods: {
@@ -63,13 +89,27 @@ export default {
     setDay(day) {
       this.selDay = day
       this.showDays = false
-    }
+    },
+    addFood(target) {
+      this._drop(target);
+    },
+    _drop(target) {
+      // 体验优化,异步执行下落动画
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target);
+      });
+    },
   }
 }
 </script>
 
 <style lang="less" scoped>
   .shop-page {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    height: 100%;
+    overflow: hidden;
     .header {
       position: relative;
       height: 206px;
@@ -121,7 +161,7 @@ export default {
       margin-top: 9px;
       background: #fff;
       padding: 0 32px;
-      border-bottom: 1px solid @border-color;
+      border-bottom: 1px solid @border-color; /* no */ 
       &>div {
         font-size: 30px;
         &.time {
@@ -154,7 +194,7 @@ export default {
             height: 30px;
             margin-right: 21px;
             vertical-align: middle;
-            border-left: 1px solid #c2c2c2;
+            border-left: 1px solid #c2c2c2; /* no */ 
           }
           .day {
             display: inline-block;
@@ -183,6 +223,7 @@ export default {
         left: 0;
         width: 100%;
         height: 2000px;
+        z-index: 200;
         background-color: rgba(0, 0, 0, 0.3);
         li {
           display: flex;
@@ -190,7 +231,7 @@ export default {
           align-items: center;
           height: 86px;
           padding: 0 32px;
-          border-bottom: 1px solid @border-color;
+          border-bottom: 1px solid @border-color; /* no */ 
           background: #fff;
           font-size: 30px;
           color: #999;
@@ -208,6 +249,12 @@ export default {
           }
         }
       }
+    }
+    .goods {
+      flex: 1;
+    }
+    .shop-cart {
+      height: 90px;
     }
   }
 </style>

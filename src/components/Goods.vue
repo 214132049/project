@@ -3,18 +3,17 @@
     <scroll class="menu-wrapper" ref="MenuWrapper">
       <ul>
         <li v-for="(item, index) in goods" class="menu-item" :class="{'current':currentIndex===index}"
-          @click="selectMenu(index,$event)" :key="index">
-          <span class="text">
-            <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
-          </span>
+          @click="selectMenu(index, $event)" :key="index">
+          {{ item.name }}
         </li>
       </ul>
     </scroll>
     <scroll :probe-type="3" class="foods-wrapper" ref="foodsWrapper">
       <ul>
         <li v-for="(item, index) in goods" class="food-list food-list-hook" :key="index">
+          <h1 class="title">{{item.name}}</h1>
           <ul>
-            <li @click="selectFood(food,$event)" v-for="food in item.foods" :key="food.name" class="food-item">
+            <li @click="selectFood(food, $event)" v-for="food in item.foods" :key="food.name" class="food-item">
               <div class="icon">
                 <img width="57" height="57" :src="food.icon" alt="">
               </div>
@@ -36,8 +35,6 @@
         </li>
       </ul>
     </scroll>
-    <shop-cart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
-    <!-- <food @add="addFood" :food="selectedFood" ref="food"></food> -->
   </div>
 </template>    
 
@@ -45,17 +42,17 @@
 export default {
   name: 'Goods',
   props: {
-    seller: {
-      type: Object,
-      default: () => {}
+    goods: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      goods: new Array(20).fill({name: '文本文本文本文本', type: 'special', foods: new Array(20).fill({})}),
       listHeight: [],
       scrollY: 0,
-      selectedFood: {}
+      selectedFood: {},
+      foodList: null
     };
   },
   computed: {
@@ -68,21 +65,13 @@ export default {
         }
       }
       return 0;
-    },
-    selectFoods() {
-      let foods = [];
-      this.goods.forEach(good => {
-        good.foods.forEach(food => {
-          if (food.count) {
-            foods.push(food);
-          }
-        });
-      });
-      return foods;
     }
   },
   created() {
     this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
+  },
+  mounted() {
+    // this._initScroll()
   },
   methods: {
     selectFood(food, event) {
@@ -90,26 +79,17 @@ export default {
         return;
       }
       this.selectedFood = food;
-      this.$refs.food.show();
     },
     selectMenu(index, event) {
       if (!event._constructed) {
         return;
       }
-      let foodList = this.$refs.foodsWrapper.getElementsByClassName(
-        "food-list-hook"
-      );
-      let el = foodList[index];
+      this.foodList = this.foodList || this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
+      let el = this.foodList[index];
       this.foodsScroll.scrollToElement(el, 300);
     },
     addFood(target) {
-      this._drop(target);
-    },
-    _drop(target) {
-      // 体验优化,异步执行下落动画
-      this.$nextTick(() => {
-        this.$refs.shopcart.drop(target);
-      });
+      this.$emit('addFood', target)
     },
     _initScroll() {
       this.menuScroll = this.$refs.MenuWrapper.scroll
@@ -120,13 +100,11 @@ export default {
     },
     _calculateHeight() {
       // 获取每一个区间的高度，保存到数组中,使用dom方法，food-list-hook方便js选择每一个li的高度
-      let foodList = this.$refs.foodsWrapper.getElementsByClassName(
-        "food-list-hook"
-      );
+      this.foodList = this.foodList || this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
       let height = 0;
       this.listHeight.push(height);
-      for (let i = 0; i < foodList.length; i++) {
-        let item = foodList[i];
+      for (let i = 0; i < this.foodList.length; i++) {
+        let item = this.foodList[i];
         height += item.clientHeight;
         this.listHeight.push(height);
       }
@@ -138,38 +116,35 @@ export default {
 <style lang="less" scoped>
 .goods {
   display: flex;
-  position: absolute;
-  top: 304px;
-  bottom: 98px;
+  flex: 1;
   width: 100%;
-  height: 816px;
   overflow: hidden;
   .menu-wrapper {
-    flex: 0 0 176px;
     width: 176px;
     background: #F3F6F9;
     .menu-item {
-      display: table;
-      width: 176px;
-      padding: 30px 0px;
-      line-height: 42px;
+      width: 100%;
+      padding: 30px;
+      line-height: 32px;
       color: #333;
+      font-size: 28px;
+      box-sizing: border-box;
       &.current {
-        position: relative;
-        z-index: 10;
         background: #fff;
-        font-weight: 700;
       }    
-      .text {
-        display: table-cell;
-        vertical-align: middle;
-        width: 110px;
-        font-size: 28px;
-      }
     }  
   }     
   .foods-wrapper {
     flex: 1;
+    .title {
+      padding-left: 14px;
+      height: 26px;
+      line-height: 26px;
+      border-left: 2px solid #d9dde1;
+      font-size: 12px;
+      color: rgb(147, 153, 159);
+      background: #f3f5f7;
+    }
     .food-item {
       display: flex;
       margin: 18px;
