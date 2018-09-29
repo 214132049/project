@@ -58,8 +58,8 @@ export default {
     selectMenu(index) {
       this.currentIndex = index
     },
-    selectFood(food) {
-      this.router.push({ path: '/food', query: {id: 123}})
+    selectFood({ id }) {
+      this.router.push({ path: '/food', query: {id}})
     },
     addFood(food) {
       this.$emit('addFood', food)
