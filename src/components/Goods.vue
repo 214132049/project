@@ -1,19 +1,18 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper" ref="MenuWrapper">
+    <scroll class="menu-wrapper" ref="MenuWrapper">
       <ul>
-        <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}"
+        <li v-for="(item, index) in goods" class="menu-item" :class="{'current':currentIndex===index}"
           @click="selectMenu(index,$event)" :key="index">
           <span class="text">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
           </span>
         </li>
       </ul>
-    </div>
-    <div class="foods-wrapper" ref="foodsWrapper">
+    </scroll>
+    <scroll :probe-type="3" class="foods-wrapper" ref="foodsWrapper">
       <ul>
-        <li v-for="item in goods" class="food-list food-list-hook" :key="item.name">
-          <h1 class="title">{{item.name}}</h1>
+        <li v-for="(item, index) in goods" class="food-list food-list-hook" :key="index">
           <ul>
             <li @click="selectFood(food,$event)" v-for="food in item.foods" :key="food.name" class="food-item">
               <div class="icon">
@@ -29,16 +28,16 @@
                   <span class="now">￥{{food.price}}</span><span v-show="food.oldPrice" class="old">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol @add="addFood" :food="food"></cartcontrol>
+                  <cart-control @add="addFood" :food="food"></cart-control>
                 </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
-    </div>
-    <shopcart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
-    <food @add="addFood" :food="selectedFood" ref="food"></food>
+    </scroll>
+    <shop-cart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
+    <!-- <food @add="addFood" :food="selectedFood" ref="food"></food> -->
   </div>
 </template>    
 
@@ -50,12 +49,13 @@ export default {
   name: 'Goods',
   props: {
     seller: {
-      type: Object
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
-      goods: [],
+      goods: new Array(20).fill({name: '文本文本文本文本', type: 'special', foods: new Array(20).fill({})}),
       listHeight: [],
       scrollY: 0,
       selectedFood: {}
@@ -86,18 +86,6 @@ export default {
   },
   created() {
     this.classMap = ["decrease", "discount", "special", "invoice", "guarantee"];
-
-    this.$http.get("/api/goods").then(response => {
-      response = response.body;
-      if (response.errno === ERR_OK) {
-        this.goods = response.data;
-        // console.log(this.goods)
-        this.$nextTick(() => {
-          this._initScroll();
-          this._calculateHeight();
-        });
-      }
-    });
   },
   methods: {
     selectFood(food, event) {
@@ -127,13 +115,8 @@ export default {
       });
     },
     _initScroll() {
-      this.menuScroll = new BScroll(this.$refs.MenuWrapper, {
-        click: true
-      });
-      this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
-        click: true,
-        probeType: 3
-      });
+      this.menuScroll = this.$refs.MenuWrapper.scroll
+      this.foodsScroll = this.$refs.foodsWrapper.scroll
       this.foodsScroll.on("scroll", pos => {
         this.scrollY = Math.abs(Math.round(pos.y));
       });
@@ -159,76 +142,41 @@ export default {
 .goods {
   display: flex;
   position: absolute;
-  top: 174px;
-  bottom: 46px;
+  top: 304px;
+  bottom: 98px;
   width: 100%;
+  height: 816px;
   overflow: hidden;
   .menu-wrapper {
-    flex: 0 0 80px;
-    width: 80px;
-    background: #f3f5f7;;
+    flex: 0 0 176px;
+    width: 176px;
+    background: #F3F6F9;
     .menu-item {
       display: table;
-      height: 54px;
-      width: 56px;
-      padding: 0 12px;
-      line-height: 14px;
+      width: 176px;
+      padding: 30px 0px;
+      line-height: 42px;
+      color: #333;
       &.current {
         position: relative;
         z-index: 10;
         background: #fff;
         font-weight: 700;
       }    
-      .icon {
-        display: inline-block;
-        vertical-align: top;
-        width: 12px;
-        height: 12px;
-        vertical-align: top;
-        margin-right: 2px;
-        background-size: 12px 12px;
-        background-repeat: no-repeat;
-        // &.decrease {
-        //   .bg-image('decrease_3');
-        // }
-        // &.discount {
-        //   .bg-image('discount_3');
-        // }
-        // &.guarantee {
-        //   .bg-image('guarantee_3');
-        // }
-        // &.invoice {
-        //   .bg-image('invoice_3');
-        // }
-        // &.special {
-        //   .bg-image('special_3');
-        // }
-      }  
       .text {
         display: table-cell;
-        width: 56px;
         vertical-align: middle;
-        border: 1px solid rgba(7, 17, 27, 0.1);
-        font-size: 12px;
+        width: 110px;
+        font-size: 28px;
       }
     }  
   }     
   .foods-wrapper {
     flex: 1;
-    .title {
-      padding-left: 14px;
-      height: 26px;
-      line-height: 26px;
-      border-left: 2px solid #d9dde1;
-      font-size: 12px;
-      color: rgb(147, 153, 159);
-      background: #f3f5f7;
-    }  
     .food-item {
       display: flex;
       margin: 18px;
       padding: 18px;
-      border: 1px solid rgba(7, 17, 27, 0.1);
       &:last-child {
         margin-bottom: 0;
       }

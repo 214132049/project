@@ -26,25 +26,32 @@
       </div>
       <div class="week" @click="showDays = !showDays">
         <span class="line"></span>
-        今日(周三)
+        <span class="day">
+          <span v-show="selDay == today">今日({{ days[selDay] }})</span>
+          <span v-show="selDay != today">{{ days[selDay] }}</span>
+        </span>
         <i class="icon" :class="{ fold: showDays }"></i>
       </div>
       <ul class="days" v-show="showDays">
-        <li v-for="(day, index) in days" :key="index" :class="{ active: day == index }" @click="selDay(index)">
+        <li v-for="(day, index) in days" :key="index" :class="{ active: selDay == index }" @click="setDay(index)">
           <span class="name">{{ day }}</span>
           <span class="icon"></span>
         </li>
       </ul>
     </div>
+    <goods :seller="{}"></goods>
   </div>
 </template>
 <script>
 export default {
   name: 'Shop',
   data() {
+    let today = new Date().getDay() == 0
+    today = today == 0 ? 6 : today - 1
     return {
       time: 0,
-      day: new Date().getDay(),
+      selDay: today,
+      today,
       days: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
       showDays: false
     }
@@ -53,8 +60,9 @@ export default {
     selTime(time) {
       this.time = time
     },
-    selDay(day) {
-      this.day = day
+    setDay(day) {
+      this.selDay = day
+      this.showDays = false
     }
   }
 }
@@ -143,10 +151,16 @@ export default {
           .line {
             display: inline-block;
             width: 1px;
-            height: 28px;
+            height: 30px;
             margin-right: 21px;
             vertical-align: middle;
             border-left: 1px solid #c2c2c2;
+          }
+          .day {
+            display: inline-block;
+            width: 140px;
+            text-align: center;
+            font-size: 30px;
           }
           .icon {
             display: inline-block;

@@ -203,7 +203,7 @@ export default {
   bottom: 0;
   z-index: 50;
   width: 100%;
-  height: 48px;
+  height: 90px;
   .content {
     display: flex;
     background: #141d27;

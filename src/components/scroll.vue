@@ -82,6 +82,11 @@
         default: 20
       }
     },
+    data () {
+      return {
+        scroll: null
+      }
+    },
     mounted() {
       // 保证在DOM渲染完毕后初始化better-scroll
       setTimeout(() => {
