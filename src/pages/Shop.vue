@@ -57,7 +57,7 @@ export default {
     let goods = new Array(20).fill(1).map((item, index) => {
       return {
         name: ['三文字', '六个文字文字'][index%2],
-        foods: new Array(3).fill({})
+        foods: new Array(6).fill({})
       }
     })
 

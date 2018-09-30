@@ -10,7 +10,7 @@
         </li>
       </ul>
     </scroll>
-    <scroll :probe-type="3" class="foods-wrapper">
+    <scroll :probe-type="3" class="foods-wrapper" ref="foodsWrapper" :data="foods">
       <ul>
         <li @click="selectFood(food, $event)" v-for="food in foods" :key="food.name" class="food-item">
           <div class="icon">
@@ -57,6 +57,7 @@ export default {
   methods: {
     selectMenu(index) {
       this.currentIndex = index
+      this.$refs.foodsWrapper.scroll.scrollTo(0, 0)
     },
     selectFood({ id }) {
       this.router.push({ path: '/food', query: {id}})
