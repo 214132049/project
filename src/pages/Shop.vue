@@ -1,9 +1,8 @@
 <template>
   <div class="shop-page">
     <header class="header">
-      <div class="status">
-        <img class="icon" src="@/assets/images/ic-house-sel@2x.png">
-        正常营业
+      <div class="status" :class="{ closed: !isOpen }">
+        <i class="icon"></i>正常营业
       </div>
       <div class="shop-name">
         <p class="name">A餐厅</p>
@@ -40,11 +39,8 @@
       </ul>
     </div>
     <goods :goods="goods" @add-food="addFood"></goods>
-    <shop-cart
-      ref="shopcart"
-      :select-foods="selectFoods"
-      :delivery-price="0"
-      :min-price="0"></shop-cart>
+    <shop-cart :min-price="0" v-if="isOpen"></shop-cart>
+    <div class="close-tip" v-else>餐厅休息中，无法订餐</div>
   </div>
 </template>
 <script>
@@ -54,10 +50,10 @@ export default {
     let today = new Date().getDay()
     today = today == 0 ? 6 : today - 1
 
-    let goods = new Array(20).fill(1).map((item, index) => {
+    let goods = new Array(8).fill(1).map((item, index) => {
       return {
         name: ['三文字', '六个文字文字'][index%2],
-        foods: new Array(6).fill({})
+        foods: new Array(6).fill(1).map((item, index) => ({id: index,name: '醋溜土豆丝',sellCount: 10,price: 100 + index}))
       }
     })
 
@@ -81,6 +77,9 @@ export default {
         });
       });
       return foods;
+    },
+    isOpen () {
+      return !false
     }
   },
   methods: {
@@ -92,14 +91,8 @@ export default {
       this.showDays = false
     },
     addFood(target) {
-      this._drop(target);
-    },
-    _drop(target) {
-      // 体验优化,异步执行下落动画
-      this.$nextTick(() => {
-        this.$refs.shopcart.drop(target);
-      });
-    },
+      console.log(target)
+    }
   }
 }
 </script>
@@ -128,9 +121,20 @@ export default {
         color: #38C7C4;
         font-size: 24px;
         .icon {
+          display: inline-block;
           width: 22px;
           height: 22px;
           margin-right: 4px;
+          background: url('~@/assets/images/ic-house-sel@2x.png') no-repeat center;
+          background-size: 100%;
+        }
+        &.closed {
+          background: #E5E5E5;
+          color: #999;
+          .icon {
+            background: url('~@/assets/images/ic-house@2x.png') no-repeat center;
+            background-size: 100%;
+          }
         }
       }
       .shop-name {
@@ -254,8 +258,15 @@ export default {
     .goods {
       flex: 1;
     }
-    .shop-cart {
-      height: 90px;
+    .close-tip {
+      width: 100%;
+      height:98px;
+      line-height: 98px;
+      background:#888;
+      font-size:36px;
+      font-weight:400;
+      color:#fff;
+      text-align: center;
     }
   }
 </style>

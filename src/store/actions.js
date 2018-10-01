@@ -1,7 +1,11 @@
-export const addFoods = ({ commit, data }) => {
-  commit('selectFoods', data)
+export const addFood = ({ commit }, data) => {
+  commit('addFood', data)
 }
 
-export const clearFoods = ({ commit }) => {
-  commit('clearFoods')
+export const decreaseFood = ({ commit }, data) => {
+  commit('decreaseFood', data)
+}
+
+export const clearFood = ({ commit }) => {
+  commit('clearFood')
 }

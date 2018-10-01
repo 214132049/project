@@ -12,21 +12,17 @@
     </scroll>
     <scroll :probe-type="3" class="foods-wrapper" ref="foodsWrapper" :data="foods">
       <ul>
-        <li @click="selectFood(food, $event)" v-for="food in foods" :key="food.name" class="food-item">
+        <li @click="selectFood(food, $event)" v-for="(food, index) in foods" :key="index" class="food-item">
           <div class="icon">
-            <img width="57" height="57" :src="food.icon" alt="">
+            <img :src="food.icon" alt="">
+            <div class="mask">缺货</div>
           </div>
           <div class="content">
             <h2 class="name">{{food.name}}</h2>
-            <p class="desc">{{food.description}}</p>
-            <div class="extra">
-              <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
-            </div>
-            <div class="price">
-              <span class="now">￥{{food.price}}</span><span v-show="food.oldPrice" class="old">￥{{food.oldPrice}}</span>
-            </div>
+            <div class="count">月售{{food.sellCount}}份</div>
+            <div class="price">￥{{food.price}}</div>
             <div class="cartcontrol-wrapper">
-              <cart-control @add="addFood" :food="food"></cart-control>
+              <cart-control :food="food"></cart-control>
             </div>
           </div>
         </li>
@@ -61,9 +57,6 @@ export default {
     },
     selectFood({ id }) {
       this.router.push({ path: '/food', query: {id}})
-    },
-    addFood(food) {
-      this.$emit('addFood', food)
     }
   }
 };
@@ -94,56 +87,55 @@ export default {
     flex: 1;
     .food-item {
       display: flex;
-      margin: 18px;
-      padding: 18px;
-      &:last-child {
-        margin-bottom: 0;
-      }
+      padding: 20px 32px 20px 20px;
       .icon {
-        flex: 0 0 57px;
-        margin-right: 10px;
+        position: relative;
+        width:168px;
+        height:168px;
+        border-radius:8px;
+        margin-right: 30px;
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+        .mask {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          line-height: 168px;
+          text-align: center;
+          background: rgba(0, 0, 0, 0.3);
+          color: #fff;
+          font-size: 28px;
+          font-weight: 300;
+        }
       }
       .content {
+        position: relative;
         flex: 1;
         .name {
-          margin: 2px 0 8px 0;
-          height: 14px;
-          line-height: 14px;
-          font-size: 14px;
-          color: rgb(7, 17, 27);
+          font-size:36px;
+          font-weight:400;
+          color:rgba(53,53,53,1);
         }
-        .desc, .extra {
-          line-height: 10px;
-          font-size: 10px;
-          color: rgb(147, 153, 159);
-        }
-        .desc {
-          margin-bottom: 8px;
-          line-height: 12px;
-        }
-        .extra {
-          .count {
-            margin-right: 12px;
-          }
+        .count {
+          font-size:22px;
+          font-weight:300;
+          color:rgba(153,153,153,1);
+          margin: 18px 0 56px 0;
         }
         .price {
-          font-weight: 700;
-          line-height: 24px;
-          .now {
-            margin-right: 8px;
-            font-size: 14px;
-            color: rgb(240, 20, 20);
-          }
-          .old {
-            text-decoration: line-through;
-            font-size: 10px;
-            color: rgb(147, 153, 159);
-          }
+          font-size:36px;
+          font-weight:500;
+          color:rgba(255,120,89,1);
         }  
         .cartcontrol-wrapper {
           position: absolute;
           right: 0;
-          bottom: 12px;
+          bottom: 0;
         }
       }
     }

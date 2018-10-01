@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 const Store = {
   state: {
-    selectFoods: []
+    selectFoods: {}
   },
   mutations,
   actions,
