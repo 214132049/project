@@ -1,14 +1,14 @@
 <template>
   <div class="shop-item_component">
-    <img src="@/assets/images/img@2x.png" alt="图片" class="left">
+    <img :src="shopInfo.restaurantImgUrl" alt="图片" class="left">
     <div class="right">
       <div class="shop-name-status">
-        <span class="name">餐厅一</span>
-        <span class="status" :class="{ open: true }">正常营业</span>
+        <span class="name">{{ shopInfo.restaurantName }}</span>
+        <span class="status" :class="{ open: shopInfo.isClose }">正常营业</span>
       </div>
       <div class="rate-count">
-        <star :value="3" style="display: inline-block"/>
-        <span class="count">月售2836单</span>
+        <star :value="shopInfo.score" style="display: inline-block"/>
+        <span class="count">月售{{ shopInfo.monthCount }}单</span>
       </div>
       <div class="recommend-box">
         <p class="title">推荐菜品</p>
