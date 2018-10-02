@@ -3,8 +3,13 @@ import server from './server'
 const login = (data) => {
   return server({
     url: 'api/h5/security/login',
-    method: 'POST',
     data
+  })
+}
+
+const getShopList = () => {
+  return server({
+    url: '/api/h5/order/getRestaurantList'
   })
 }
 
@@ -16,5 +21,6 @@ const getOrderList = () => {
 
 export default {
   login,
+  getShopList,
   getOrderList
 };

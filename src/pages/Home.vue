@@ -28,7 +28,7 @@
         all: false
       }
     },
-    mounted() {
+    activated () {
       this.loadData()
     },
     watch: {
@@ -46,13 +46,13 @@
           return
         }
         this.loading = true
-        setTimeout(() => {
-          this.data = this.data.concat(new Array(10).fill({}))
+        this.$api.getShopList().then(({ data }) => {
+          this.data = this.data.concat(data)
           this.loading = false
-          if (this.data.length > 20) {
+          if (data.length < 5) {
             this.all = true
           }
-        }, 1000)
+        })
       }
     }
   }

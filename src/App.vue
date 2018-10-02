@@ -17,7 +17,7 @@ export default {
   },
   mounted() {
     this.$api.login({
-      username: 'hy',
+      userName: 'hy',
       password: '123456'
     }).then(({ data }) => {
       window.sessionStorage.setItem('token', data.token)
