@@ -1,4 +1,5 @@
 import Loading from './loading'
+import Toast from './toast'
 import CartControl from './cart-control'
 import Goods from './goods'
 import TabBar from './tab-bar'
@@ -32,6 +33,7 @@ const install = function(Vue) {
   });
 
   Vue.prototype.$loading = Loading;
+  Vue.prototype.$toast = Toast;
 }
 
 export default {

@@ -1,10 +1,13 @@
 import axios from 'axios'
+import Vue from 'vue'
+
+const vm = new Vue()
 
 var instance = axios.create({
   baseURL: process.env.VUE_APP_HOSTURL,
   timeout: 3600 * 1000,
   headers: {},
-  withCredentials: true
+  withCredentials: false
 })
 instance.interceptors.request.use(function (config) {
   config.token = window.sessionStorage.getItem("token") || "";
@@ -17,7 +20,8 @@ instance.interceptors.response.use(function (response) {
   if (response.data.code === 0) {
     return Promise.resolve(response.data)
   }
-  return Promise.reject(response.data.message)
+  vm.$toast(response.data.message)
+  return Promise.reject(response)
 }, function (error) {
   return Promise.reject(error)
 })
