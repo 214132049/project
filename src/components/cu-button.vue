@@ -36,6 +36,7 @@ export default {
   line-height: 70px;
   text-align: center;
   border-radius:10px;
+  font-size: 32px;
   &.primary {
     background: #38C7C4;
     color: #fff;
@@ -47,9 +48,13 @@ export default {
   &.large {
     width: 100%;
     height:80px;
+    line-height: 80px;
+    font-size: 36px;
   }
   &.small {
     height: 60px;
+    font-size: 30px;
+    line-height: 60px;
   }
 }
 </style>

@@ -12,7 +12,7 @@ export default {
   name: 'App',
   computed: {
     showNarBar() {
-      return ['/', '/home', '/order'].indexOf(this.$route.path) > -1
+      return ['/', '/home', '/orders'].indexOf(this.$route.path) > -1
     }
   }
 }
