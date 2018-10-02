@@ -20,3 +20,7 @@ export const decreaseFood = (state, data) => {
 export const clearFood = (state) => {
   state.selectFoods = {}
 }
+
+export const setAddress = (state, data) => {
+  state.address = data
+}

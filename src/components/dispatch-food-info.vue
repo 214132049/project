@@ -11,12 +11,12 @@
         <span class="count">×1</span>
         <span class="price">￥18</span>
       </li>
-      <li class="dispatch-price" v-if="info.status != 1 || info.needDispatch">
-        打包配送
+      <li class="dispatch-price" v-if="info.status && info.status != 1 || info.needDispatch">
+        {{ info.status ? '打包配送' : '配送费' }}
         <span class="price">{{ info.needDispatch ? `￥6` : '否'}}</span>
       </li>
       <li class="total-price">
-        <cu-button v-show="showBtn" size="small" type="primary" v-if="info.status != 1">再来一单</cu-button>
+        <cu-button v-show="showBtn" size="small" type="primary" v-if="info.status && info.status != 1">再来一单</cu-button>
         <div class="price-box">
           <span>合计</span>
           <span class="price">￥42</span>

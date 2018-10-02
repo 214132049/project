@@ -1,14 +1,14 @@
 <template>
   <div class="dispatch-user-info">
-    <div class="user-info">
+    <div class="user-info" @click="selectAddress">
       <template v-if="info.needDispatch">
         <p class="name">
           2号楼5层手术科室
-          <i class="icon" v-if="showIcon"></i>
+          <i class="icon" v-if="!info.status"></i>
         </p>
         <p class="address">
-          <span class="user-name">王晓敏</span>
-          <span>（手术科室）</span>
+          <span :class="{ 'user-name': info.status }">王晓敏</span>
+          <span v-if="info.status">（手术科室）</span>
           <span class="tel">123456799544</span>
         </p>
       </template>
@@ -23,7 +23,7 @@
       </template>
     </div>
     <div class="time-box">
-      <span>{{ info.needDispatch ? '取' : '用' }}餐时间</span>
+      <span>{{ info.status ? '取' : '用' }}餐时间</span>
       <span class="time">17:30-18:30</span>
     </div>
   </div>
@@ -35,10 +35,12 @@ export default {
     info: {
       type: Object,
       default: () => {}
-    },
-    showIcon: {
-      type: Boolean,
-      default: false
+    }
+  },
+  methods: {
+    selectAddress () {
+      if (this.info.status || !this.info.needDispatch) return
+      this.$router.push({ path: '/select-address' })
     }
   }
 }

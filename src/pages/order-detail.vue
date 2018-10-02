@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="address-box" v-if="orderInfo.status == 2">
-          <div class="address">
+          <div class="address" v-if="orderInfo.needDispatch">
             <span class="label">配送地址</span>
             <span>2号楼5层手术科室</span>
           </div>
@@ -61,7 +61,7 @@ export default {
     return {
       orderInfo: {
         needDispatch: false,
-        status: 1,
+        status: 2,
         disabled: true
       }
     }
@@ -118,7 +118,7 @@ export default {
   }
   .dispatch {
     display: flex;
-    align-content: center;
+    align-items: center;
     justify-content: space-between;
     height: 98px;
     line-height: 98px;

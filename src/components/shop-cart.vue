@@ -82,6 +82,7 @@ export default {
       if (this.totalPrice < this.minPrice) {
         return;
       }
+      this.$router.push({ path: '/confirm', query: {id: 1} })
     },
     empty() {
       this.$store.dispatch('clearFood')

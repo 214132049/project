@@ -9,7 +9,10 @@ const Shop = () => import(/* webpackChunkName: "shop" */ '@/pages/shop.vue')
 const Food = () => import(/* webpackChunkName: "shop" */ '@/pages/food.vue')
 const OrderDetail = () => import(/* webpackChunkName: "order" */ '@/pages/order-detail.vue')
 const CancelOrder = () => import(/* webpackChunkName: "order" */ '@/pages/cancel-order.vue')
-const Evaluate = () => import(/* webpackChunkName: "order" */ '@/pages/evaluate.vue')
+const Evaluate = () => import(/* webpackChunkName: "evaluate" */ '@/pages/evaluate.vue')
+const ConfirmOrder = () => import(/* webpackChunkName: "confirm" */ '@/pages/confirm-order.vue')
+const SelectAddress = () => import(/* webpackChunkName: "confirm" */ '@/pages/select-address.vue')
+const AddAddress = () => import(/* webpackChunkName: "confirm" */ '@/pages/add-address.vue')
 
 const routes = [
   {
@@ -27,6 +30,18 @@ const routes = [
   {
     path: "/food",
     component: Food
+  },
+  {
+    path: "/confirm",
+    component: ConfirmOrder
+  },
+  {
+    path: "/select-address",
+    component: SelectAddress
+  },
+  {
+    path: "/add-address",
+    component: AddAddress
   },
   {
     path: "/orders",
