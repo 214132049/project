@@ -38,7 +38,7 @@
         </li>
       </ul>
     </div>
-    <goods :goods="goods" @add-food="addFood"></goods>
+    <goods :goods="goods"></goods>
     <shop-cart :min-price="0" v-if="isOpen"></shop-cart>
     <div class="close-tip" v-else>餐厅休息中，无法订餐</div>
   </div>
@@ -89,9 +89,6 @@ export default {
     setDay(day) {
       this.selDay = day
       this.showDays = false
-    },
-    addFood(target) {
-      console.log(target)
     }
   }
 }

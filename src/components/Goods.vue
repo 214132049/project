@@ -12,17 +12,17 @@
     </scroll>
     <scroll :probe-type="3" class="foods-wrapper" ref="foodsWrapper" :data="foods">
       <ul>
-        <li @click="selectFood(food, $event)" v-for="(food, index) in foods" :key="index" class="food-item">
+        <li @click="selectFood(food, $event)" v-for="(food, index) in foods" :key="index" class="food-item" :class="{ nomore: !food.nomore }">
           <div class="icon">
             <img :src="food.icon" alt="">
-            <div class="mask">缺货</div>
+            <div class="mask" v-if="!food.nomore">缺货</div>
           </div>
           <div class="content">
             <h2 class="name">{{food.name}}</h2>
             <div class="count">月售{{food.sellCount}}份</div>
             <div class="price">￥{{food.price}}</div>
             <div class="cartcontrol-wrapper">
-              <cart-control :food="food"></cart-control>
+              <cart-control :food="food" :disabled="!food.nomore"></cart-control>
             </div>
           </div>
         </li>
@@ -56,7 +56,7 @@ export default {
       this.$refs.foodsWrapper.scroll.scrollTo(0, 0)
     },
     selectFood({ id }) {
-      this.router.push({ path: '/food', query: {id}})
+      this.$router.push({ path: '/food', query: {id}})
     }
   }
 };
@@ -136,6 +136,11 @@ export default {
           position: absolute;
           right: 0;
           bottom: 0;
+        }
+      }
+      &.nomore .content {
+        .name, .count, .price {
+          color: #e5e5e5;
         }
       }
     }

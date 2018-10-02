@@ -4,7 +4,7 @@
       <div class="cart-btn cart-decrease" v-show="food.count > 0" @click.stop.prevent="decreaseCart"></div>
       <div class="cart-count" v-show="food.count > 0">{{food.count}}</div>
     </template>
-    <div class="cart-btn cart-add" @click.stop.prevent="addCart"></div>
+    <div class="cart-btn cart-add" @click.stop.prevent="addCart" :class="{ disabled: disabled }"></div>
   </div>
 </template>
 
@@ -17,6 +17,10 @@ export default {
       default: () => {}
     },
     showCount: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }
@@ -54,6 +58,9 @@ export default {
       background-size: 100%;
       &.cart-add {
         background-image: url('~@/assets/images/ic-add-nor@2x.png');
+        &.disabled {
+          background-image: url('~@/assets/images/ic-add-dis@2x.png');
+        }
       }
       &.cart-decrease {
         background-image: url('~@/assets/images/ic-decrease@2x.png');

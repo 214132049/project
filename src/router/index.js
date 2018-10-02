@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 const Home = () => import(/* webpackChunkName: "home" */ '@/pages/home.vue')
 const Order = () => import(/* webpackChunkName: "order" */ '@/pages/order.vue')
 const Shop = () => import(/* webpackChunkName: "shop" */ '@/pages/shop.vue')
+const Food = () => import(/* webpackChunkName: "shop" */ '@/pages/food.vue')
 
 const routes = [
   {
@@ -19,6 +20,10 @@ const routes = [
   {
     path: "/shop",
     component: Shop
+  },
+  {
+    path: "/food",
+    component: Food
   },
   {
     path: "/order",
