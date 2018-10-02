@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import router from './router'
 import store from './store'
-import server from './server'
+import Api from './api'
 import UI from './components'
 import App from './App.vue'
 
@@ -10,7 +10,7 @@ const viewportUnitsBuggyfill = require('viewport-units-buggyfill')
 const viewportUnitsBuggyfillHacks = require('viewport-units-buggyfill/viewport-units-buggyfill.hacks')
 
 Vue.config.productionTip = false
-Vue.prototype.$http = server
+Vue.prototype.$api = Api
 Vue.use(UI)
 
 FastClick.attach(document.body)

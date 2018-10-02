@@ -14,6 +14,14 @@ export default {
     showNarBar() {
       return ['/', '/home', '/orders'].indexOf(this.$route.path) > -1
     }
+  },
+  mounted() {
+    this.$api.login({
+      userName: '',
+      password: ''
+    }).then(({ data }) => {
+      window.sessionStorage.setItem('token', data.token)
+    })
   }
 }
 </script>

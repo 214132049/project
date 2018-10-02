@@ -7,13 +7,17 @@ var instance = axios.create({
   withCredentials: true
 })
 instance.interceptors.request.use(function (config) {
+  config.token = window.sessionStorage.getItem("token") || "";
   return config
 }, function (error) {
   return Promise.reject(error)
 })
 
 instance.interceptors.response.use(function (response) {
-  return response
+  if (response.data.code === 0) {
+    return Promise.resolve(response.data)
+  }
+  return Promise.reject(response.data.message)
 }, function (error) {
   return Promise.reject(error)
 })
