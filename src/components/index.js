@@ -7,6 +7,7 @@ import Scroll from './scroll'
 import ShopCart from './shop-cart'
 import ShopItem from './shop-item'
 import Star from './star'
+import CuButton from './cu-button'
 
 
 const components = [
@@ -17,7 +18,8 @@ const components = [
   Scroll,
   ShopCart,
   ShopItem,
-  Star
+  Star,
+  CuButton
 ]
 
 const install = function(Vue) {

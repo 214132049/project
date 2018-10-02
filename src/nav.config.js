@@ -14,6 +14,6 @@ export default [
     icon: orderIcon,
     icon_sel: orderIconSel,
     text: "订单",
-    path: "/order"
+    path: "/orders"
   }
 ];

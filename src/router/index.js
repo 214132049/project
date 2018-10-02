@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const Home = () => import(/* webpackChunkName: "home" */ '@/pages/home.vue')
-const Order = () => import(/* webpackChunkName: "order" */ '@/pages/order.vue')
+const Orders = () => import(/* webpackChunkName: "order" */ '@/pages/orders.vue')
 const Shop = () => import(/* webpackChunkName: "shop" */ '@/pages/shop.vue')
 const Food = () => import(/* webpackChunkName: "shop" */ '@/pages/food.vue')
 
@@ -26,8 +26,8 @@ const routes = [
     component: Food
   },
   {
-    path: "/order",
-    component: Order
+    path: "/orders",
+    component: Orders
   },
   {
     path: "*",

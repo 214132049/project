@@ -29,7 +29,7 @@ export default {
     addCart() {
       this.$store.dispatch('addFood', this.food)
     },
-    decreaseCart(event) {
+    decreaseCart() {
       this.$store.dispatch('decreaseFood', this.food)
     }
   }
