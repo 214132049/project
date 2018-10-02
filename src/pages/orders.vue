@@ -1,7 +1,7 @@
 <template>
   <scroll class="wrapper">
     <ul class="order-list">
-      <li class="order-item" v-for="(item, index) in orders" :key="index">
+      <li class="order-item" v-for="(item, index) in orders" :key="index" @click="goDetail(index)">
         <div class="info-box">
           <img src="" alt="" class="logo">
           <div class="content">
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="btn-box">
-          <cu-button size="small">去评价</cu-button>
+          <cu-button size="small" @click.stop.prevent="assess">去评价</cu-button>
         </div>
       </li>
     </ul>
@@ -34,6 +34,14 @@ export default {
   data() {
     return {
       orders: 8
+    }
+  },
+  methods: {
+    goDetail (id) {
+      this.$router.push({ path: '/order-detail', query: { id } })
+    },
+    assess() {
+
     }
   }
 }

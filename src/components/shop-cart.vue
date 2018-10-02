@@ -3,7 +3,7 @@
     <div class="bottom-content">
       <div class="content-left">
         <div class="icon-shopping_cart" @click="toggleList">
-          <div class="badge">{{ totalCount }}</div>
+          <div class="badge" v-show="totalCount > 0">{{ totalCount }}</div>
         </div>
         <div class="price">￥{{ totalPrice }}</div>
       </div>

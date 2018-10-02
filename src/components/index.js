@@ -8,6 +8,8 @@ import ShopCart from './shop-cart'
 import ShopItem from './shop-item'
 import Star from './star'
 import CuButton from './cu-button'
+import DispatchUserInfo from './dispatch-user-info'
+import DispatchFoodInfo from './dispatch-food-info'
 
 
 const components = [
@@ -19,7 +21,9 @@ const components = [
   ShopCart,
   ShopItem,
   Star,
-  CuButton
+  CuButton,
+  DispatchUserInfo,
+  DispatchFoodInfo,
 ]
 
 const install = function(Vue) {

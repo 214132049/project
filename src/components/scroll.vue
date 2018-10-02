@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapper">
+  <div ref="wrapper" class="wrapper">
     <slot></slot>
   </div>
 </template>
@@ -171,3 +171,8 @@
     }
   }
 </script>
+<style lang="less" scoped>
+.wrapper {
+  height: 100%;
+}
+</style>

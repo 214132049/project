@@ -7,6 +7,7 @@ const Home = () => import(/* webpackChunkName: "home" */ '@/pages/home.vue')
 const Orders = () => import(/* webpackChunkName: "order" */ '@/pages/orders.vue')
 const Shop = () => import(/* webpackChunkName: "shop" */ '@/pages/shop.vue')
 const Food = () => import(/* webpackChunkName: "shop" */ '@/pages/food.vue')
+const OrderDetail = () => import(/* webpackChunkName: "shop" */ '@/pages/order-detail.vue')
 
 const routes = [
   {
@@ -28,6 +29,10 @@ const routes = [
   {
     path: "/orders",
     component: Orders
+  },
+  {
+    path: "/order-detail",
+    component: OrderDetail
   },
   {
     path: "*",

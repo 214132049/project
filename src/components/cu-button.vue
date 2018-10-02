@@ -1,5 +1,5 @@
 <template>
-  <div class="button" :class="classObj">
+  <div class="button" :class="classObj" :disabled="disabled">
     <slot />
   </div>
 </template>
@@ -14,13 +14,18 @@ export default {
     type: {
       type: String,
       default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     classObj () {
       return {
         [this.type]: true,
-        [this.size]: true
+        [this.size]: true,
+        disabled: this.disabled
       }
     }
   }
@@ -29,20 +34,20 @@ export default {
 <style lang="less" scoped>
 .button {
   display: inline-block;
-  width:188px;
+  width:248px;
   height: 70px;
-  border:1px solid #38C7C4; /* no */
   color: #38C7C4;
   line-height: 70px;
   text-align: center;
   border-radius:10px;
   font-size: 32px;
+  border:1px solid #38C7C4; /* no */
   &.primary {
     background: #38C7C4;
     color: #fff;
   }
   &.cancel {
-    border:1px solid #999; /* no */
+    border: 1px solid #999; /* no */
     color: #333;
   }
   &.large {
@@ -52,9 +57,15 @@ export default {
     font-size: 36px;
   }
   &.small {
+    width:188px;
     height: 60px;
     font-size: 30px;
     line-height: 60px;
+  }
+  &.disabled {
+    background: #e5e5e5;
+    color: #999;
+    border: 1px solid #e5e5e5; /* no */
   }
 }
 </style>

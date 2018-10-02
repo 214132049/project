@@ -53,7 +53,10 @@ export default {
     let goods = new Array(8).fill(1).map((item, index) => {
       return {
         name: ['三文字', '六个文字文字'][index%2],
-        foods: new Array(6).fill(1).map((item, index) => ({id: index,name: '醋溜土豆丝',sellCount: 10,price: 100 + index}))
+        foods: new Array(6).fill(1).map((item, index) => ({
+          id: index,name: '醋溜土豆丝',icon: require('@/assets/images/img_03.png'),
+          nomore: index % 4 == 1,
+          sellCount: 10,price: 100 + index}))
       }
     })
 

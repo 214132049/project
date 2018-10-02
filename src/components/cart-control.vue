@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     addCart() {
+      if (this.disabled) return
       this.$store.dispatch('addFood', this.food)
     },
     decreaseCart() {
