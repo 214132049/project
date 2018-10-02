@@ -70,6 +70,7 @@
     .shop-list {
       width: 686px;
       margin: 0 auto;
+      border-top: 1px solid #e5e5e5; /* no */
       .item {
         margin: 20px 0 40px 0;
       }

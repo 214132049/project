@@ -1,5 +1,5 @@
 <template>
-  <div class="button" :class="classObj" :disabled="disabled">
+  <div class="button" :class="[type,size,{'disabled': disabled}]" @click="handleClick">
     <slot />
   </div>
 </template>
@@ -20,13 +20,9 @@ export default {
       default: false
     }
   },
-  computed: {
-    classObj () {
-      return {
-        [this.type]: true,
-        [this.size]: true,
-        disabled: this.disabled
-      }
+  methods: {
+    handleClick(evt) {
+      this.$emit('click', evt);
     }
   }
 }

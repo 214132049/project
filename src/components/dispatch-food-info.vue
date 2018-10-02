@@ -1,7 +1,7 @@
 <template>
   <div class="dispatch-food-info">
     <div class="shop-name">
-      <i class="logo"></i>
+      <img class="logo" src="@/assets/images/logo.png" />
       餐厅A
     </div>
     <ul class="food-list">
@@ -56,6 +56,7 @@ export default {
       width: 38px;
       height: 38px;
       margin-right: 20px;
+      vertical-align: middle;
     }
   }
   .food-list {

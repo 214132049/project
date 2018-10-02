@@ -1,6 +1,6 @@
 <template>
   <scroll>
-    <div class="order-detail">
+    <div class="order-detail-page">
       <!-- 订单正常 -->
       <template v-if="orderInfo.status == 1">
         <div class="qrcode-box">
@@ -26,7 +26,7 @@
           <span class="right">是</span>
         </div>
         <div class="btn-box">
-          <cu-button class="btn" type="cancel">取消</cu-button>
+          <cu-button class="btn" type="cancel" @click="cancelOrder">取消</cu-button>
           <cu-button class="btn" type="primary">完成</cu-button>
         </div>
       </template>
@@ -61,17 +61,21 @@ export default {
     return {
       orderInfo: {
         needDispatch: false,
-        status: 2,
+        status: 1,
         disabled: true
       }
+    }
+  },
+  methods: {
+    cancelOrder () {
+      this.$router.push({ path: '/cancel-order', query: { id: 1 } })
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.order-detail {
-  background: #f5f5f5;
+.order-detail-page {
   .qrcode-box {
     position: relative;
     height: 504px;

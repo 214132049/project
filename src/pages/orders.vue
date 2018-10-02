@@ -1,9 +1,9 @@
 <template>
   <scroll class="wrapper">
-    <ul class="order-list">
+    <ul class="order-list-page">
       <li class="order-item" v-for="(item, index) in orders" :key="index" @click="goDetail(index)">
         <div class="info-box">
-          <img src="" alt="" class="logo">
+          <img src="@/assets/images/logo.png" alt="" class="logo">
           <div class="content">
             <div class="name-status-time">
               <p class="name-status">
@@ -41,7 +41,7 @@ export default {
       this.$router.push({ path: '/order-detail', query: { id } })
     },
     assess() {
-
+      this.$router.push({ path: '/evaluate', query: { id: 1 } })
     }
   }
 }
@@ -52,7 +52,7 @@ export default {
   height: 100%;
   background: #f5f5f5;
 }
-.order-list {
+.order-list-page {
   padding-bottom: 150px;
   .order-item {
     margin-bottom: 20px;
@@ -64,6 +64,7 @@ export default {
         width: 58px;
         height: 58px;
         margin-right: 18px;
+        margin-top: 30px;
       }
       .content {
         flex: 1;

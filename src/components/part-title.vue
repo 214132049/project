@@ -21,7 +21,6 @@ export default {
     color: #999;
     font-weight:400;
     margin: 0 auto;
-    border-bottom: 1px solid #e5e5e5; /* no */
     .content {
       margin: 0 32px;
       vertical-align: middle;

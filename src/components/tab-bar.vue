@@ -38,7 +38,7 @@ export default {
       display: inline-block;
       width: 40px;
       height: 40px;
-      margin-top: 16px;
+      margin: 16px 0 10px;
     }
     .router-link-active, .router-link-exact-active {
       color: #38C7C4;

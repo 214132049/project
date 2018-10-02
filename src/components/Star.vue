@@ -1,9 +1,10 @@
 <template>
-  <div class="rate_component">
+  <div class="rate_component" :class="[ size ]">
     <i
       class="single-star"
       :class="{ active: index < value }"
       v-for="(item, index) in max_value"
+      @click="setPoint(index)"
       :key="index">
     </i>
   </div>
@@ -15,11 +16,20 @@ export default {
     value: {
       type: Number,
       default: 0
+    },
+    size: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
       max_value: 5
+    }
+  },
+  methods: {
+    setPoint (index) {
+      this.$emit('input', index + 1)
     }
   }
 }
@@ -40,6 +50,13 @@ export default {
       }
       &.active {
         background-image: url('~@/assets/images/ic-star-sel@2x.png');
+      }
+    }
+    &.large {
+      .single-star {
+        width: 50px;
+        height: 46px;
+        margin-right: 48px;
       }
     }
   }

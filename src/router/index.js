@@ -7,7 +7,9 @@ const Home = () => import(/* webpackChunkName: "home" */ '@/pages/home.vue')
 const Orders = () => import(/* webpackChunkName: "order" */ '@/pages/orders.vue')
 const Shop = () => import(/* webpackChunkName: "shop" */ '@/pages/shop.vue')
 const Food = () => import(/* webpackChunkName: "shop" */ '@/pages/food.vue')
-const OrderDetail = () => import(/* webpackChunkName: "shop" */ '@/pages/order-detail.vue')
+const OrderDetail = () => import(/* webpackChunkName: "order" */ '@/pages/order-detail.vue')
+const CancelOrder = () => import(/* webpackChunkName: "order" */ '@/pages/cancel-order.vue')
+const Evaluate = () => import(/* webpackChunkName: "order" */ '@/pages/evaluate.vue')
 
 const routes = [
   {
@@ -33,6 +35,14 @@ const routes = [
   {
     path: "/order-detail",
     component: OrderDetail
+  },
+  {
+    path: "/cancel-order",
+    component: CancelOrder
+  },
+  {
+    path: "/evaluate",
+    component: Evaluate
   },
   {
     path: "*",

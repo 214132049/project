@@ -33,6 +33,7 @@ html, body, #app {
   -moz-osx-font-smoothing: grayscale;
   -webkit-overflow-scrolling: touch;
   color: #333;
+  background: #f3f6f9;
 }
 img {
   content: normal !important;
