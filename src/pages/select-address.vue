@@ -1,11 +1,14 @@
 <template>
   <div class="select-address-page">
-    <ul class="address-list">
-      <li v-for="(address, index) in address" :key="index" @click="selectAddress(index)" class="address-item">
+    <dl class="address-list">
+      <dt class="address-item oldAddress">
+        <span>2号楼5层手术科室</span>
+        <i class="icon"></i>
+      </dt>
+      <dd v-for="(address, index) in address" :key="index" @click="selectAddress(index)" class="address-item">
         <span>{{ address }}</span>
-        <i class="icon" v-show="currentIndex == index"></i>
-      </li>
-    </ul>
+      </dd>
+    </dl>
     <div class="btn" @click="addAddress"><i class="icon"></i>新增地址</div>
   </div>
 </template>
@@ -34,14 +37,15 @@ export default {
 <style lang="less" scoped>
 .select-address-page {
   .address-list{
-    padding: 0 32px;
-    background: #fff;
     .address-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-sizing: border-box;
       width: 100%;
       height: 98px;
+      padding: 0 32px;
+      background: #fff;
       line-height: 98px;
       color: #333;
       font-size: 34px;
@@ -51,6 +55,12 @@ export default {
         height: 20px;
         background: url('~@/assets/images/ic-right@2x.png') no-repeat center;
         background-size: 100%;
+      }
+      &.oldAddress {
+        margin-bottom: 20px;
+      }
+      &:active {
+        background: #F2F2F2;
       }
     }
   }

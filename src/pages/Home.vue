@@ -63,6 +63,7 @@
   }
   .home-page {
     padding-bottom: 120px;
+    background: #fff;
     .banner {
       display: block;
       width: 100%;
@@ -78,8 +79,8 @@
     .loading-tips {
       text-align: center;
       height: 40px;
-      font-size: 32px;
-      color: #2c2c2c;
+      font-size: 30px;
+      color: #999;
       .fade-enter-active, .fade-leave-active {
         animation: fade 1s infinite; 
       }

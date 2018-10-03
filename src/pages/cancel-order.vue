@@ -61,15 +61,16 @@ export default {
     }
   }
   .reason-list{
-    padding: 0 32px;
-    background: #fff;
     .reason-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-sizing: border-box;
       width: 100%;
       height: 98px;
       line-height: 98px;
+      padding: 0 32px;
+      background: #fff;
       color: #333;
       font-size: 34px;
       .icon {
@@ -82,6 +83,10 @@ export default {
       &:last-child {
         border-bottom: 1px solid @border-color; /* no */
       }
+      &:active {
+        background: #f2f2f2;
+      }
+      -webkit-tap-highlight-color: #f2f2f2;
     }
   }
   .btn {

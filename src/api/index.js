@@ -16,11 +16,20 @@ const getShopList = () => {
 }
 
 // 获取订单列表
-const getOrderList = () => {
+const getOrderList = (data) => {
   return server({
-    url: 'api/h5/order/getUserOrderList'
+    url: 'api/h5/order/getUserOrderList',
+    data
   })
 }
+
+// 获取订单详情
+const getOrderById = data => {
+  return server({
+    url: "api/h5/order/getOrderById",
+    data
+  });
+};
 
 // 取消订单
 const cancelOrder = () => {
@@ -41,5 +50,6 @@ export default {
   getShopList,
   getOrderList,
   cancelOrder,
-  scoreOrder
+  scoreOrder,
+  getOrderById
 }

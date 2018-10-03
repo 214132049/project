@@ -6,12 +6,24 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>project</title>
+    <style>
+      .cover-img {
+        position: fixed;
+        top: 100px;
+        left: 50%;
+        display: block;
+        width: 100px;
+        margin-left: -50px;
+      }
+    </style>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but project doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <div id="app">
+      <img src="<%= BASE_URL %>cover.png" alt="" class="cover-img">
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>

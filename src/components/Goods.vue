@@ -94,6 +94,7 @@ export default {
         height:168px;
         border-radius:8px;
         margin-right: 30px;
+        border: 1px solid #f3f6f9; /* no */
         img {
           display: block;
           width: 100%;

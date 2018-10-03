@@ -66,6 +66,13 @@ export default {
       }
     }
   },
+  activated() {
+    this.$api.getOrderById({
+      id: this.$route.query.id
+    }).then(({ data }) => {
+      // this.orderInfo = data
+    })
+  },
   methods: {
     cancelOrder () {
       this.$router.push({ path: '/cancel-order', query: { id: 1 } })

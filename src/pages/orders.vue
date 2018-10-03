@@ -1,23 +1,20 @@
 <template>
   <scroll class="wrapper">
     <ul class="order-list-page">
-      <li class="order-item" v-for="(item, index) in orders" :key="index" @click="goDetail(index)">
+      <li class="order-item" v-for="(item, index) in orders" :key="index" @click="goDetail(item.id)">
         <div class="info-box">
-          <img src="@/assets/images/logo.png" alt="" class="logo">
+          <img :src="item.restaurantImgUrl" alt="" class="logo">
           <div class="content">
             <div class="name-status-time">
               <p class="name-status">
-                <span class="name">餐厅A</span>
-                <span class="status">已下单</span>
+                <span class="name">{{ item.restaurantName }}</span>
+                <span class="status">{{ item.status }}</span>
               </p>
-              <p class="time">
-                <i class="icon-clock"></i>
-                2018-8-18 12:12
-              </p>
+              <p class="time"><i class="icon-clock"></i>{{ item.date }}</p>
             </div>
             <div class="foods">
-              <span class="name">锅包肉等3件商品</span>
-              <span class="price">￥42</span>
+              <span class="name">{{ item.orderDest }}</span>
+              <span class="price">￥{{ item.totalAmount }}</span>
             </div>
           </div>
         </div>
@@ -33,11 +30,23 @@ export default {
   name: 'Orders',
   data() {
     return {
-      orders: 8
+      orders: []
     }
   },
+  activated() {
+    this.getOrders()
+  },
   methods: {
-    goDetail (id) {
+    getOrders() {
+      this.$api.getOrderList({
+        state: 1,
+        pageStart: 1,
+        pageSize: 10
+      }).then(({data}) => {
+        this.orders = this.orders.concat(data)
+      }) 
+    },
+    goDetail(id) {
       this.$router.push({ path: '/order-detail', query: { id } })
     },
     assess() {
@@ -65,6 +74,7 @@ export default {
         height: 58px;
         margin-right: 18px;
         margin-top: 30px;
+        border: 1px solid #f3f6f9; /* no */
       }
       .content {
         flex: 1;

@@ -87,6 +87,7 @@ export default {
     height: 98px;
     line-height: 98px;
     background: #fff;
+    border-top: 1px solid @border-color; /* no */
     .total-price {
       flex: 1;
       padding-left: 32px;
