@@ -7,13 +7,13 @@
   </ul>
 </template>
 <script>
-import NavConfig from '../nav.config'
+import TabBarConfig from './config'
 
 export default {
   name: 'TabBar',
   data() {
     return {
-      navConfig: NavConfig
+      navConfig: TabBarConfig
     }
   }
 }
