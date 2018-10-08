@@ -16,7 +16,7 @@
         <span class="price">{{ info.needDispatch ? `￥6` : '否'}}</span>
       </li>
       <li class="total-price">
-        <cu-button v-show="showBtn" size="small" type="primary" v-if="info.status && info.status != 1">再来一单</cu-button>
+        <cu-button v-show="showBtn" size="small" type="primary" v-if="info.status && info.status != 1" @click="orderAgain">再来一单</cu-button>
         <div class="price-box">
           <span>合计</span>
           <span class="price">￥42</span>
@@ -38,6 +38,11 @@ export default {
     return {
       foods: 3,
       showBtn: true
+    }
+  },
+  methods: {
+    orderAgain() {
+      this.$api.orderAgain()
     }
   }
 }

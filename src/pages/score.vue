@@ -41,7 +41,9 @@ export default {
     }
   },
   methods: {
-    submit() {}
+    submit() {
+      this.$api.scoreOrder()
+    }
   }
 }
 </script>

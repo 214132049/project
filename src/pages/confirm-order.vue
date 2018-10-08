@@ -29,9 +29,6 @@ export default {
   },
   
   methods: {
-    cancelOrder () {
-      this.$router.push({ path: '/cancel-order', query: { id: 1 } })
-    },
     confirm() {}
   }
 }

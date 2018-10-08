@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     handleClick(evt) {
+      if (this.disabled) return
       this.$emit('click', evt);
     }
   }

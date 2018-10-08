@@ -8,13 +8,13 @@
       <p>订单已取消，请告诉我们原因，以帮助我们改进产品和服务</p>
     </div>
     <ul class="reason-list">
-      <li v-for="(reason, index) in reasons" :key="index" @click="selectReason(index)" class="reason-item">
+      <li v-for="(reason, key) in reasons" :key="key" @click="selectReason(key)" class="reason-item">
         <span>{{ reason }}</span>
-        <i class="icon" v-show="currentIndex == index"></i>
+        <i class="icon" v-show="currentKey == key"></i>
       </li>
     </ul>
     <div class="btn">
-      <cu-button size="large" type="primary">提交</cu-button>
+      <cu-button size="large" type="primary" @click="cancelOrder">提交</cu-button>
     </div>
   </div>
 </template>
@@ -23,13 +23,22 @@ export default {
   name: 'CancelOrder',
   data() {
     return {
-      reasons: ['点错菜了，重新点', '临时有变化', '我不想订了', '其他'],
-      currentIndex: -1
+      reasons: {1: '点错菜了，重新点', 2: '临时有变化', 3: '我不想订了', 4: '其他'},
+      currentKey: -1
     }
   },
   methods: {
-    selectReason(index) {
-      this.currentIndex = index
+    selectReason(key) {
+      this.currentKey = key
+    },
+    cancelOrder() {
+      if (this.currentKey == -1) {
+        return this.$toast('请选择原因在提交')
+      }
+      this.$api.cancelOrder({
+        cancelReason: this.currentKey,
+        orderId: this.$route.query.id
+      })
     }
   }
 }
