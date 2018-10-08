@@ -21,7 +21,16 @@ export default {
       password: '123456'
     }).then(({ data }) => {
       window.sessionStorage.setItem('token', data.token)
+      this.$store.dispatch('setUserInfo', data)
     })
+  },
+  watch: {
+    '$store.state': {
+      handler (value) {
+        window.sessionStorage.setItem('state', JSON.stringify(value))
+      },
+      deep: true
+    }
   }
 }
 </script>

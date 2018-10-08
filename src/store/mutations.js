@@ -24,3 +24,11 @@ export const clearFood = (state) => {
 export const setAddress = (state, data) => {
   state.address = data
 }
+
+export const setUserInfo = (state, data) => {
+  state.userInfo = data
+}
+
+export const setShopInfo = (state, data) => {
+  state.shopInfo = data
+}

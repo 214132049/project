@@ -4,9 +4,9 @@
       <img src="@/assets/images/banner@2x.png" class="banner" alt="banner">
       <part-title>院内餐厅</part-title>
       <ul class="shop-list">
-        <router-link  tag="li" v-for="(item, index) in data" :key="index" :to="{ path: '/shop' }" class="item">
+        <li v-for="(item, index) in data" :key="index" @click="goDetail(item)" class="item">
           <shop-item :shop-info="item"></shop-item>
-        </router-link>
+        </li>
       </ul>
       <div class="loading-tips">
         <transition name="fade" mode="out-in">
@@ -53,8 +53,18 @@
             this.all = true
           }
         })
+      },
+      goDetail(shop) {
+        this.$store.dispatch('setShopInfo', {
+          restaurantName: shop.restaurantName,
+          isClose: shop.isClose,
+          monthCount: shop.monthCount,
+          score: shop.score,
+          restaurantId: shop.restaurantId
+        })
+        this.$router.push({ path: '/shop' })
       }
-    }
+    }  
   }
 </script>
 <style lang="less" scoped>

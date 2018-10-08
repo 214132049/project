@@ -6,11 +6,21 @@ import * as getters from './getters'
 
 Vue.use(Vuex)
 
+let state = {
+  userInfo: {},
+  shopInfo: {},
+  selectFoods: {},
+  address: ''
+}
+const sessionState = window.sessionStorage.getItem('state')
+
+// 刷新使用存储的
+if (sessionState) {
+  state = JSON.parse(sessionState)
+}
+
 const Store = {
-  state: {
-    selectFoods: {},
-    address: ''
-  },
+  state,
   mutations,
   actions,
   getters

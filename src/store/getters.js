@@ -1,1 +1,3 @@
-export const getSelectFoods = () => {}
+export const getShopInfo = (state) => {
+  return state.shopInfo
+}

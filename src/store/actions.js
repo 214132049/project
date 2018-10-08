@@ -13,3 +13,11 @@ export const clearFood = ({ commit }) => {
 export const setAddress = ({ commit }, data) => {
   commit('setAddress', data)
 }
+
+export const setUserInfo = ({ commit }, data) => {
+  commit('setUserInfo', data)
+}
+
+export const setShopInfo = ({ commit }, data) => {
+  commit('setShopInfo', data)
+}

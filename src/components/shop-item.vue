@@ -4,11 +4,13 @@
     <div class="right">
       <div class="shop-name-status">
         <span class="name">{{ shopInfo.restaurantName }}</span>
-        <span class="status" :class="{ open: shopInfo.isClose }">正常营业</span>
+        <span class="status" :class="{ open: shopInfo.isClose == 0 }">
+          {{ shopInfo.isClose == 0 ? '正常' : '暂停' }}营业
+        </span>
       </div>
       <div class="rate-count">
         <star :value="shopInfo.score" style="display: inline-block"/>
-        <span class="count">月售{{ shopInfo.monthCount }}单</span>
+        <span class="count">月售{{ shopInfo.monthCount || 0 }}单</span>
       </div>
       <div class="recommend-box">
         <p class="title">推荐菜品</p>
