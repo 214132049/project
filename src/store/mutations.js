@@ -32,3 +32,8 @@ export const setUserInfo = (state, data) => {
 export const setShopInfo = (state, data) => {
   state.shopInfo = data
 }
+
+export const initState = (state) => {
+  state.shopInfo = {}
+  state.address = ''
+}

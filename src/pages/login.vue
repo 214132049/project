@@ -30,20 +30,29 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style scoped>
+@svg 1px-border {
+  height: 2px;
+  @rect {
+    fill: var(--color, #);
+    width: 100%;
+    height: 50%;
+  }
+}
 .login-page {
   text-align: center;
   padding: 0 5%;
-  form {
-    width: 100%;
-    margin: 200px 0 50px;
-  }
-  input {
-    width: 90%;
-    padding: 20px 32px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: 1px solid @border-color; /* no */
-  }
+}
+form {
+  width: 100%;
+  margin: 200px 0 50px;
+}
+input {
+  width: 90%;
+  padding: 20px 32px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  border-image: svg(1px-border param(--color #ff0000)) 2 2 stretch;
 }
 </style>

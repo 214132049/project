@@ -55,6 +55,9 @@
         })
       },
       goDetail(shop) {
+        if (shop.restaurantId !== this.$store.state.shopInfo.restaurantId) {
+          this.$store.dispatch('initState')
+        }
         this.$store.dispatch('setShopInfo', {
           restaurantName: shop.restaurantName,
           isClose: shop.isClose,

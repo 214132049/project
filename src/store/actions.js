@@ -21,3 +21,8 @@ export const setUserInfo = ({ commit }, data) => {
 export const setShopInfo = ({ commit }, data) => {
   commit('setShopInfo', data)
 }
+
+export const initState = ({ commit }) => {
+  commit('initState')
+  commit('clearFood')
+}
