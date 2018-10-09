@@ -12,7 +12,7 @@
         <star :value="shopInfo.score" style="display: inline-block"/>
         <span class="count">月售{{ shopInfo.monthCount || 0 }}单</span>
       </div>
-      <div class="recommend-box">
+      <div class="recommend-box" v-if="shopInfo.recommend">
         <p class="title">推荐菜品</p>
         <scroll scroll-x :scroll-y="false">
           <ul class="shop-products">

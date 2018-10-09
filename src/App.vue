@@ -15,15 +15,6 @@ export default {
       return ['/', '/home', '/orders'].indexOf(this.$route.path) > -1
     }
   },
-  mounted() {
-    this.$api.login({
-      userName: 'hy',
-      password: '123456'
-    }).then(({ data }) => {
-      window.sessionStorage.setItem('token', data.token)
-      this.$store.dispatch('setUserInfo', data)
-    })
-  },
   watch: {
     '$store.state': {
       handler (value) {

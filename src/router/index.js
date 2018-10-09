@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+const Login = () => import(/* webpackChunkName: "home" */ '@/pages/login.vue')
 const Home = () => import(/* webpackChunkName: "home" */ '@/pages/home.vue')
 const Orders = () => import(/* webpackChunkName: "order" */ '@/pages/orders.vue')
 const Shop = () => import(/* webpackChunkName: "shop" */ '@/pages/shop.vue')
@@ -17,7 +18,11 @@ const AddAddress = () => import(/* webpackChunkName: "confirm" */ '@/pages/add-a
 const routes = [
   {
     path: "/",
-    redirect: "/home"
+    redirect: "/login"
+  },
+  {
+    path: "/login",
+    component: Login
   },
   {
     path: "/home",
@@ -61,11 +66,20 @@ const routes = [
   },
   {
     path: "*",
-    redirect: "/home"
+    redirect: "/login"
   }
 ];
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'hash',
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login' && !window.sessionStorage.getItem('token')) {
+    return next('/login')
+  }
+  next()
+})
+
+export default router

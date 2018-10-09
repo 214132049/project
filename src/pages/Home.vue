@@ -62,7 +62,7 @@
           score: shop.score,
           restaurantId: shop.restaurantId
         })
-        this.$router.push({ path: '/shop' })
+        this.$router.push({ path: '/shop', query: { id: shop.restaurantId } })
       }
     }  
   }

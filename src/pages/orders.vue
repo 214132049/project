@@ -8,7 +8,9 @@
             <div class="name-status-time">
               <p class="name-status">
                 <span class="name">{{ item.restaurantName }}</span>
-                <span class="status">{{ item.status }}</span>
+                <span class="status" :class="{ highlight: item.status == '已生成' }">
+                  {{ item.status == '完成' ? `已${item.status}` : item.status }}
+                </span>
               </p>
               <p class="time"><i class="icon-clock"></i>{{ item.date }}</p>
             </div>
@@ -18,7 +20,7 @@
             </div>
           </div>
         </div>
-        <div class="btn-box">
+        <div class="btn-box" v-if="item.status == '完成'">
           <cu-button size="small" @click.stop.prevent="assess">去评价</cu-button>
         </div>
       </li>
@@ -39,7 +41,6 @@ export default {
   methods: {
     getOrders() {
       this.$api.getOrderList({
-        state: 1,
         pageStart: 1,
         pageSize: 10
       }).then(({data}) => {
@@ -50,7 +51,7 @@ export default {
       this.$router.push({ path: '/order-detail', query: { id } })
     },
     assess() {
-      this.$router.push({ path: '/evaluate', query: { id: 1 } })
+      this.$router.push({ path: '/score', query: { id: 1 } })
     }
   }
 }
@@ -83,13 +84,15 @@ export default {
           .name-status {
             display: flex;
             justify-content: space-between;
+            color: #333;
             .name {
               font-size:34px;
-              color: #333;
             }
             .status {
               font-size: 28px;
-              color: #38C7C4;
+              &.highlight {
+                color: #38C7C4;
+              }
             }
           }
           .time {
