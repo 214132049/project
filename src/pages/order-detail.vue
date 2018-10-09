@@ -69,7 +69,7 @@ export default {
   activated() {
     this.$api.getOrderById({
       id: this.$route.query.id
-    }).then(({ data }) => {
+    }).then(() => {
       // this.orderInfo = data
     })
   },

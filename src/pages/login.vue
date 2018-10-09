@@ -43,7 +43,7 @@ export default {
     padding: 20px 32px;
     margin-bottom: 20px;
     border-radius: 8px;
-    border: 1px solid @border-color; /* no */
+    .border();
   }
 }
 </style>

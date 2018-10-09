@@ -1,12 +1,13 @@
 // vue.config.js
-const { getLessVariables } = require('./src/util')
+const path = require('path')
 
 module.exports = {
-  css: {
-    loaderOptions: {
-      less: {
-        globalVars: getLessVariables('src/assets/styles/variables.less')
-      }
+  pluginOptions: {
+    'style-resources-loader': {
+      patterns: [
+        path.resolve(__dirname, 'src/assets/styles/variables.less')
+      ],
+      preProcessor: 'less'
     }
   },
   chainWebpack: () => {
