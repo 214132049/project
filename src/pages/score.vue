@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-  name: 'Evaluate',
+  name: 'Score',
   data() {
     return {
       anonymous: false,
@@ -42,7 +42,12 @@ export default {
   },
   methods: {
     submit() {
-      this.$api.scoreOrder()
+      this.$api.scoreOrder({
+        orderId: this.$route.query.orderId,
+        sorce: this.servicePoints,
+        dishesSorce: this.foodPoints,
+        isAnonymous: this.anonymous ? '1' : '0'  // 1 匿名 0 不匿名
+      })
     }
   }
 }

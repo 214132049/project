@@ -11,6 +11,7 @@ import Star from './star'
 import CuButton from './cu-button'
 import DispatchUserInfo from './dispatch-user-info'
 import DispatchFoodInfo from './dispatch-food-info'
+import LoadMore from './load-more'
 
 
 const components = [
@@ -25,6 +26,7 @@ const components = [
   CuButton,
   DispatchUserInfo,
   DispatchFoodInfo,
+  LoadMore
 ]
 
 const install = function(Vue) {

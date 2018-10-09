@@ -1,35 +1,57 @@
 <template>
   <div class="confirm-order-page">
     <div class="user-info-box">
-      <div class="tag">{{ !orderInfo.needDispatch ? '用餐人信息' : '订单配送至' }}</div>
-      <dispatch-user-info :info="orderInfo"></dispatch-user-info>
+      <div class="tag">{{ !needDispatch ? '用餐人信息' : '订单配送至' }}</div>
+      <dispatch-user-info ordering :need-dispatch="needDispatch"></dispatch-user-info>
     </div>
-    <dispatch-food-info :info="orderInfo"></dispatch-food-info>
+    <dispatch-food-info :need-dispatch="needDispatch" @getPrice="getPrice"></dispatch-food-info>
     <div class="dispatch">
       <span>打包配送</span>
       <i class="icon"
-        :class="{ 'need-dispatch': orderInfo.needDispatch }"
-        @click="orderInfo.needDispatch = !orderInfo.needDispatch"></i>
+        :class="{ 'need-dispatch': needDispatch }"
+        @click="needDispatch = !needDispatch"></i>
     </div>
     <div class="confirm-box">
-      <div class="total-price">合计<span class="price">￥36</span></div>
+      <div class="total-price">合计<span class="price">￥{{ totalPrice }}</span></div>
       <div class="confirm-btn" @click="confirm">确认</div>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'ConfirmOrder',
   data() {
     return {
-      orderInfo: {
-        needDispatch: false,
-      }
+      needDispatch: false,
+      totalPrice: 0
     }
   },
-  
+  computed: {
+    ...mapGetters({
+      shopInfo: 'getShopInfo',
+      address: 'getAddress',
+      selectFoods: 'getSelectFoods'
+    })
+  },
   methods: {
-    confirm() {}
+    confirm() {
+      let dishes = []
+      for(let key in this.selectFoods) {
+        let { count } = this.selectFoods[key]
+        dishes.push(`${key}-${count}`)
+      }
+      this.$api.orderFood({
+        restaurantId: this.shopInfo.restaurantId,
+        isPack: this.needDispatch ? 1 : 0,
+        address: this.address,
+        dishes: dishes.join(',')
+      })
+    },
+    getPrice(value) {
+      this.totalPrice = value
+    }
   }
 }
 </script>

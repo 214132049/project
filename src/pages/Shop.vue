@@ -5,7 +5,7 @@
         <i class="icon"></i>{{ !isClosed ? '正常' : '暂停' }}营业
       </div>
       <div class="shop-name">
-        <p class="name">A餐厅</p>
+        <p class="name">{{ shopInfo.restaurantName }}</p>
         <div class="rate-count">
           <star :value="shopInfo.score" style="display: inline-block"/>
           <span class="count">月售{{ shopInfo.monthCount || 0 }}单</span>
@@ -106,7 +106,7 @@ export default {
     },
     getMealList() {
       this.$api.getMealList({
-        restaurantSetupId: this.$route.query.id,
+        restaurantSetupId: this.shopInfo.restaurantId,
         releaseType: this.time,
         week: this.selDay
       })

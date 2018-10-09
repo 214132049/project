@@ -1,30 +1,33 @@
 <template>
-  <scroll class="wrapper">
-    <ul class="order-list-page">
-      <li class="order-item" v-for="(item, index) in orders" :key="index" @click="goDetail(item.id)">
-        <div class="info-box">
-          <img :src="item.restaurantImgUrl" alt="" class="logo">
-          <div class="content">
-            <div class="name-status-time">
-              <p class="name-status">
-                <span class="name">{{ item.restaurantName }}</span>
-                <span class="status" :class="{ highlight: item.status == '已生成' }">
-                  {{ item.status == '完成' ? `已${item.status}` : item.status }}
-                </span>
-              </p>
-              <p class="time"><i class="icon-clock"></i>{{ item.date }}</p>
-            </div>
-            <div class="foods">
-              <span class="name">{{ item.orderDest }}</span>
-              <span class="price">￥{{ item.totalAmount }}</span>
+  <scroll class="wrapper" :data="orders" :pullup="pullup" @scrollToEnd="getOrders" ref="scroll">
+    <div class="order-list-page">
+      <ul >
+        <li class="order-item" v-for="(item, index) in orders" :key="index" @click="goDetail(item.id)">
+          <div class="info-box">
+            <img :src="item.restaurantImgUrl" alt="" class="logo">
+            <div class="content">
+              <div class="name-status-time">
+                <p class="name-status">
+                  <span class="name">{{ item.restaurantName }}</span>
+                  <span class="status" :class="{ highlight: item.status == '已生成' }">
+                    {{ item.status == '完成' ? `已${item.status}` : item.status }}
+                  </span>
+                </p>
+                <p class="time"><i class="icon-clock"></i>{{ item.date }}</p>
+              </div>
+              <div class="foods">
+                <span class="name">{{ item.orderDest }}</span>
+                <span class="price">￥{{ item.totalAmount }}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="btn-box" v-if="item.status == '完成'">
-          <cu-button size="small" @click.stop.prevent="assess">去评价</cu-button>
-        </div>
-      </li>
-    </ul>
+          <div class="btn-box" v-if="item.status == '完成'">
+            <cu-button size="small" @click.stop.prevent="assess(item.id)">去评价</cu-button>
+          </div>
+        </li>
+      </ul>
+      <load-more :show-end="all" :show-loading="loading && orders.length > 0 && !all"></load-more>
+    </div>
   </scroll>
 </template>
 <script>
@@ -32,26 +35,49 @@ export default {
   name: 'Orders',
   data() {
     return {
-      orders: []
+      orders: [],
+      pullup: true,
+      loading: false,
+      all: false,
+      page: 1,
+      pageSize: 10
     }
   },
   activated() {
     this.getOrders()
   },
+  watch: {
+    loading(val) {
+      if (val) {
+        this.$refs.scroll.disable()
+      } else {
+        this.$refs.scroll.enable()
+      }
+    }
+  },
   methods: {
     getOrders() {
+      if (this.all) {
+        return
+      }
+      this.loading = true
       this.$api.getOrderList({
-        pageStart: 1,
-        pageSize: 10
+        pageStart: this.page,
+        pageSize: this.pageSize
       }).then(({data}) => {
         this.orders = this.orders.concat(data)
+        this.loading = false
+        this.page++
+        if (data.length < this.pageSize) {
+          this.all = true
+        }
       }) 
     },
     goDetail(id) {
-      this.$router.push({ path: '/order-detail', query: { id } })
+      this.$router.push({ path: '/order-detail', query: { orderId: id } })
     },
-    assess() {
-      this.$router.push({ path: '/score', query: { id: 1 } })
+    assess(id) {
+      this.$router.push({ path: '/score', query: { orderId: id } })
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <keep-alive :exclude="excludePage">
       <router-view></router-view>
     </keep-alive>
     <tab-bar v-if="showNarBar"></tab-bar>
@@ -10,6 +10,11 @@
 <script>
 export default {
   name: 'App',
+  data() {
+    return {
+      excludePage: ['Score']
+    }
+  },
   computed: {
     showNarBar() {
       return ['/', '/home', '/orders'].indexOf(this.$route.path) > -1

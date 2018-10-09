@@ -2,42 +2,66 @@
   <div class="dispatch-food-info">
     <div class="shop-name">
       <img class="logo" src="@/assets/images/logo.png" />
-      餐厅A
+      {{ shopInfo.restaurantName }}
     </div>
     <ul class="food-list">
       <li class="food-item" v-for="(food, index) in foods" :key="index">
-        <img src="@/assets/images/img_03.png" alt="" class="img">
-        <span class="name">锅包肉</span>
-        <span class="count">×1</span>
-        <span class="price">￥18</span>
+        <img :src="food.icon" alt="" class="img">
+        <span class="name">{{ food.name }}</span>
+        <span class="count">×{{ food.count }}</span>
+        <span class="price">￥{{ food.price }}</span>
       </li>
-      <li class="dispatch-price" v-if="info.status && info.status != 1 || info.needDispatch">
+      <li class="dispatch-price" v-if="info.status && info.status != 1 || needDispatch">
         {{ info.status ? '打包配送' : '配送费' }}
-        <span class="price">{{ info.needDispatch ? `￥6` : '否'}}</span>
+        <span class="price">{{ needDispatch ? `￥6` : '否'}}</span>
       </li>
       <li class="total-price">
         <cu-button v-show="showBtn" size="small" type="primary" v-if="info.status && info.status != 1" @click="orderAgain">再来一单</cu-button>
         <div class="price-box">
           <span>合计</span>
-          <span class="price">￥42</span>
+          <span class="price">￥{{ totalPrice }}</span>
         </div>
       </li>
     </ul>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'DispatchFoodInfo',
   props: {
-    info: {
-      type: Object,
-      default: () => {}
+    needDispatch: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      foods: 3,
-      showBtn: true
+      foods: this.$store.state.selectFoods,
+      showBtn: true,
+      info: {}
+    }
+  },
+  computed: {
+    totalPrice() {
+      let totalPrice = 0
+      for(let key in this.foods) {
+        let { price, count } = this.foods[key]
+        totalPrice += price * count
+      }
+      return totalPrice + (this.needDispatch ? 6 : 0)
+    },
+    ...mapGetters({
+      shopInfo: 'getShopInfo'
+    })
+  },
+  watch: {
+    totalPrice: {
+      handler(value) {
+        this.$emit('getPrice', value)
+      },
+      immediate: true
     }
   },
   methods: {

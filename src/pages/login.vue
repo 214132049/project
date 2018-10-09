@@ -4,7 +4,7 @@
       <input type="text" placeholder="请输入用户名" v-model="userName">
       <input type="password" placeholder="请输入密码" v-model="password">
     </form>
-    <cu-button size="large" @click="login">登录</cu-button>
+    <cu-button size="large" type="primary" @click="login">登录</cu-button>
   </div>
 </template>
 <script>

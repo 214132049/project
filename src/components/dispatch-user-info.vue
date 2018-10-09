@@ -1,21 +1,21 @@
 <template>
   <div class="dispatch-user-info">
     <div class="user-info" @click="selectAddress">
-      <template v-if="info.needDispatch">
+      <template v-if="needDispatch">
         <p class="name">
           2号楼5层手术科室
-          <i class="icon" v-if="!info.status"></i>
+          <i class="icon" v-if="ordering"></i>
         </p>
         <p class="address">
-          <span :class="{ 'user-name': info.status }">王晓敏</span>
+          <span :class="{ 'user-name': info.status }">{{ info.name }}</span>
           <span v-if="info.status">（手术科室）</span>
-          <span class="tel">123456799544</span>
+          <span class="tel">{{ info.phone }}</span>
         </p>
       </template>
       <template v-else>
         <p class="name">
-          王晓敏
-          <span class="tel">123456799544</span>
+          {{ info.name }}
+          <span class="tel">{{ info.phone }}</span>
         </p>
         <p class="address">
           <span>手术科室</span>
@@ -23,23 +23,34 @@
       </template>
     </div>
     <div class="time-box">
-      <span>{{ info.status ? '取' : '用' }}餐时间</span>
+      <span>{{ ordering ? '取' : '用' }}餐时间</span>
       <span class="time">17:30-18:30</span>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'DispatchUserInfo',
   props: {
-    info: {
-      type: Object,
-      default: () => {}
+    ordering: {
+      type: Boolean,
+      default: false
+    },
+    needDispatch: {
+      type: Boolean,
+      default: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      info: 'getUserInfo'
+    })
   },
   methods: {
     selectAddress () {
-      if (this.info.status || !this.info.needDispatch) return
+      if (!this.ordering || !this.needDispatch) return
       this.$router.push({ path: '/select-address' })
     }
   }

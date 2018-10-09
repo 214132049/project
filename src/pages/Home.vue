@@ -8,12 +8,7 @@
           <shop-item :shop-info="item"></shop-item>
         </li>
       </ul>
-      <div class="loading-tips">
-        <transition name="fade" mode="out-in">
-          <span v-show="loading && data.length > 0 && !all">加载中...</span>
-        </transition>
-        <span v-if="all">没有更多了</span>
-      </div>
+      <load-more :show-end="all" :show-loading="loading && data.length > 0 && !all"></load-more>
     </div>
   </scroll>
 </template>
@@ -65,7 +60,7 @@
           score: shop.score,
           restaurantId: shop.restaurantId
         })
-        this.$router.push({ path: '/shop', query: { id: shop.restaurantId } })
+        this.$router.push({ path: '/shop' })
       }
     }  
   }
@@ -87,26 +82,6 @@
       border-top: 1px solid #e5e5e5; /* no */
       .item {
         margin: 20px 0 40px 0;
-      }
-    }
-    .loading-tips {
-      text-align: center;
-      height: 40px;
-      font-size: 30px;
-      color: #999;
-      .fade-enter-active, .fade-leave-active {
-        animation: fade 1s infinite; 
-      }
-      .fade-enter, .fade-leave-to {
-        animation: none;
-      }
-      @keyframes fade {
-        0% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
       }
     }
   }

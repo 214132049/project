@@ -28,7 +28,7 @@ const getOrderById = data => server({ url: 'api/h5/order/getOrderById', data })
 const cancelOrder = data => server({ url: 'api/h5/order/cancelOrder', data })
 
 // 评分
-const scoreOrder = () => server({ url: 'api/h5/order/sorceOrder' })
+const scoreOrder = data => server({ url: 'api/h5/order/sorceOrder', data })
 
 export default {
   login,
