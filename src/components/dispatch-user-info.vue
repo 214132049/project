@@ -3,7 +3,7 @@
     <div class="user-info" @click="selectAddress">
       <template v-if="needDispatch">
         <p class="name">
-          2号楼5层手术科室
+          {{ address }}
           <i class="icon" v-if="ordering"></i>
         </p>
         <p class="address">
@@ -45,7 +45,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      info: 'getUserInfo'
+      info: 'getUserInfo',
+      address: 'getAddress'
     })
   },
   methods: {

@@ -2,7 +2,7 @@
   <div class="select-address-page">
     <dl class="address-list">
       <dt class="address-item oldAddress">
-        <span>2号楼5层手术科室</span>
+        <span>{{ $store.state.address }}</span>
         <i class="icon"></i>
       </dt>
       <dd v-for="(address, index) in address" :key="index" @click="selectAddress(index)" class="address-item">
@@ -17,7 +17,7 @@ export default {
   name: 'SelectAddress',
   data() {
     return {
-      address: new Array(4).fill('2号楼5层手术科室'),
+      address: new Array(4).fill(1).map((v, i) => `${i+1}号楼5层手术科室`),
       currentIndex: -1
     }
   },
