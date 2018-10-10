@@ -11,20 +11,22 @@
     </div>
     <transition name="fold">
       <div class="shopcart-list" v-show="listShow">
-        <div class="list-header">
-          <span class="empty" @click="empty">
-            <i class="icon"></i>清空
-          </span>                
+        <div class="list-wrap">
+          <div class="list-header">
+            <span class="empty" @click="empty">
+              <i class="icon"></i>清空
+            </span>                
+          </div>
+          <scroll class="list-content">
+            <ul>
+              <li class="food" v-for="(food, key) in selectFoods" :key="key">
+                <span class="name">{{ food.name }}</span>
+                <span class="price">￥{{ food.price }}</span>
+                <cart-control class="cartcontrol-wrapper" show-count :food="food"></cart-control>
+              </li>
+            </ul>
+          </scroll>
         </div>
-        <scroll class="list-content">
-          <ul>
-            <li class="food" v-for="(food, key) in selectFoods" :key="key">
-              <span class="name">{{ food.name }}</span>
-              <span class="price">￥{{ food.price }}</span>
-              <cart-control class="cartcontrol-wrapper" show-count :food="food"></cart-control>
-            </li>
-          </ul>
-        </scroll>
       </div>
     </transition>
   </div>
@@ -156,13 +158,14 @@ export default {
     position:  fixed;
     left: 0;
     bottom: 98px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
     z-index: 1;
+    .list-wrap {
+      position: absolute;
+      bottom: 0;
+    }
     .list-header {
       height: 74px;
       line-height: 74px;
@@ -194,7 +197,6 @@ export default {
       overflow: hidden;
       background: #fff;
       .food {
-        position: relative;
         display: flex;
         height: 125px;
         padding: 0 32px;

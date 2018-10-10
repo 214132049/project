@@ -1,5 +1,5 @@
 <template>
-  <scroll class="wrapper" :data="data" :pullup="pullup" @scrollToEnd="loadData" ref="scroll">
+  <scroll class="wrapper">
     <div class="page home-page">
       <img src="@/assets/images/banner@2x.png" class="banner" alt="banner">
       <part-title>院内餐厅</part-title>
@@ -8,7 +8,6 @@
           <shop-item :shop-info="item"></shop-item>
         </li>
       </ul>
-      <load-more :show-end="all" :show-loading="loading && data.length > 0 && !all"></load-more>
     </div>
   </scroll>
 </template>
@@ -17,36 +16,16 @@
     name: 'HomePage',
     data() {
       return {
-        data: [],
-        pullup: true,
-        loading: false,
-        all: false
+        data: []
       }
     },
     activated () {
       this.loadData()
     },
-    watch: {
-      loading(val) {
-        if (val) {
-          this.$refs.scroll.disable()
-        } else {
-          this.$refs.scroll.enable()
-        }
-      }
-    },
     methods: {
       loadData() {
-        if (this.all) {
-          return
-        }
-        this.loading = true
         this.$api.getShopList().then(({ data }) => {
           this.data = this.data.concat(data)
-          this.loading = false
-          if (data.length < 5) {
-            this.all = true
-          }
         })
       },
       goDetail(shop) {
@@ -68,10 +47,9 @@
 <style lang="less" scoped>
   .wrapper {
     height: 100%;
+    background: #fff;
   }
   .home-page {
-    padding-bottom: 120px;
-    background: #fff;
     .banner {
       display: block;
       width: 100%;
