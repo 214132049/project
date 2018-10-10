@@ -19,7 +19,7 @@
         data: []
       }
     },
-    activated () {
+    mounted () {
       this.loadData()
     },
     methods: {
