@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: 'SelectAddress',
+  name: 'SelectAddressPage',
   data() {
     return {
       address: new Array(4).fill(1).map((v, i) => `${i+1}号楼5层手术科室`),

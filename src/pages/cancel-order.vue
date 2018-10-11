@@ -20,7 +20,7 @@
 </template>
 <script>
 export default {
-  name: 'CancelOrder',
+  name: 'CancelOrderPage',
   data() {
     return {
       reasons: {1: '点错菜了，重新点', 2: '临时有变化', 3: '我不想订了', 4: '其他'},

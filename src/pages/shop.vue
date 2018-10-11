@@ -47,7 +47,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Shop',
+  name: 'ShopPage',
   data() {
     let today = new Date().getDay()
     today = today == 0 ? 7 : today

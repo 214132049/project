@@ -21,7 +21,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'ConfirmOrder',
+  name: 'ConfirmOrderPage',
   data() {
     return {
       needDispatch: false,

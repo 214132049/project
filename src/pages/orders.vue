@@ -43,7 +43,7 @@ export default {
       pageSize: 10
     }
   },
-  activated() {
+  mounted() {
     this.getOrders()
   },
   watch: {

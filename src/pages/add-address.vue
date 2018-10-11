@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-  name: 'AddAddress',
+  name: 'AddAddressPage',
   data() {
     return {
       address: ''

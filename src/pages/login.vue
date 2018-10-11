@@ -9,7 +9,7 @@
 </template>
 <script>
 export default {
-  name: 'Login',
+  name: 'LoginPage',
   data() {
     return {
       userName: 'hy',

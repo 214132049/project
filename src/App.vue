@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive :exclude="excludePage">
+    <keep-alive :include="includePage">
       <router-view></router-view>
     </keep-alive>
     <tab-bar v-if="showNarBar"></tab-bar>
@@ -12,7 +12,7 @@ export default {
   name: 'App',
   data() {
     return {
-      excludePage: ['Score']
+      includePage: ['HomePage']
     }
   },
   computed: {

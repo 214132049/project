@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-  name: 'Score',
+  name: 'ScorePage',
   data() {
     return {
       anonymous: false,

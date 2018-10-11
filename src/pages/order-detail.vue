@@ -66,7 +66,7 @@ export default {
       }
     }
   },
-  activated() {
+  mounted() {
     this.$api.getOrderById({
       id: this.$route.query.orderId
     }).then(() => {
