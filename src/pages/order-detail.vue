@@ -1,27 +1,27 @@
 <template>
   <scroll>
     <div class="order-detail-page">
-      <!-- 订单正常 -->
-      <template v-if="orderInfo.status == 1">
+      <!-- 订单正常 1:完成 99:已生成 00:取消 -->  
+      <template v-if="orderInfo.state == 99">
         <div class="qrcode-box">
-          <img class="qrcode" />
-          <div class="code">20171108A001</div>
-          <div class="tag" v-if="!orderInfo.needDispatch">序号：11</div>
+          <img class="qrcode" :src="orderInfo.qrCodeUrl"/>
+          <div class="code">{{ orderInfo.orderNo }}</div>
+          <div class="tag" v-if="!orderInfo.isPack">序号：11</div>
         </div>
         <dispatch-user-info :info="orderInfo" class="mb20"></dispatch-user-info>
       </template>
 
       <!-- 订单取消\完成 -->
       <template v-else>
-        <div class="orderStatus">订单已{{ orderInfo.status == 2 ? '完成' : '取消' }}</div>
+        <div class="orderStatus">订单已{{ {'1': '完成', '00': '取消'}[orderInfo.state] }}</div>
       </template>
 
       <dispatch-food-info :info="orderInfo"></dispatch-food-info>
       
       <!-- 订单正常 -->
-      <template v-if="orderInfo.status == 1">
+      <template v-if="orderInfo.state == 99">
         <!-- 订单需要配送 -->
-        <div class="dispatch" v-if="orderInfo.needDispatch">
+        <div class="dispatch" v-if="orderInfo.isPack">
           <span>打包配送</span>
           <span class="right">是</span>
         </div>
@@ -31,22 +31,22 @@
         </div>
       </template>
 
-      <template v-if="orderInfo.status != 1">
+      <template v-else>
         <div class="order-no-time">
           <div class="title">订单信息</div>
           <div class="no">
             <span class="label">订单号</span>
-            1111 2222 3333 4444 55
+            {{ orderInfo.orderNo }}
           </div>
           <div class="time">
             <span class="label">订单时间</span>
-            2018-11-11  23:08
+            {{ orderInfo.date }}
           </div>
         </div>
-        <div class="address-box" v-if="orderInfo.status == 2">
-          <div class="address" v-if="orderInfo.needDispatch">
+        <div class="address-box" v-if="orderInfo.state == 2">
+          <div class="address" v-if="orderInfo.isPack">
             <span class="label">配送地址</span>
-            <span>2号楼5层手术科室</span>
+            <span>{{ orderInfo.address }}</span>
           </div>
           <cu-button class="btn" size="large" type="primary" :disabled="orderInfo.disabled">已评价</cu-button>
         </div>
@@ -69,13 +69,13 @@ export default {
   mounted() {
     this.$api.getOrderById({
       id: this.$route.query.orderId
-    }).then(() => {
-      // this.orderInfo = data
+    }).then(({ data }) => {
+      this.orderInfo = data
     })
   },
   methods: {
     cancelOrder () {
-      this.$router.push({ path: '/cancel-order', query: { id: 1 } })
+      this.$router.push({ path: '/cancel-order', query: { id: this.orderInfo.id } })
     }
   }
 }
