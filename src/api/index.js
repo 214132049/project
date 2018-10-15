@@ -9,6 +9,9 @@ const getShopList = () => server({ url: 'api/h5/order/getRestaurantList' })
 // 获取菜品
 const getMealList = data => server({ url: 'api/h5/order/getOrderMealList', data })
 
+// 获取菜品详情
+const getOrderMealDetail = data => server({ url: 'api/h5/order/getOrderMealList', data })
+
 // 下单
 const orderFood = data => server({ url: 'api/h5/order/orderFood', data })
 
@@ -40,5 +43,6 @@ export default {
   getMealList,
   orderFood,
   orderAgain,
-  finishOrder
+  finishOrder,
+  getOrderMealDetail
 }
