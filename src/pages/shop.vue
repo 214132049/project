@@ -91,7 +91,7 @@ export default {
       shopInfo: 'getShopInfo'
     })
   },
-  activated() {
+  mounted() {
     this.getMealList()
   },
   methods: {

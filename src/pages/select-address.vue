@@ -16,8 +16,10 @@
 export default {
   name: 'SelectAddressPage',
   data() {
+    let local = JSON.parse(window.localStorage.getItem('localAddress')) || {}
+    let address = local[this.$store.state.userInfo.id] || []
     return {
-      address: new Array(4).fill(1).map((v, i) => `${i+1}号楼5层手术科室`),
+      address: address,
       currentIndex: -1
     }
   },

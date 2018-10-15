@@ -18,6 +18,16 @@ export default {
   },
   methods: {
     submit() {
+      let local = JSON.parse(window.localStorage.getItem('localAddress')) || {}
+      let address = local[this.$store.state.userInfo.id] || []
+      let isExist = address.some(v => v == this.address)
+      if (isExist) {
+        this.$toast('地址已存在')
+        return
+      }
+      address.push(this.address)
+      let userId = this.$store.state.userInfo.id
+      window.localStorage.setItem('localAddress', JSON.stringify({ [userId]: address }))
       this.$store.dispatch('setAddress', this.address)
       this.$router.replace({ path: '/confirm' })
     }
