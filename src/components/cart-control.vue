@@ -1,14 +1,16 @@
 <template>
   <div class="cartcontrol">
     <template v-if="showCount">
-      <div class="cart-btn cart-decrease" v-show="food.count > 0" @click.stop.prevent="decreaseCart"></div>
-      <div class="cart-count" v-show="food.count > 0">{{food.count}}</div>
+      <div class="cart-btn cart-decrease" v-show="count > 0" @click.stop.prevent="decreaseCart"></div>
+      <div class="cart-count" v-show="count > 0">{{ count }}</div>
     </template>
     <div class="cart-btn cart-add" @click.stop.prevent="addCart" :class="{ disabled: disabled }"></div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'CartControl',
   props: {
@@ -24,6 +26,15 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  computed: {
+    count() {
+      let food = this.selectFoods[this.food.detailId]
+      return food ? food.count : 0
+    },
+    ...mapGetters({
+      selectFoods: 'getSelectFoods'
+    })
   },
   methods: {
     addCart() {

@@ -73,17 +73,6 @@ export default {
     }
   },
   computed: {
-    selectFoods() {
-      let foods = [];
-      this.goods.forEach(good => {
-        good.foods.forEach(food => {
-          if (food.count) {
-            foods.push(food);
-          }
-        });
-      });
-      return foods;
-    },
     isClosed () {
       return this.shopInfo.isClose == 1
     },
@@ -109,6 +98,8 @@ export default {
         restaurantSetupId: this.shopInfo.id,
         releaseType: this.time,
         week: this.selDay
+      }).then(({data}) => {
+        this.goods = data.toWeekList
       })
     }
   }

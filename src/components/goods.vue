@@ -6,21 +6,21 @@
           class="menu-item"
           :class="{'current':currentIndex === index}"
           @click="selectMenu(index, $event)" :key="index">
-          {{ item.name }}
+          {{ item.dishesTypeName }}
         </li>
       </ul>
     </scroll>
     <scroll :probe-type="3" class="foods-wrapper" ref="foodsWrapper" :data="foods">
       <ul>
-        <li @click="selectFood(food)" v-for="(food, index) in foods" :key="index" class="food-item" :class="{ nomore: food.nomore }">
+        <li @click="selectFood(food.detailId)" v-for="(food, index) in foods" :key="index" class="food-item" :class="{ nomore: food.nomore }">
           <div class="icon">
-            <img :src="food.icon" alt="">
+            <img :src="food.dishesImgUrl" alt="">
             <div class="mask" v-if="food.nomore">缺货</div>
           </div>
           <div class="content">
-            <h2 class="name">{{food.name}}</h2>
-            <div class="count">月售{{food.sellCount}}份</div>
-            <div class="price">￥{{food.price}}</div>
+            <h2 class="name">{{food.dishesName}}</h2>
+            <div class="count">月售{{food.monthCount}}份</div>
+            <div class="price">￥{{food.dishesPrice}}</div>
             <div class="cartcontrol-wrapper">
               <cart-control :food="food" :disabled="food.nomore"></cart-control>
             </div>
@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     foods() {
-      return this.goods[this.currentIndex].foods
+      return this.goods[this.currentIndex].dishesList
     }
   },
   methods: {
