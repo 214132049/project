@@ -2,7 +2,7 @@
   <div class="dispatch-food-info">
     <div class="shop-name">
       <img class="logo" src="@/assets/images/logo.png" />
-      {{ shopInfo.restaurantName }}
+      {{ info.restaurantName }}
     </div>
     <ul class="food-list">
       <li class="food-item" v-for="(food, index) in foods" :key="index">
@@ -11,9 +11,9 @@
         <span class="count">×{{ food.count }}</span>
         <span class="price">￥{{ food.price }}</span>
       </li>
-      <li class="dispatch-price" v-if="info.status && info.status != 1 || needDispatch">
+      <li class="dispatch-price" v-if="info.status && info.status != 1 || info.needDispatch">
         {{ info.status ? '打包配送' : '配送费' }}
-        <span class="price">{{ needDispatch ? `￥6` : '否'}}</span>
+        <span class="price">{{ info.needDispatch ? `￥6` : '否'}}</span>
       </li>
       <li class="total-price">
         <cu-button v-show="showBtn" size="small" type="primary" v-if="info.status && info.status != 1" @click="orderAgain">再来一单</cu-button>
@@ -26,35 +26,31 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'DispatchFoodInfo',
   props: {
-    needDispatch: {
-      type: Boolean,
-      default: false
-    }
+    info: {
+      type: Object,
+      default: () => {}
+    } 
   },
   data() {
     return {
-      foods: this.$store.state.selectFoods,
-      showBtn: true,
-      info: {}
+      showBtn: true
     }
   },
   computed: {
+    foods() {
+      return this.info.foods || []
+    },
     totalPrice() {
       let totalPrice = 0
       for(let key in this.foods) {
         let { price, count } = this.foods[key]
         totalPrice += price * count
       }
-      return totalPrice + (this.needDispatch ? 6 : 0)
-    },
-    ...mapGetters({
-      shopInfo: 'getShopInfo'
-    })
+      return totalPrice + (this.info.needDispatch ? 6 : 0)
+    }
   },
   watch: {
     totalPrice: {

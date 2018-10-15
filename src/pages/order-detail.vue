@@ -43,12 +43,12 @@
             {{ orderInfo.date }}
           </div>
         </div>
-        <div class="address-box" v-if="orderInfo.state == 2">
+        <div class="address-box" v-if="orderInfo.state == 1">
           <div class="address" v-if="orderInfo.isPack">
             <span class="label">配送地址</span>
             <span>{{ orderInfo.address }}</span>
           </div>
-          <cu-button class="btn" size="large" type="primary" :disabled="orderInfo.disabled">已评价</cu-button>
+          <cu-button class="btn" size="large" type="primary" :disabled="orderInfo.restaurantScore">已评价</cu-button>
         </div>
       </template>
     </div>

@@ -1,9 +1,9 @@
 <template>
   <div class="dispatch-user-info">
     <div class="user-info" @click="selectAddress">
-      <template v-if="needDispatch">
+      <template v-if="info.needDispatch">
         <p class="name">
-          {{ address }}
+          {{ info.address }}
           <i class="icon" v-if="ordering"></i>
         </p>
         <p class="address">
@@ -24,13 +24,11 @@
     </div>
     <div class="time-box">
       <span>{{ ordering ? '取' : '用' }}餐时间</span>
-      <span class="time">17:30-18:30</span>
+      <span class="time">{{ info.takeTime }}</span>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'DispatchUserInfo',
   props: {
@@ -38,20 +36,14 @@ export default {
       type: Boolean,
       default: false
     },
-    needDispatch: {
-      type: Boolean,
-      default: false
+    info: {
+      type: Object,
+      default: () => {}
     }
-  },
-  computed: {
-    ...mapGetters({
-      info: 'getUserInfo',
-      address: 'getAddress'
-    })
   },
   methods: {
     selectAddress () {
-      if (!this.ordering || !this.needDispatch) return
+      if (!this.ordering || !this.info.needDispatch) return
       this.$router.push({ path: '/select-address' })
     }
   }

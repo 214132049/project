@@ -21,7 +21,7 @@
               </div>
             </div>
           </div>
-          <div class="btn-box" v-if="item.status == '完成'">
+          <div class="btn-box" v-if="item.status == '完成' && !item.restaurantScore">
             <cu-button size="small" @click.stop.prevent="assess(item.id)">去评价</cu-button>
           </div>
         </li>

@@ -2,9 +2,9 @@
   <div class="confirm-order-page">
     <div class="user-info-box">
       <div class="tag">{{ !needDispatch ? '用餐人信息' : '订单配送至' }}</div>
-      <dispatch-user-info ordering :need-dispatch="needDispatch"></dispatch-user-info>
+      <dispatch-user-info ordering info="userInfo"></dispatch-user-info>
     </div>
-    <dispatch-food-info :need-dispatch="needDispatch" @getPrice="getPrice"></dispatch-food-info>
+    <dispatch-food-info :info="foodInfo" @getPrice="getPrice"></dispatch-food-info>
     <div class="dispatch">
       <span>打包配送</span>
       <i class="icon"
@@ -29,9 +29,16 @@ export default {
     }
   },
   computed: {
+    userInfo() {
+      return { ...this.info, address: this.address, needDispatch: this.needDispatch }
+    },
+    foodInfo() {
+      return { ...this.shopInfo, foods: this.selectFoods, needDispatch: this.needDispatch }
+    },
     ...mapGetters({
       shopInfo: 'getShopInfo',
       address: 'getAddress',
+      info: 'getUserInfo',
       selectFoods: 'getSelectFoods'
     })
   },
