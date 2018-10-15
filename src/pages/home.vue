@@ -29,7 +29,7 @@
         })
       },
       goDetail(shop) {
-        if (shop.restaurantId !== this.$store.state.shopInfo.restaurantId) {
+        if (shop.id !== this.$store.state.shopInfo.id) {
           this.$store.dispatch('initState')
         }
         this.$store.dispatch('setShopInfo', {
@@ -37,7 +37,7 @@
           isClose: shop.isClose,
           monthCount: shop.monthCount,
           score: shop.score,
-          restaurantId: shop.restaurantId
+          id: shop.id
         })
         this.$router.push({ path: '/shop' })
       }

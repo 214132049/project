@@ -106,7 +106,7 @@ export default {
     },
     getMealList() {
       this.$api.getMealList({
-        restaurantSetupId: this.shopInfo.restaurantId,
+        restaurantSetupId: this.shopInfo.id,
         releaseType: this.time,
         week: this.selDay
       })
