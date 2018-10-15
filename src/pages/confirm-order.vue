@@ -1,15 +1,15 @@
 <template>
   <div class="confirm-order-page">
     <div class="user-info-box">
-      <div class="tag">{{ !needDispatch ? '用餐人信息' : '订单配送至' }}</div>
-      <dispatch-user-info ordering info="userInfo"></dispatch-user-info>
+      <div class="tag">{{ !isPack ? '用餐人信息' : '订单配送至' }}</div>
+      <dispatch-user-info ordering :info="userInfo"></dispatch-user-info>
     </div>
-    <dispatch-food-info :info="foodInfo" @getPrice="getPrice"></dispatch-food-info>
+    <dispatch-food-info ordering :info="foodInfo" @getPrice="getPrice"></dispatch-food-info>
     <div class="dispatch">
       <span>打包配送</span>
       <i class="icon"
-        :class="{ 'need-dispatch': needDispatch }"
-        @click="needDispatch = !needDispatch"></i>
+        :class="{ 'need-dispatch': isPack }"
+        @click="isPack = !isPack"></i>
     </div>
     <div class="confirm-box">
       <div class="total-price">合计<span class="price">￥{{ totalPrice }}</span></div>
@@ -24,16 +24,16 @@ export default {
   name: 'ConfirmOrderPage',
   data() {
     return {
-      needDispatch: false,
+      isPack: false,
       totalPrice: 0
     }
   },
   computed: {
     userInfo() {
-      return { ...this.info, address: this.address, needDispatch: this.needDispatch }
+      return { ...this.info, address: this.address, isPack: this.isPack }
     },
     foodInfo() {
-      return { ...this.shopInfo, foods: this.selectFoods, needDispatch: this.needDispatch }
+      return { ...this.shopInfo, orderDetails: this.selectFoods, isPack: this.isPack }
     },
     ...mapGetters({
       shopInfo: 'getShopInfo',
@@ -46,14 +46,19 @@ export default {
     confirm() {
       let dishes = []
       for(let key in this.selectFoods) {
-        let { count } = this.selectFoods[key]
-        dishes.push(`${key}-${count}`)
+        let { number } = this.selectFoods[key]
+        dishes.push(`${key}-${number}`)
       }
       this.$api.orderFood({
         restaurantId: this.shopInfo.restaurantId,
-        isPack: this.needDispatch ? 1 : 0,
+        isPack: this.isPack ? 1 : 0,
         address: this.address,
         dishes: dishes.join(',')
+      }).then(({message}) => {
+        this.$toast(message, () => {
+          this.$store.dispatch('initState')
+          this.$router.push('/home')
+        })
       })
     },
     getPrice(value) {

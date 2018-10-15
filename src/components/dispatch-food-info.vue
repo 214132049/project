@@ -1,22 +1,22 @@
 <template>
   <div class="dispatch-food-info">
     <div class="shop-name">
-      <img class="logo" src="@/assets/images/logo.png" />
+      <img class="logo" :src="info.restaurantImgUrl" />
       {{ info.restaurantName }}
     </div>
     <ul class="food-list">
       <li class="food-item" v-for="(food, index) in foods" :key="index">
-        <img :src="food.icon" alt="" class="img">
-        <span class="name">{{ food.name }}</span>
-        <span class="count">×{{ food.count }}</span>
-        <span class="price">￥{{ food.price }}</span>
+        <img :src="food.dishesImgUrl" alt="" class="img">
+        <span class="name">{{ food.dishesName }}</span>
+        <span class="count">×{{ food.number }}</span>
+        <span class="price">￥{{ food.dishesPrice }}</span>
       </li>
-      <li class="dispatch-price" v-if="info.status && info.status != 1 || info.needDispatch">
-        {{ info.status ? '打包配送' : '配送费' }}
-        <span class="price">{{ info.needDispatch ? `￥6` : '否'}}</span>
+      <li class="dispatch-price" v-if="info.status && info.status != 1 || info.isPack == 1">
+        {{ ordering ? '配送费' : '打包配送' }}
+        <span class="price">{{ info.isPack == 1 ? `￥${info.packAmount}` : '否'}}</span>
       </li>
       <li class="total-price">
-        <cu-button v-show="showBtn" size="small" type="primary" v-if="info.status && info.status != 1" @click="orderAgain">再来一单</cu-button>
+        <cu-button size="small" type="primary" v-if="info.state && info.state != 1" @click="orderAgain">再来一单</cu-button>
         <div class="price-box">
           <span>合计</span>
           <span class="price">￥{{ totalPrice }}</span>
@@ -32,24 +32,23 @@ export default {
     info: {
       type: Object,
       default: () => {}
-    } 
-  },
-  data() {
-    return {
-      showBtn: true
+    },
+    ordering: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     foods() {
-      return this.info.foods || []
+      return this.info.orderDetails || []
     },
     totalPrice() {
       let totalPrice = 0
       for(let key in this.foods) {
-        let { price, count } = this.foods[key]
-        totalPrice += price * count
+        let { dishesPrice, number } = this.foods[key]
+        totalPrice += dishesPrice * number
       }
-      return totalPrice + (this.info.needDispatch ? 6 : 0)
+      return totalPrice + (this.info.isPack ? (+this.info.packAmount || 0) : 0)
     }
   },
   watch: {
@@ -62,7 +61,11 @@ export default {
   },
   methods: {
     orderAgain() {
-      this.$api.orderAgain()
+      this.$api.orderAgain({
+        orderId: this.$route.query.orderId
+      }).then(({}) => {
+        this.$toast('下单成功')
+      })
     }
   }
 }

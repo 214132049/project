@@ -24,6 +24,7 @@ export default {
       }).then(({ data }) => {
         window.sessionStorage.setItem('token', data.token)
         this.$store.dispatch('setUserInfo', data)
+        this.$store.dispatch('setAddress', data.userOffice.deptName)
         this.$router.push({ path: '/home' })
       })
     }

@@ -3,16 +3,20 @@ import Vue from 'vue'
 export const addFood = (state, data) => {
   let food = state.selectFoods[data.detailId];
   if (food) {
-    food.count++;
+    food.number++;
   } else {
-    Vue.set(state.selectFoods, `${data.detailId}`, { ...data, count: 1 });
+    Vue.set(state.selectFoods, `${data.detailId}`, {
+      ...data,
+      number: 1,
+      dishesPrice: +data.dishesPrice
+    });
   }
 }
 
 export const decreaseFood = (state, data) => {
   let food = state.selectFoods[data.detailId];
-  food.count--;
-  if (food.count == 0) {
+  food.number--;
+  if (food.number == 0) {
     Vue.delete(state.selectFoods, `${data.detailId}`);
   }
 }
@@ -35,5 +39,4 @@ export const setShopInfo = (state, data) => {
 
 export const initState = (state) => {
   state.shopInfo = {}
-  state.address = ''
 }

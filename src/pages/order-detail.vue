@@ -21,13 +21,13 @@
       <!-- 订单正常 -->
       <template v-if="orderInfo.state == 99">
         <!-- 订单需要配送 -->
-        <div class="dispatch" v-if="orderInfo.isPack">
+        <div class="dispatch" v-if="orderInfo.isPack == 1">
           <span>打包配送</span>
-          <span class="right">是</span>
+          <span class="right">{{ orderInfo.isPack == 1 ? '是' : '否' }}</span>
         </div>
         <div class="btn-box">
           <cu-button class="btn" type="cancel" @click="cancelOrder">取消</cu-button>
-          <cu-button class="btn" type="primary">完成</cu-button>
+          <cu-button class="btn" type="primary" @click="finishOrder">完成</cu-button>
         </div>
       </template>
 
@@ -40,11 +40,11 @@
           </div>
           <div class="time">
             <span class="label">订单时间</span>
-            {{ orderInfo.date }}
+            {{ orderInfo.createDate }}
           </div>
         </div>
         <div class="address-box" v-if="orderInfo.state == 1">
-          <div class="address" v-if="orderInfo.isPack">
+          <div class="address" v-if="orderInfo.isPack == 1">
             <span class="label">配送地址</span>
             <span>{{ orderInfo.address }}</span>
           </div>
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       orderInfo: {
-        needDispatch: false,
+        isPack: false,
         status: 2,
         disabled: true
       }
@@ -75,7 +75,16 @@ export default {
   },
   methods: {
     cancelOrder () {
-      this.$router.push({ path: '/cancel-order', query: { id: this.orderInfo.id } })
+      this.$router.replace({ path: '/cancel-order', query: { id: this.orderInfo.id } })
+    },
+    finishOrder() {
+      this.$api.getOrderById({
+        id: this.$route.query.orderId
+      }).then(() => {
+        this.$toast('确认订单成功', () => {
+          this.$router.back()
+        })
+      })
     }
   }
 }

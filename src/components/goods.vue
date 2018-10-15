@@ -70,6 +70,7 @@ export default {
   overflow: hidden;
   .menu-wrapper {
     width: 176px;
+    min-width: 176px;
     background: #F3F6F9;
     .menu-item {
       width: 100%;
@@ -87,7 +88,8 @@ export default {
     flex: 1;
     .food-item {
       display: flex;
-      padding: 20px 32px 20px 20px;
+      padding: 20px;
+      justify-content: space-between;
       .icon {
         position: relative;
         width:168px;
@@ -121,6 +123,7 @@ export default {
           font-size:36px;
           font-weight:400;
           color:rgba(53,53,53,1);
+          white-space: nowrap;
         }
         .count {
           font-size:22px;

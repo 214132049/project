@@ -28,6 +28,9 @@ export default {
     hide() {
       this.isVisible = false
       this.clearTimer()
+      if (typeof this.cb == 'function') {
+        this.cb()
+      }
     },
     clearTimer() {
       clearTimeout(this.timer)

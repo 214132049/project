@@ -37,7 +37,10 @@
           isClose: shop.isClose,
           monthCount: shop.monthCount,
           score: shop.score,
-          id: shop.id
+          id: shop.id,
+          restaurantImgUrl: shop.restaurantImgUrl,
+          restaurantId: shop.restaurantId,
+          packAmount: shop.packAmount
         })
         this.$router.push({ path: '/shop' })
       }

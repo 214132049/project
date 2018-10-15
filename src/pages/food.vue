@@ -29,6 +29,18 @@ export default {
     return {
       food: {}
     }
+  },
+  mounted() {
+    this.getDetail()
+  },
+  methods: {
+    getDetail() {
+      let id = this.$route.query.id
+      this.$api.getOrderMealDetail({
+        id,
+        restaurantSetupId: this.$store.state.shopInfo.id,
+      })
+    }
   }
 }
 </script>

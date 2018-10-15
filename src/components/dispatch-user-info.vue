@@ -1,29 +1,29 @@
 <template>
   <div class="dispatch-user-info">
     <div class="user-info" @click="selectAddress">
-      <template v-if="info.needDispatch">
+      <template v-if="info.isPack == 1">
         <p class="name">
           {{ info.address }}
           <i class="icon" v-if="ordering"></i>
         </p>
         <p class="address">
-          <span :class="{ 'user-name': info.status }">{{ info.name }}</span>
-          <span v-if="info.status">（手术科室）</span>
+          <span :class="{ 'user-name': info.status }">{{ userName }}</span>
+          <span v-if="!ordering">（{{ info.unitName }}）</span>
           <span class="tel">{{ info.phone }}</span>
         </p>
       </template>
       <template v-else>
         <p class="name">
-          {{ info.name }}
-          <span class="tel">{{ info.phone }}</span>
+          {{ userName }}
+          <span class="tel">{{ phone }}</span>
         </p>
         <p class="address">
-          <span>手术科室</span>
+          <span>{{ info.unitName }}</span>
         </p>
       </template>
     </div>
     <div class="time-box">
-      <span>{{ ordering ? '取' : '用' }}餐时间</span>
+      <span>{{ !ordering ? '取' : '用' }}餐时间</span>
       <span class="time">{{ info.takeTime }}</span>
     </div>
   </div>
@@ -41,9 +41,23 @@ export default {
       default: () => {}
     }
   },
+  computed: {
+    userName() {
+      return this.info.name || this.info.person
+    },
+    phone() {
+      return this.info.telephone || this.info.phone
+    }
+  },
   methods: {
     selectAddress () {
-      if (!this.ordering || !this.info.needDispatch) return
+      if (!this.ordering || !this.info.isPack) return
+      let local = JSON.parse(window.localStorage.getItem('localAddress')) || {}
+      let address = local[this.$store.state.userInfo.id] || []
+      if (address.length == 0) {
+        this.$router.push({ path: '/add-address' })
+        return
+      }
       this.$router.push({ path: '/select-address' })
     }
   }

@@ -14,14 +14,14 @@
       <part-title>为服务打分</part-title>
       <star v-model="servicePoints" size="large" class="star"></star>
     </div>
-    <div class="food">
+    <div class="food" v-for="(food, index) in orderDetails" :key="index">
       <div class="header">
         <div class="food-name">
-          <img src="@/assets/images/img_03.png" alt="" class="img">锅包肉
+          <img :src="food.dishesImgUrl" alt="" class="img">{{ food.dishesName }}
         </div>
       </div>
       <part-title>为菜品打分</part-title>
-      <star v-model="foodPoints" size="large" class="star"></star>
+      <star v-model="food._foodPoints" size="large" class="star"></star>
     </div>
     <div class="btn-box">
       <div>
@@ -31,22 +31,39 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   name: 'ScorePage',
   data() {
     return {
       anonymous: false,
       servicePoints: 0,
-      foodPoints: 0
+      orderDetails: []
     }
+  },
+  mounted() {
+    this.$api.getOrderById({
+      id: this.$route.query.orderId
+    }).then(({ data }) => {
+      this.orderDetails = data.orderDetails
+    })
   },
   methods: {
     submit() {
-      this.$api.scoreOrder({
+      let foodPoints = this.orderDetails.map(v => `${v.id}-${v._foodPoints}`)
+      // 这里和别处不一样是因为后端傻逼
+      axios.post(process.env.VUE_APP_HOSTURL + 'api/h5/order/sorceOrder', {
+        token: window.sessionStorage.getItem("token") || '',
         orderId: this.$route.query.orderId,
         sorce: this.servicePoints,
-        dishesSorce: this.foodPoints,
+        dishesSorce: foodPoints.join(','),
         isAnonymous: this.anonymous ? '1' : '0'  // 1 匿名 0 不匿名
+      }).then(res => {
+        if (res.data.code == 0) {
+          this.$toast('评价成功', () => {
+          this.$router.back()
+        })
+        }
       })
     }
   }

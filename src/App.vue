@@ -12,7 +12,7 @@ export default {
   name: 'App',
   data() {
     return {
-      includePage: ['HomePage']
+      includePage: ['HomePage', 'ConfirmOrderPage']
     }
   },
   computed: {

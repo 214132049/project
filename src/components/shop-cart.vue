@@ -17,15 +17,17 @@
               <i class="icon"></i>清空
             </span>                
           </div>
-          <scroll class="list-content">
-            <ul>
-              <li class="food" v-for="(food, key) in selectFoods" :key="key">
-                <span class="name">{{ food.name }}</span>
-                <span class="price">￥{{ food.price }}</span>
-                <cart-control class="cartcontrol-wrapper" show-count :food="food"></cart-control>
-              </li>
-            </ul>
-          </scroll>
+          <div class="list-content">
+            <scroll>
+              <ul>
+                <li class="food" v-for="(food, key) in selectFoods" :key="key">
+                  <span class="name">{{ food.dishesName }}</span>
+                  <span class="price">￥{{ food.price }}</span>
+                  <cart-control class="cartcontrol-wrapper" show-count :food="food"></cart-control>
+                </li>
+              </ul>
+            </scroll>
+          </div>
         </div>
       </div>
     </transition>
@@ -56,7 +58,7 @@ export default {
       let total = 0;
       Object.keys(this.selectFoods).forEach(id => {
         let food = this.selectFoods[id]
-        total += food.price * food.count
+        total += food.dishesPrice * food.number
       })
       return total      
     },
@@ -64,7 +66,7 @@ export default {
       let count = 0;
       Object.keys(this.selectFoods).forEach(id => {
         let food = this.selectFoods[id]
-        count += food.count
+        count += food.number
       })
       return count;
     },
@@ -165,6 +167,7 @@ export default {
     .list-wrap {
       position: absolute;
       bottom: 0;
+      width: 100%;
     }
     .list-header {
       height: 74px;
@@ -193,8 +196,9 @@ export default {
       }
     }
     .list-content {
-      max-height: 500px;
-      overflow: hidden;
+      // max-height: 500px;
+      height: 500px;
+      // overflow: hidden;
       background: #fff;
       .food {
         display: flex;
@@ -205,8 +209,8 @@ export default {
         line-height: 125px;
         border-bottom: 1px solid @border-color; /* no */
         .name {
+          flex: 1;
           display: inline-block;
-          width: 160px;
           font-size:32px;
           font-weight:400;
           color: #333;
@@ -215,7 +219,6 @@ export default {
           font-size: 36px;
           font-weight: 500;
           color: #FF7859;
-          margin-left: 234px;
           margin-right: 50px;
         }
         .cartcontrol-wrapper {

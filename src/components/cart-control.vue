@@ -30,7 +30,7 @@ export default {
   computed: {
     count() {
       let food = this.selectFoods[this.food.detailId]
-      return food ? food.count : 0
+      return food ? food.number : 0
     },
     ...mapGetters({
       selectFoods: 'getSelectFoods'

@@ -30,7 +30,7 @@ export default {
       this.$router.back()
     },
     addAddress() {
-      this.$router.push({ path: '/add-address' })
+      this.$router.replace({ path: '/add-address' })
     }
   }
 }
