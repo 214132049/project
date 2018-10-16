@@ -22,7 +22,7 @@
               <ul>
                 <li class="food" v-for="(food, key) in selectFoods" :key="key">
                   <span class="name">{{ food.dishesName }}</span>
-                  <span class="price">￥{{ food.price }}</span>
+                  <span class="price">￥{{ food.dishesPrice }}</span>
                   <cart-control class="cartcontrol-wrapper" :food="food"></cart-control>
                 </li>
               </ul>
@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     pay() {
-      if (this.totalPrice < this.minPrice) {
+      if (this.totalPrice < this.minPrice || this.canPay) {
         return;
       }
       this.$router.push({ path: '/confirm' })

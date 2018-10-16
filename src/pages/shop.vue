@@ -38,7 +38,7 @@
         </li>
       </ul>
     </div>
-    <goods :goods="goods"></goods>
+    <goods :goods="goods" ref="goods"></goods>
     <shop-cart :min-price="0" v-if="!isClosed"></shop-cart>
     <div class="close-tip" v-else>餐厅休息中，无法订餐</div>
   </div>
@@ -89,7 +89,9 @@ export default {
         releaseType: this.time,
         week: this.selDay
       }).then(({data}) => {
-        this.goods = data.toWeekList.map(v => {
+        this.$refs.goods.currentIndex = 0
+        let prop = this.selDay == this.today ? 'toDayList' : 'toWeekList'
+        this.goods = data[prop].map(v => {
           let dishesList = v.dishesList.map(food => ({ ...food, number: 0 }))
           return { ...v, dishesList }
         })

@@ -1,22 +1,22 @@
 <template>
   <div class="food-page">
-    <img src="@/assets/images/img@2x.png" alt="">
+    <img :src="food.dishesImgUrl" alt="">
     <div class="content">
       <div class="food-name-count">
-        <p class="name">醋溜土豆丝</p>
-        <p class="count">月售298份</p>
+        <p class="name">{{ food.dishesName }}</p>
+        <p class="count">月售{{ food.monthCount }}份</p>
       </div>
       <div class="price-box">
-        <div class="price">￥18</div>
+        <div class="price">￥{{ food.dishesPrice }}</div>
         <cart-control :food="food"></cart-control>
       </div>
       <div class="desc">
         <p>简介：</p>
-        <p>马铃薯又称土豆。吃起来又麻又辣微酸的土豆丝，清脆又开胃，非常适合炎热没胃口的夏天第一次吃的人一定猜不出是马铃薯做的材料。</p>
+        <p>{{ food.desc }}</p>
       </div>
-      <div class="materials">
+      <div class="materials" v-if="food.materials">
         <p>材料：</p>
-        <p>马铃薯又称土豆。吃起来又麻又辣微酸的土豆丝，</p>
+        <p>{{ food.materials }}</p>
       </div>
     </div>
     <div class="back-icon" @click="$router.back()"></div>
@@ -38,9 +38,14 @@ export default {
   methods: {
     getDetail() {
       let id = this.$route.query.id
+      let food = this.$store.state.selectFoods[id]
       this.$api.getOrderMealDetail({
         id,
         restaurantSetupId: this.$store.state.shopInfo.id,
+      }).then(({data}) => {
+        this.food = data
+        this.food.detailId = id
+        this.food.number = food ? food.number : 0
       })
     }
   }
