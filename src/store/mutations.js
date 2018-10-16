@@ -37,6 +37,14 @@ export const setShopInfo = (state, data) => {
   state.shopInfo = data
 }
 
+export const setDay = (state, data) => {
+  state.day = data
+}
+
+export const setTime = (state, data) => {
+  state.time = data
+}
+
 export const initState = (state) => {
   state.shopInfo = {}
 }

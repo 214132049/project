@@ -1,34 +1,36 @@
 <template>
-  <div class="evaluate-page">
-    <div class="service">
-      <div class="header">
-        <div class="shop">
-          <img src="@/assets/images/logo.png" alt="" class="logo" />
-          餐厅A
+  <scroll>
+    <div class="evaluate-page">
+      <div class="service">
+        <div class="header">
+          <div class="shop">
+            <img src="@/assets/images/logo.png" alt="" class="logo" />
+            餐厅A
+          </div>
+          <div class="radio">
+            <i class="icon" :class="{ anonymous: anonymous }" @click="anonymous = !anonymous"></i>
+            匿名评价
+          </div>
         </div>
-        <div class="radio">
-          <i class="icon" :class="{ anonymous: anonymous }" @click="anonymous = !anonymous"></i>
-          匿名评价
+        <part-title>为服务打分</part-title>
+        <star v-model="servicePoints" size="large" class="star"></star>
+      </div>
+      <div class="food" v-for="(food, index) in orderDetails" :key="index">
+        <div class="header">
+          <div class="food-name">
+            <img :src="food.dishesImgUrl" alt="" class="img">{{ food.dishesName }}
+          </div>
+        </div>
+        <part-title>为菜品打分</part-title>
+        <star v-model="food._foodPoints" size="large" class="star"></star>
+      </div>
+      <div class="btn-box">
+        <div>
+          <cu-button size="large" type="primary" @click="submit">提交评价</cu-button>
         </div>
       </div>
-      <part-title>为服务打分</part-title>
-      <star v-model="servicePoints" size="large" class="star"></star>
     </div>
-    <div class="food" v-for="(food, index) in orderDetails" :key="index">
-      <div class="header">
-        <div class="food-name">
-          <img :src="food.dishesImgUrl" alt="" class="img">{{ food.dishesName }}
-        </div>
-      </div>
-      <part-title>为菜品打分</part-title>
-      <star v-model="food._foodPoints" size="large" class="star"></star>
-    </div>
-    <div class="btn-box">
-      <div>
-        <cu-button size="large" type="primary" @click="submit">提交评价</cu-button>
-      </div>
-    </div>
-  </div>
+  </scroll>
 </template>
 <script>
 import axios from 'axios'

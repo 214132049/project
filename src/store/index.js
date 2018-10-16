@@ -10,7 +10,9 @@ let state = {
   userInfo: {},
   shopInfo: {},
   selectFoods: {},
-  address: ''
+  address: '',
+  time: '',
+  day: ''
 }
 const sessionState = window.sessionStorage.getItem('state')
 

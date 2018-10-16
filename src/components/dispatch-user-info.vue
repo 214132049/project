@@ -8,7 +8,7 @@
         </p>
         <p class="address">
           <span :class="{ 'user-name': info.status }">{{ userName }}</span>
-          <span v-if="!ordering">（{{ info.unitName }}）</span>
+          <span v-if="!ordering && info.unitName">（{{ info.unitName }}）</span>
           <span class="tel">{{ info.phone }}</span>
         </p>
       </template>

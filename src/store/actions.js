@@ -22,6 +22,19 @@ export const setShopInfo = ({ commit }, data) => {
   commit('setShopInfo', data)
 }
 
+export const setDay = ({ commit }, data) => {
+  commit('setDay', data)
+}
+
+export const setTime = ({ commit }, data) => {
+  commit('setTime', data)
+}
+
+export const clearDayAndTime = ({ commit }) => {
+  commit('setTime', '')
+  commit('setDay', '')
+}
+
 export const initState = ({ commit }) => {
   commit('initState')
   commit('clearFood')

@@ -53,9 +53,9 @@ export default {
     today = today == 0 ? 7 : today
 
     return {
-      time: 1,
+      time: this.$store.state.time || 1,
       times: {1: '早餐', 2: '午餐', 3: '晚餐'},
-      selDay: today,
+      selDay: this.$store.state.day || today,
       today,
       days: {1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六', 7: '周日'},
       showDays: false,
@@ -77,11 +77,13 @@ export default {
   methods: {
     selTime(time) {
       this.time = time
+      this.$store.dispatch('setTime', time)
       this.getMealList()
     },
     setDay(day) {
       this.selDay = day
       this.showDays = false
+      this.$store.dispatch('setDay', day)
       this.getMealList()
     },
     getMealList() {

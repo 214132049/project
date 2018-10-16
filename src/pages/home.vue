@@ -22,6 +22,10 @@
     mounted () {
       this.loadData()
     },
+    activated () {
+      this.$store.dispatch('clearDayAndTime')
+      this.$store.dispatch('initState')
+    },
     methods: {
       loadData() {
         this.$api.getShopList().then(({ data }) => {
@@ -29,9 +33,6 @@
         })
       },
       goDetail(shop) {
-        if (shop.id !== this.$store.state.shopInfo.id) {
-          this.$store.dispatch('initState')
-        }
         this.$store.dispatch('setShopInfo', {
           restaurantName: shop.restaurantName,
           isClose: shop.isClose,
