@@ -67,9 +67,11 @@ export default {
     }
   },
   mounted() {
+    this.$loading.show()
     this.$api.getOrderById({
       id: this.$route.query.orderId
     }).then(({ data }) => {
+      this.$loading.hide()
       this.orderInfo = data
     })
   },

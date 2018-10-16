@@ -3,7 +3,7 @@ import Vue from 'vue'
 export const addFood = (state, data) => {
   let food = state.selectFoods[data.detailId];
   if (food) {
-    food.number++;
+    food.number = data.number
   } else {
     Vue.set(state.selectFoods, `${data.detailId}`, {
       ...data,
@@ -15,7 +15,7 @@ export const addFood = (state, data) => {
 
 export const decreaseFood = (state, data) => {
   let food = state.selectFoods[data.detailId];
-  food.number--;
+  food.number = data.number
   if (food.number == 0) {
     Vue.delete(state.selectFoods, `${data.detailId}`);
   }

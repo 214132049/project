@@ -1,9 +1,7 @@
 <template>
   <div class="cartcontrol">
-    <template v-if="count > 0">
-      <div class="cart-btn cart-decrease" @click.stop.prevent="decreaseCart"></div>
-      <div class="cart-count">{{ count }}</div>
-    </template>
+    <div class="cart-btn cart-decrease" v-show="food.number > 0" @click.stop.prevent="decreaseCart"></div>
+    <div class="cart-count" v-show="food.number > 0">{{ food.number }}</div>
     <div class="cart-btn cart-add" @click.stop.prevent="addCart" :class="{ disabled: disabled }"></div>
   </div>
 </template>
@@ -23,20 +21,14 @@ export default {
       default: false
     }
   },
-  computed: {
-    count() {
-      return this.food.number || 0
-    },
-    ...mapGetters({
-      selectFoods: 'getSelectFoods'
-    })
-  },
   methods: {
     addCart() {
       if (this.disabled) return
+      this.food.number += 1
       this.$store.dispatch('addFood', this.food)
     },
     decreaseCart() {
+      this.food.number -= 1
       this.$store.dispatch('decreaseFood', this.food)
     }
   }
@@ -54,6 +46,7 @@ export default {
       text-align: center;
       font-size: 30px;
       color: #333;
+      padding: 0 15px;
       vertical-align: middle;
     }
     &.cart-btn {

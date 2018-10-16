@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     getDetail() {
+      this.$loading.show()
       let id = this.$route.query.id
       let food = this.$store.state.selectFoods[id]
       this.$api.getOrderMealDetail({
@@ -46,6 +47,7 @@ export default {
         this.food = data
         this.food.detailId = id
         this.food.number = food ? food.number : 0
+        this.$loading.hide()
       })
     }
   }

@@ -67,7 +67,8 @@ export default {
       return this.shopInfo.isClose == 1
     },
     ...mapGetters({
-      shopInfo: 'getShopInfo'
+      shopInfo: 'getShopInfo',
+      selectFoods: 'getSelectFoods'
     })
   },
   mounted() {
@@ -92,7 +93,13 @@ export default {
         this.$refs.goods.currentIndex = 0
         let prop = this.selDay == this.today ? 'toDayList' : 'toWeekList'
         this.goods = data[prop].map(v => {
-          let dishesList = v.dishesList.map(food => ({ ...food, number: 0 }))
+          let dishesList = v.dishesList.map(food => {
+            let f = this.selectFoods[food.detailId]
+            return {
+              ...food,
+              number:  f ? f.number : 0
+            }
+          })
           return { ...v, dishesList }
         })
       })

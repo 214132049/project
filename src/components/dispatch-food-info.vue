@@ -48,7 +48,7 @@ export default {
         let { dishesPrice, number } = this.foods[key]
         totalPrice += dishesPrice * number
       }
-      return totalPrice + (this.info.isPack ? (+this.info.packAmount || 0) : 0)
+      return (totalPrice + (this.info.isPack ? (+this.info.packAmount || 0) : 0)).toFixed(2)
     }
   },
   watch: {
