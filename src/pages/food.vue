@@ -8,7 +8,7 @@
       </div>
       <div class="price-box">
         <div class="price">￥18</div>
-        <cart-control :food="food" show-count></cart-control>
+        <cart-control :food="food"></cart-control>
       </div>
       <div class="desc">
         <p>简介：</p>
@@ -19,7 +19,7 @@
         <p>马铃薯又称土豆。吃起来又麻又辣微酸的土豆丝，</p>
       </div>
     </div>
-    <div class="back-icon"></div>
+    <div class="back-icon" @click="$router.back()"></div>
   </div>
 </template>
 <script>
@@ -27,7 +27,9 @@ export default {
   name: 'FoodPage',
   data () {
     return {
-      food: {}
+      food: {
+        number: 0
+      }
     }
   },
   mounted() {

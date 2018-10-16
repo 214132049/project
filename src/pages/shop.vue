@@ -1,5 +1,5 @@
 <template>
-  <div class="shop-page">
+  <div class="shop-page" @click="showDays = false">
     <header class="header">
       <div class="status" :class="{ closed: isClosed }">
         <i class="icon"></i>{{ !isClosed ? '正常' : '暂停' }}营业
@@ -23,7 +23,7 @@
         {{ item }}
         <span class="bar"></span>
       </div>
-      <div class="week" @click="showDays = !showDays">
+      <div class="week" @click.stop.prevent="showDays = !showDays">
         <span class="line"></span>
         <span class="day">
           <span v-show="selDay == today">今日({{ days[selDay] }})</span>
@@ -32,7 +32,7 @@
         <i class="icon" :class="{ fold: showDays }"></i>
       </div>
       <ul class="days" v-show="showDays">
-        <li v-for="(day, key) in days" :key="key" :class="{ active: selDay == key }" @click="setDay(key)">
+        <li v-for="(day, key) in days" :key="key" :class="{ active: selDay == key }" @click.stop.prevent="setDay(key)">
           <span class="name">{{ day }}</span>
           <span class="icon"></span>
         </li>
@@ -52,16 +52,6 @@ export default {
     let today = new Date().getDay()
     today = today == 0 ? 7 : today
 
-    let goods = new Array(8).fill(1).map((item, index) => {
-      return {
-        name: ['三文字', '六个文字文字'][index%2],
-        foods: new Array(6).fill(1).map((item, index) => ({
-          id: index,name: '醋溜土豆丝',icon: require('@/assets/images/img_03.png'),
-          nomore: index % 4 == 1,
-          sellCount: 10,price: 100 + index}))
-      }
-    })
-
     return {
       time: 1,
       times: {1: '早餐', 2: '午餐', 3: '晚餐'},
@@ -69,7 +59,7 @@ export default {
       today,
       days: {1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六', 7: '周日'},
       showDays: false,
-      goods
+      goods: []
     }
   },
   computed: {
@@ -99,7 +89,10 @@ export default {
         releaseType: this.time,
         week: this.selDay
       }).then(({data}) => {
-        this.goods = data.toWeekList
+        this.goods = data.toWeekList.map(v => {
+          let dishesList = v.dishesList.map(food => ({ ...food, number: 0 }))
+          return { ...v, dishesList }
+        })
       })
     }
   }
@@ -237,7 +230,7 @@ export default {
         left: 0;
         width: 100%;
         height: 2000px;
-        z-index: 200;
+        z-index: 20;
         background-color: rgba(0, 0, 0, 0.3);
         li {
           display: flex;

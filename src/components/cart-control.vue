@@ -1,8 +1,8 @@
 <template>
   <div class="cartcontrol">
-    <template v-if="showCount">
-      <div class="cart-btn cart-decrease" v-show="count > 0" @click.stop.prevent="decreaseCart"></div>
-      <div class="cart-count" v-show="count > 0">{{ count }}</div>
+    <template v-if="count > 0">
+      <div class="cart-btn cart-decrease" @click.stop.prevent="decreaseCart"></div>
+      <div class="cart-count">{{ count }}</div>
     </template>
     <div class="cart-btn cart-add" @click.stop.prevent="addCart" :class="{ disabled: disabled }"></div>
   </div>
@@ -18,10 +18,6 @@ export default {
       type: Object,
       default: () => {}
     },
-    showCount: {
-      type: Boolean,
-      default: false
-    },
     disabled: {
       type: Boolean,
       default: false
@@ -29,8 +25,7 @@ export default {
   },
   computed: {
     count() {
-      let food = this.selectFoods[this.food.detailId]
-      return food ? food.number : 0
+      return this.food.number || 0
     },
     ...mapGetters({
       selectFoods: 'getSelectFoods'

@@ -10,10 +10,10 @@
       <div class="pay" :class="{ disabled: canPay }" @click="pay">去订餐</div>
     </div>
     <transition name="fold">
-      <div class="shopcart-list" v-show="listShow">
-        <div class="list-wrap">
+      <div class="shopcart-list" v-show="listShow" @click="listShow = false">
+        <div class="list-wrap" @click.stop.prevent="listShow = true">
           <div class="list-header">
-            <span class="empty" @click="empty">
+            <span class="empty" @click.stop.prevent="empty">
               <i class="icon"></i>清空
             </span>                
           </div>
@@ -23,7 +23,7 @@
                 <li class="food" v-for="(food, key) in selectFoods" :key="key">
                   <span class="name">{{ food.dishesName }}</span>
                   <span class="price">￥{{ food.price }}</span>
-                  <cart-control class="cartcontrol-wrapper" show-count :food="food"></cart-control>
+                  <cart-control class="cartcontrol-wrapper" :food="food"></cart-control>
                 </li>
               </ul>
             </scroll>

@@ -75,9 +75,9 @@
       },
       "postcss-viewport-units": {},
       "cssnano": {
-        "preset": "advanced",
+        "preset": "default",
         "autoprefixer": false,
-        "postcss-zindex": false
+        "zindex": false
       }
     }
   },

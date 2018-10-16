@@ -53,6 +53,7 @@
     background: #fff;
   }
   .home-page {
+    padding-bottom: 120px;
     .banner {
       display: block;
       width: 100%;
