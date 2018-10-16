@@ -8,7 +8,7 @@
       </div>
       <div class="price-box">
         <div class="price">￥{{ food.dishesPrice }}</div>
-        <cart-control :food="food"></cart-control>
+        <cart-control :food="food" :num="num"></cart-control>
       </div>
       <div class="desc">
         <p>简介：</p>
@@ -29,7 +29,8 @@ export default {
     return {
       food: {
         number: 0
-      }
+      },
+      num: 0
     }
   },
   mounted() {
@@ -47,6 +48,7 @@ export default {
         this.food = data
         this.food.detailId = id
         this.food.number = food ? food.number : 0
+        this.num = food ? food.number : 0
         this.$loading.hide()
       })
     }
