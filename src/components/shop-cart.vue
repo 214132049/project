@@ -60,7 +60,7 @@ export default {
         let food = this.selectFoods[id]
         total += food.dishesPrice * food.number
       })
-      return total      
+      return total.toFixed(2)
     },
     totalCount() {
       let count = 0;
