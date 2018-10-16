@@ -47,7 +47,8 @@ export default {
   },
   computed: {
     foods() {
-      return this.goods[this.currentIndex].dishesList
+      let current = this.goods[this.currentIndex]
+      return current ? current.dishesList : []
     }
   },
   methods: {

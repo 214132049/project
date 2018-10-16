@@ -23,7 +23,7 @@
                 <li class="food" v-for="(food, key) in selectFoods" :key="key">
                   <span class="name">{{ food.dishesName }}</span>
                   <span class="price">￥{{ food.price }}</span>
-                  <cart-control class="cartcontrol-wrapper" show-count :food="food"></cart-control>
+                  <cart-control class="cartcontrol-wrapper" :food="food"></cart-control>
                 </li>
               </ul>
             </scroll>

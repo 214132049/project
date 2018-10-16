@@ -89,7 +89,10 @@ export default {
         releaseType: this.time,
         week: this.selDay
       }).then(({data}) => {
-        this.goods = data.toWeekList
+        this.goods = data.toWeekList.map(v => {
+          let dishesList = v.dishesList.map(food => ({ ...food, number: 0 }))
+          return { ...v, dishesList }
+        })
       })
     }
   }

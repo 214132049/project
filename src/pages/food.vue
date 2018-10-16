@@ -8,7 +8,7 @@
       </div>
       <div class="price-box">
         <div class="price">￥18</div>
-        <cart-control :food="food" show-count></cart-control>
+        <cart-control :food="food"></cart-control>
       </div>
       <div class="desc">
         <p>简介：</p>
@@ -27,7 +27,9 @@ export default {
   name: 'FoodPage',
   data () {
     return {
-      food: {}
+      food: {
+        number: 0
+      }
     }
   },
   mounted() {
