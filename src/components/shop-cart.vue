@@ -10,10 +10,10 @@
       <div class="pay" :class="{ disabled: canPay }" @click="pay">去订餐</div>
     </div>
     <transition name="fold">
-      <div class="shopcart-list" v-show="listShow">
-        <div class="list-wrap">
+      <div class="shopcart-list" v-show="listShow" @click="listShow = false">
+        <div class="list-wrap" @click.stop.prevent="listShow = true">
           <div class="list-header">
-            <span class="empty" @click="empty">
+            <span class="empty" @click.stop.prevent="empty">
               <i class="icon"></i>清空
             </span>                
           </div>

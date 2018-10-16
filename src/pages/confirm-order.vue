@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     userInfo() {
-      return { ...this.info, address: this.address, isPack: this.isPack }
+      return { ...this.info, address: this.address, isPack: this.isPack, takeTime: this.shopInfo.releaseTypeHairStr }
     },
     foodInfo() {
       return { ...this.shopInfo, orderDetails: this.selectFoods, isPack: this.isPack }

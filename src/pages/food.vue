@@ -19,7 +19,7 @@
         <p>马铃薯又称土豆。吃起来又麻又辣微酸的土豆丝，</p>
       </div>
     </div>
-    <div class="back-icon"></div>
+    <div class="back-icon" @click="$router.back()"></div>
   </div>
 </template>
 <script>
