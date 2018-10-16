@@ -16,7 +16,7 @@
         <span class="price">{{ info.isPack == 1 ? `￥${info.packAmount}` : '否'}}</span>
       </li>
       <li class="total-price">
-        <cu-button size="small" type="primary" v-if="info.state && info.state != 1" @click="orderAgain">再来一单</cu-button>
+        <cu-button size="small" type="primary" v-if="info.state && info.state != 99" @click="orderAgain">再来一单</cu-button>
         <div class="price-box">
           <span>合计</span>
           <span class="price">￥{{ totalPrice }}</span>
@@ -63,7 +63,7 @@ export default {
     orderAgain() {
       this.$api.orderAgain({
         orderId: this.$route.query.orderId
-      }).then(({}) => {
+      }).then(() => {
         this.$toast('下单成功')
       })
     }

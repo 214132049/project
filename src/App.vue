@@ -26,6 +26,28 @@ export default {
         window.sessionStorage.setItem('state', JSON.stringify(value))
       },
       deep: true
+    },
+    '$route' (route) {
+      this.setPateTitle(route.meta.pageTitle)
+    }
+  },
+  methods: {
+    setPateTitle(title) {
+      document.title = title
+      if (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+        var $body = document.body
+        var $iframe = document.createElement('iframe')
+        $iframe.src = require('../public/cover.png')
+        $iframe.style.display = 'none'
+        var callback = function() {
+          setTimeout(function () {
+            $iframe.removeEventListener('load', callback)
+            $body.removeChild($iframe)
+          }, 0)
+        }
+        $iframe.addEventListener('load', callback)
+        $body.appendChild($iframe)
+      }
     }
   }
 }

@@ -22,47 +22,80 @@ const routes = [
   },
   {
     path: "/login",
-    component: Login
+    component: Login,
+    meta: {
+      pageTitle: '登录'
+    }
   },
   {
     path: "/home",
-    component: Home
+    component: Home,
+    meta: {
+      pageTitle: '订餐'
+    }
   },
   {
     path: "/shop",
-    component: Shop
+    component: Shop,
+    meta: {
+      pageTitle: '订餐'
+    }
   },
   {
     path: "/food",
-    component: Food
+    component: Food,
+    meta: {
+      pageTitle: '详情'
+    }
   },
   {
     path: "/confirm",
-    component: ConfirmOrder
+    component: ConfirmOrder,
+    meta: {
+      pageTitle: '确认订单'
+    }
   },
   {
     path: "/select-address",
-    component: SelectAddress
+    component: SelectAddress,
+    meta: {
+      pageTitle: '配送地址'
+    }
   },
   {
     path: "/add-address",
-    component: AddAddress
+    component: AddAddress,
+    meta: {
+      pageTitle: '配送地址'
+    }
   },
   {
     path: "/orders",
-    component: Orders
+    component: Orders,
+    meta: {
+      pageTitle: '订单'
+    }
   },
   {
     path: "/order-detail",
-    component: OrderDetail
+    component: OrderDetail,
+    meta: {
+      pageTitle: '订单'
+    }
   },
   {
     path: "/cancel-order",
-    component: CancelOrder
+    component: CancelOrder,
+    meta: {
+      pageTitle: '取消订单'
+    }
   },
   {
     path: "/score",
-    component: Score
+    component: Score,
+    meta: {
+      pageTitle: '评价'
+    }
   },
   {
     path: "*",
