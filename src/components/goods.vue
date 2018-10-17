@@ -22,7 +22,7 @@
             <div class="count">月售{{food.monthCount}}份</div>
             <div class="price">￥{{food.dishesPrice}}</div>
             <div class="cartcontrol-wrapper">
-              <cart-control :food="food" :num="food.number" :disabled="food.nomore"></cart-control>
+              <cart-control :food="food" :disabled="food.nomore"></cart-control>
             </div>
           </div>
         </li>

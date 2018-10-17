@@ -1,28 +1,19 @@
-import Vue from 'vue'
-
-export const addFood = (state, data) => {
-  let food = state.selectFoods[data.detailId];
+export const setSelectFoods = (state, data) => {
+  if (Array.isArray(data)) {
+    state.selectFoods = data
+    return
+  }
+  let foods = state.selectFoods
+  let food = foods.find(v => v.detailId == data.detailId)
   if (food) {
     food.number = data.number
-  } else {
-    Vue.set(state.selectFoods, `${data.detailId}`, {
-      ...data,
-      number: 1,
-      dishesPrice: +data.dishesPrice
-    });
-  }
-}
-
-export const decreaseFood = (state, data) => {
-  let food = state.selectFoods[data.detailId];
-  food.number = data.number
-  if (food.number == 0) {
-    Vue.delete(state.selectFoods, `${data.detailId}`);
+  } else if (data.number > 0) {
+    state.selectFoods.push(data)
   }
 }
 
 export const clearFood = (state) => {
-  state.selectFoods = {}
+  state.selectFoods = []
 }
 
 export const setAddress = (state, data) => {

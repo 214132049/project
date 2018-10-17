@@ -9,7 +9,7 @@ Vue.use(Vuex)
 let state = {
   userInfo: {},
   shopInfo: {},
-  selectFoods: {},
+  selectFoods: [],
   address: '',
   time: '',
   day: ''

@@ -43,7 +43,7 @@
           restaurantId: shop.restaurantId,
           packAmount: shop.packAmount
         })
-        this.$router.push({ path: '/shop' })
+        this.$router.push({ path: '/shop', query: { id: shop.id } })
       }
     }  
   }

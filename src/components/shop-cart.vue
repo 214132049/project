@@ -7,7 +7,7 @@
         </div>
         <div class="price">￥{{ totalPrice }}</div>
       </div>
-      <div class="pay" :class="{ disabled: canPay }" @click="pay">去订餐</div>
+      <div class="pay" :class="{ disabled: !canPay }" @click="pay">去订餐</div>
     </div>
     <transition name="fold">
       <div class="shopcart-list" v-show="listShow" @click="listShow = false">
@@ -20,10 +20,10 @@
           <div class="list-content">
             <scroll>
               <ul>
-                <li class="food" v-for="(food, key) in selectFoods" :key="key">
+                <li class="food" v-for="(food, key) in foods" :key="key">
                   <span class="name">{{ food.dishesName }}</span>
                   <span class="price">￥{{ food.dishesPrice }}</span>
-                  <cart-control class="cartcontrol-wrapper" :food="food" :num="food.number"></cart-control>
+                  <cart-control class="cartcontrol-wrapper" :food="food"></cart-control>
                 </li>
               </ul>
             </scroll>
@@ -35,14 +35,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: 'ShopCart',
   props: {
     minPrice: {
       type: Number,
       default: 0
+    },
+    selectFoods: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -51,27 +53,27 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'selectFoods'
-    ]),
+    foods() {
+      return this.selectFoods.filter(v => v.number > 0)
+    },
     totalPrice() {
       let total = 0;
-      Object.keys(this.selectFoods).forEach(id => {
-        let food = this.selectFoods[id]
+      Object.keys(this.foods).forEach(id => {
+        let food = this.foods[id]
         total += food.dishesPrice * food.number
       })
-      return total.toFixed(2)
+      return total == 0 ? total : total.toFixed(2)
     },
     totalCount() {
       let count = 0;
-      Object.keys(this.selectFoods).forEach(id => {
-        let food = this.selectFoods[id]
+      Object.keys(this.foods).forEach(id => {
+        let food = this.foods[id]
         count += food.number
       })
       return count;
     },
     canPay() {
-      return !this.totalPrice > this.minPrice ? true : false
+      return this.totalPrice <= this.minPrice || this.totalCount == 0 ? false : true
     }
   },
   watch: {
@@ -83,19 +85,21 @@ export default {
   },
   methods: {
     pay() {
-      if (this.totalPrice < this.minPrice || this.canPay) {
+      if (!this.canPay) {
         return;
       }
       this.$router.push({ path: '/confirm' })
     },
     empty() {
-      this.$store.dispatch('clearFood')
+      this.selectFoods.forEach(food => {
+        food.number = 0
+      })
     },
     toggleList() {
       if (!this.totalCount > 0) {
         return;
       }
-      this.listShow = !this.listShow;
+      this.listShow = !this.listShow
     }
   }
 };

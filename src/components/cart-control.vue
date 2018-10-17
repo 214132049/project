@@ -1,14 +1,12 @@
 <template>
   <div class="cartcontrol">
-    <div class="cart-btn cart-decrease" v-show="food.number > 0" @click.stop.prevent="decreaseCart"></div>
-    <div class="cart-count" v-show="food.number > 0">{{ number }}</div>
+    <div class="cart-btn cart-decrease" v-show="number > 0" @click.stop.prevent="decreaseCart"></div>
+    <div class="cart-count" v-show="number > 0">{{ number }}</div>
     <div class="cart-btn cart-add" @click.stop.prevent="addCart" :class="{ disabled: disabled }"></div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'CartControl',
   props: {
@@ -16,39 +14,34 @@ export default {
       type: Object,
       default: () => {}
     },
-    num: {
-      type: Number,
-      default: 0
-    },
     disabled: {
       type: Boolean,
       default: false
     }
   },
-  data () {
+  data() {
     return {
-      number: ''
+      number: 0
     }
   },
   watch: {
-    num: {
-      handler (val) {
-        this.number = val
+    food: {
+      handler (value) {
+        this.number = value.number
       },
       immediate: true,
-      deep: true,
+      deep: true
     }
   },
   methods: {
     addCart() {
       if (this.disabled) return
       this.number += 1
-      this.food.number = this.number
-      this.$store.dispatch('addFood', this.food)
+      this.food.number += 1
     },
     decreaseCart() {
+      this.number -= 1
       this.food.number -= 1
-      this.$store.dispatch('decreaseFood', this.food)
     }
   }
 };

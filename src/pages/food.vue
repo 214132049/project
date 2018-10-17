@@ -8,7 +8,7 @@
       </div>
       <div class="price-box">
         <div class="price">￥{{ food.dishesPrice }}</div>
-        <cart-control :food="food" :num="num"></cart-control>
+        <cart-control :food="food"></cart-control>
       </div>
       <div class="desc">
         <p>简介：</p>
@@ -29,18 +29,25 @@ export default {
     return {
       food: {
         number: 0
-      },
-      num: 0
+      }
     }
   },
   mounted() {
     this.getDetail()
   },
+  watch: {
+    food: {
+      handler (value) {
+        this.$store.dispatch('setSelectFoods', value)
+      },
+      deep: true
+    }
+  },
   methods: {
     getDetail() {
       this.$loading.show()
       let id = this.$route.query.id
-      let food = this.$store.state.selectFoods[id]
+      let food = this.$store.state.selectFoods.find(v => v.detailId == id)
       this.$api.getOrderMealDetail({
         id,
         restaurantSetupId: this.$store.state.shopInfo.id,
@@ -48,7 +55,6 @@ export default {
         this.food = data
         this.food.detailId = id
         this.food.number = food ? food.number : 0
-        this.num = food ? food.number : 0
         this.$loading.hide()
       })
     }

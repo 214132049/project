@@ -61,11 +61,7 @@ export default {
   },
   methods: {
     orderAgain() {
-      this.$api.orderAgain({
-        orderId: this.$route.query.orderId
-      }).then(() => {
-        this.$toast('下单成功')
-      })
+      this.$router.replace({ path: '/shop', query: { id: info.restaurantId } })
     }
   }
 }

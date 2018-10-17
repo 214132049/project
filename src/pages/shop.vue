@@ -39,13 +39,14 @@
       </ul>
     </div>
     <goods :goods="goods" ref="goods"></goods>
-    <shop-cart :min-price="0" v-if="!isClosed"></shop-cart>
+    <shop-cart :min-price="0" v-if="!isClosed" :select-foods="selectFoods"></shop-cart>
     <div class="close-tip" v-else>餐厅休息中，无法订餐</div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 
+var initPage = true // 给selectFoods计算属性加锁，防止从详情回退时， store.state.setSelectFoods 被清空
 export default {
   name: 'ShopPage',
   data() {
@@ -66,9 +67,20 @@ export default {
     isClosed () {
       return this.shopInfo.isClose == 1
     },
+    selectFoods() {
+      let foods = []
+      this.goods.forEach(good => {
+        good.dishesList.forEach(food => {
+          if (food.number > 0) {
+            foods.push(food)
+          }
+        })
+      })
+      this.$store.dispatch('setSelectFoods', this.foods)
+      return foods
+    },
     ...mapGetters({
-      shopInfo: 'getShopInfo',
-      selectFoods: 'getSelectFoods'
+      shopInfo: 'getShopInfo'
     })
   },
   mounted() {
@@ -88,15 +100,16 @@ export default {
     },
     getMealList() {
       this.$api.getMealList({
-        restaurantSetupId: this.shopInfo.id,
+        restaurantSetupId: this.$route.query.id,
         releaseType: this.time,
         week: this.selDay
       }).then(({data}) => {
+        initPage = false
         this.$refs.goods.currentIndex = 0
         let prop = this.selDay == this.today ? 'toDayList' : 'toWeekList'
         this.goods = data[prop].map(v => {
           let dishesList = v.dishesList.map(food => {
-            let f = this.selectFoods[food.detailId]
+            let f = this.$store.state.selectFoods.find(v => v.detailId === food.detailId)
             return {
               ...food,
               number:  f ? f.number : 0
@@ -203,7 +216,7 @@ export default {
           }
         }
         &.week {
-          width: 234px;
+          width: 260px;
           color: #333;
           text-align: center;
           .line {
