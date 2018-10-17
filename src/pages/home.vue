@@ -20,16 +20,16 @@
       }
     },
     mounted () {
-      this.loadData()
-    },
-    activated () {
       this.$store.dispatch('clearDayAndTime')
       this.$store.dispatch('initState')
+      this.loadData()
     },
     methods: {
       loadData() {
+        this.$loading.show()
         this.$api.getShopList().then(({ data }) => {
           this.data = this.data.concat(data)
+          this.$loading.hide()
         })
       },
       goDetail(shop) {
