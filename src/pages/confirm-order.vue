@@ -45,14 +45,13 @@ export default {
   methods: {
     confirm() {
       let dishes = []
-      for(let key in this.selectFoods) {
-        let { number } = this.selectFoods[key]
-        dishes.push(`${key}-${number}`)
-      }
+      this.selectFoods.forEach(food => {
+        dishes.push(`${food.detailId}-${food.number}`)
+      })
       this.$api.orderFood({
         restaurantId: this.shopInfo.restaurantId,
         isPack: this.isPack ? 1 : 0,
-        address: this.address,
+        address: this.isPack ? this.address : '',
         dishes: dishes.join(',')
       }).then(({message}) => {
         this.$toast(message, () => {

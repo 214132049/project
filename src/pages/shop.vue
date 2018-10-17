@@ -5,7 +5,7 @@
         <i class="icon"></i>{{ !isClosed ? '正常' : '暂停' }}营业
       </div>
       <div class="shop-name">
-        <p class="name">{{ shopInfo.restaurantName }}</p>
+        <p class="name">{{ shopInfo.name }}</p>
         <div class="rate-count">
           <star :value="shopInfo.score" style="display: inline-block"/>
           <span class="count">月售{{ shopInfo.monthCount || 0 }}单</span>
@@ -60,6 +60,7 @@ export default {
       days: {1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六', 7: '周日'},
       showDays: false,
       goods: [],
+      shopInfo: {},
       initPage: true // 给selectFoods计算属性加锁，防止从详情回退时， store.state.setSelectFoods 被清空
     }
   },
@@ -79,10 +80,7 @@ export default {
       })
       this.$store.dispatch('setSelectFoods', foods)
       return foods
-    },
-    ...mapGetters({
-      shopInfo: 'getShopInfo'
-    })
+    }
   },
   mounted() {
     this.getMealList()
@@ -107,6 +105,8 @@ export default {
       }).then(({data}) => {
         this.initPage = false
         this.$refs.goods.currentIndex = 0
+        let {isClose, monthCount, name, score} = data
+        this.shopInfo = { isClose, monthCount, name, score }
         let prop = this.selDay == this.today ? 'toDayList' : 'toWeekList'
         this.goods = data[prop].map(v => {
           let dishesList = v.dishesList.map(food => {

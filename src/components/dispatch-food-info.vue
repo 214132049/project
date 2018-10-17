@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     orderAgain() {
-      this.$router.replace({ path: '/shop', query: { id: info.restaurantId } })
+      this.$router.replace({ path: '/shop', query: { id: this.info.restaurantId } })
     }
   }
 }

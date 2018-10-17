@@ -18,7 +18,7 @@
             </span>                
           </div>
           <div class="list-content">
-            <scroll>
+            <scroll class="food-list_wrap" :data="foods" ref="scroll">
               <ul>
                 <li class="food" v-for="(food, key) in foods" :key="key">
                   <span class="name">{{ food.dishesName }}</span>
@@ -100,6 +100,11 @@ export default {
         return;
       }
       this.listShow = !this.listShow
+      if (this.listShow) {
+        this.$nextTick(() => {
+          this.$refs.scroll.refresh()
+        })
+      }
     }
   }
 };
@@ -156,7 +161,7 @@ export default {
       background: #38C7C4;
       color: #fff;
       &.disabled {
-        background: #888;
+        opacity: 0.3;
       }
     }
   }
@@ -195,15 +200,17 @@ export default {
           margin-right: 14px;
           background: url('~@/assets/images/ic-delete@2x.png') no-repeat center;
           background-size: 100%;
-          vertical-align: middle;
+          vertical-align: text-top;
         }
       }
     }
     .list-content {
       // max-height: 500px;
       height: 500px;
-      // overflow: hidden;
       background: #fff;
+      .food-list_wrap {
+        overflow: hidden;
+      }
       .food {
         display: flex;
         height: 125px;

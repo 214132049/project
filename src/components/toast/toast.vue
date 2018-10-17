@@ -52,6 +52,7 @@ export default {
   padding: 30px 50px;
   max-width: 400px;
   white-space: nowrap;
+  z-index: 5000;
   transform: translate3d(-50%, -50%, 0);
 }
 .fade-enter-active, .fade-leave-active {

@@ -80,8 +80,8 @@ export default {
       this.$router.replace({ path: '/cancel-order', query: { id: this.orderInfo.id } })
     },
     finishOrder() {
-      this.$api.getOrderById({
-        id: this.$route.query.orderId
+      this.$api.finishOrder({
+        orderId: this.$route.query.orderId
       }).then(() => {
         this.$toast('确认订单成功', () => {
           this.$router.back()
