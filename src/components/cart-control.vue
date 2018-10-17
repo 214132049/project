@@ -1,7 +1,7 @@
 <template>
   <div class="cartcontrol">
-    <div class="cart-btn cart-decrease" v-show="number > 0" @click.stop.prevent="decreaseCart"></div>
-    <div class="cart-count" v-show="number > 0">{{ number }}</div>
+    <div class="cart-btn cart-decrease" v-show="food.number > 0" @click.stop.prevent="decreaseCart"></div>
+    <div class="cart-count" v-show="food.number > 0">{{ food.number }}</div>
     <div class="cart-btn cart-add" @click.stop.prevent="addCart" :class="{ disabled: disabled }"></div>
   </div>
 </template>
@@ -19,28 +19,12 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      number: 0
-    }
-  },
-  watch: {
-    food: {
-      handler (value) {
-        this.number = value.number
-      },
-      immediate: true,
-      deep: true
-    }
-  },
   methods: {
     addCart() {
       if (this.disabled) return
-      this.number += 1
       this.food.number += 1
     },
     decreaseCart() {
-      this.number -= 1
       this.food.number -= 1
     }
   }

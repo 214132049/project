@@ -46,7 +46,6 @@
 <script>
 import { mapGetters } from 'vuex'
 
-var initPage = true // 给selectFoods计算属性加锁，防止从详情回退时， store.state.setSelectFoods 被清空
 export default {
   name: 'ShopPage',
   data() {
@@ -60,7 +59,8 @@ export default {
       today,
       days: {1: '周一', 2: '周二', 3: '周三', 4: '周四', 5: '周五', 6: '周六', 7: '周日'},
       showDays: false,
-      goods: []
+      goods: [],
+      initPage: true // 给selectFoods计算属性加锁，防止从详情回退时， store.state.setSelectFoods 被清空
     }
   },
   computed: {
@@ -68,6 +68,7 @@ export default {
       return this.shopInfo.isClose == 1
     },
     selectFoods() {
+      if(this.initPage) return []
       let foods = []
       this.goods.forEach(good => {
         good.dishesList.forEach(food => {
@@ -76,7 +77,7 @@ export default {
           }
         })
       })
-      this.$store.dispatch('setSelectFoods', this.foods)
+      this.$store.dispatch('setSelectFoods', foods)
       return foods
     },
     ...mapGetters({
@@ -104,7 +105,7 @@ export default {
         releaseType: this.time,
         week: this.selDay
       }).then(({data}) => {
-        initPage = false
+        this.initPage = false
         this.$refs.goods.currentIndex = 0
         let prop = this.selDay == this.today ? 'toDayList' : 'toWeekList'
         this.goods = data[prop].map(v => {

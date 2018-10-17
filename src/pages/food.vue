@@ -27,9 +27,7 @@ export default {
   name: 'FoodPage',
   data () {
     return {
-      food: {
-        number: 0
-      }
+      food: {}
     }
   },
   mounted() {
@@ -52,9 +50,7 @@ export default {
         id,
         restaurantSetupId: this.$store.state.shopInfo.id,
       }).then(({data}) => {
-        this.food = data
-        this.food.detailId = id
-        this.food.number = food ? food.number : 0
+        this.food = { ...data, detailId: id, number: food ? food.number : 0 }
         this.$loading.hide()
       })
     }
