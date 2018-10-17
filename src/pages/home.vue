@@ -41,7 +41,8 @@
           id: shop.id,
           restaurantImgUrl: shop.restaurantImgUrl,
           restaurantId: shop.restaurantId,
-          packAmount: shop.packAmount
+          packAmount: shop.packAmount,
+          takeTime: shop.releaseTypeHairStr
         })
         this.$router.push({ path: '/shop', query: { id: shop.id } })
       }
