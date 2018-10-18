@@ -12,6 +12,10 @@
   </scroll>
 </template>
 <script>
+  let getTime = function(prop, obj) {
+    return obj[prop] ? new Date(obj[prop]).Format('hh:mm') : ''
+  }
+
   export default {
     name: 'HomePage',
     data() {
@@ -62,9 +66,9 @@
           releaseTypeHairStr
         })
         let bookTimes = {
-          1: [new Date(breakfastBookStartTime).getTime, new Date(breakfastBookEndTime).getTime],
-          2: [new Date(lunchBookStartTime).getTime, new Date(lunchBookEndTime).getTime],
-          3: [new Date(dinnerBookStartTime).getTime, new Date(dinnerBookEndTime).getTime]
+          1: [new Date(breakfastBookStartTime).Format('hh:mm'), new Date(breakfastBookEndTime).Format('hh:mm')],
+          2: [new Date(lunchBookStartTime).Format('hh:mm'), new Date(lunchBookEndTime).Format('hh:mm')],
+          3: [new Date(dinnerBookStartTime).Format('hh:mm'), new Date(dinnerBookEndTime).Format('hh:mm')]
         }
         this.$store.dispatch('setBookTimes', bookTimes)
         this.$router.push({ path: '/shop', query: { id: shop.id } })

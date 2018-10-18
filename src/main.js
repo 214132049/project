@@ -4,6 +4,7 @@ import store from './store'
 import Api from './api'
 import UI from './components'
 import App from './App.vue'
+import './util/date'
 
 const FastClick = require('fastclick')
 const viewportUnitsBuggyfill = require('viewport-units-buggyfill')
