@@ -24,6 +24,10 @@ export const setUserInfo = (state, data) => {
   state.userInfo = data
 }
 
+export const setBookTimes = (state, data) => {
+  state.bookTimes = data
+}
+
 export const setShopInfo = (state, data) => {
   state.shopInfo = data
 }

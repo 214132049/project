@@ -10,6 +10,10 @@ export const getSelectFoods = (state) => {
   return state.selectFoods
 }
 
+export const getBookTimes = (state) => {
+  return state.bookTimes
+}
+
 export const getUserInfo = (state) => {
   return state.userInfo
 }

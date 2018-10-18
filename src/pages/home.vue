@@ -33,17 +33,40 @@
         })
       },
       goDetail(shop) {
+        let {
+          restaurantName,
+          isClose,
+          monthCount,
+          score,
+          id,
+          restaurantImgUrl,
+          restaurantId,
+          packAmount,
+          releaseTypeHairStr,
+          breakfastBookStartTime,
+          breakfastBookEndTime,
+          lunchBookStartTime,
+          lunchBookEndTime,
+          dinnerBookStartTime,
+          dinnerBookEndTime
+        } = shop
         this.$store.dispatch('setShopInfo', {
-          restaurantName: shop.restaurantName,
-          isClose: shop.isClose,
-          monthCount: shop.monthCount,
-          score: shop.score,
-          id: shop.id,
-          restaurantImgUrl: shop.restaurantImgUrl,
-          restaurantId: shop.restaurantId,
-          packAmount: shop.packAmount,
-          takeTime: shop.releaseTypeHairStr
+          restaurantName,
+          isClose,
+          monthCount,
+          score,
+          id,
+          restaurantImgUrl,
+          restaurantId,
+          packAmount,
+          releaseTypeHairStr
         })
+        let bookTimes = {
+          1: [new Date(breakfastBookStartTime).getTime, new Date(breakfastBookEndTime).getTime],
+          2: [new Date(lunchBookStartTime).getTime, new Date(lunchBookEndTime).getTime],
+          3: [new Date(dinnerBookStartTime).getTime, new Date(dinnerBookEndTime).getTime]
+        }
+        this.$store.dispatch('setBookTimes', bookTimes)
         this.$router.push({ path: '/shop', query: { id: shop.id } })
       }
     }  

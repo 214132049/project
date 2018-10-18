@@ -10,6 +10,7 @@ let state = {
   userInfo: {},
   shopInfo: {},
   selectFoods: [],
+  bookTimes: {},
   address: '',
   time: '',
   day: ''

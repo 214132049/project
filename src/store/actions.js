@@ -18,6 +18,10 @@ export const setShopInfo = ({ commit }, data) => {
   commit('setShopInfo', data)
 }
 
+export const setBookTimes = ({ commit }, data) => {
+  commit('setBookTimes', data)
+}
+
 export const setDay = ({ commit }, data) => {
   commit('setDay', data)
 }
