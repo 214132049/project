@@ -26,6 +26,10 @@
   </div>
 </template>
 <script>
+let getTime = function(prop, obj) {
+  return obj[prop] ? new Date(obj[prop]).Format('hh:mm') : ''
+}
+
 export default {
   name: 'DispatchFoodInfo',
   props: {
@@ -61,19 +65,11 @@ export default {
   },
   methods: {
     orderAgain() {
-      let {
-        restaurantId,
-        breakfastBookStartTime,
-        breakfastBookEndTime,
-        lunchBookStartTime,
-        lunchBookEndTime,
-        dinnerBookStartTime,
-        dinnerBookEndTime
-      } = this.info
+      let { restaurantId } = this.info
       let bookTimes = {
-        1: [new Date(breakfastBookStartTime).getTime, new Date(breakfastBookEndTime).getTime],
-        2: [new Date(lunchBookStartTime).getTime, new Date(lunchBookEndTime).getTime],
-        3: [new Date(dinnerBookStartTime).getTime, new Date(dinnerBookEndTime).getTime]
+        1: [getTime('breakfastBookStartTime', this.info), getTime('breakfastBookEndTime', this.info)],
+        2: [getTime('lunchBookStartTime', this.info), getTime('lunchBookEndTime', this.info)],
+        3: [getTime('dinnerBookStartTime', this.info), getTime('dinnerBookEndTime', this.info)]
       }
       this.$store.dispatch('setBookTimes', bookTimes)
       this.$router.replace({ path: '/shop', query: { id: restaurantId } })

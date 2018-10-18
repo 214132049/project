@@ -46,13 +46,7 @@
           restaurantImgUrl,
           restaurantId,
           packAmount,
-          releaseTypeHairStr,
-          breakfastBookStartTime,
-          breakfastBookEndTime,
-          lunchBookStartTime,
-          lunchBookEndTime,
-          dinnerBookStartTime,
-          dinnerBookEndTime
+          releaseTypeHairStr
         } = shop
         this.$store.dispatch('setShopInfo', {
           restaurantName,
@@ -66,9 +60,9 @@
           releaseTypeHairStr
         })
         let bookTimes = {
-          1: [new Date(breakfastBookStartTime).Format('hh:mm'), new Date(breakfastBookEndTime).Format('hh:mm')],
-          2: [new Date(lunchBookStartTime).Format('hh:mm'), new Date(lunchBookEndTime).Format('hh:mm')],
-          3: [new Date(dinnerBookStartTime).Format('hh:mm'), new Date(dinnerBookEndTime).Format('hh:mm')]
+          1: [getTime('breakfastBookStartTime', shop), getTime('breakfastBookEndTime', shop)],
+          2: [getTime('lunchBookStartTime', shop), getTime('lunchBookEndTime', shop)],
+          3: [getTime('dinnerBookStartTime', shop), getTime('dinnerBookEndTime', shop)]
         }
         this.$store.dispatch('setBookTimes', bookTimes)
         this.$router.push({ path: '/shop', query: { id: shop.id } })

@@ -21,7 +21,7 @@
             <h2 class="name">{{food.dishesName}}</h2>
             <div class="count">月售{{food.monthCount}}份</div>
             <div class="price">￥{{food.dishesPrice}}</div>
-            <div class="cartcontrol-wrapper">
+            <div class="cartcontrol-wrapper" v-if="food.canBuy">
               <cart-control :food="food" :disabled="food.nomore"></cart-control>
             </div>
           </div>
@@ -56,8 +56,8 @@ export default {
       this.currentIndex = index
       this.$refs.foodsWrapper.scroll.scrollTo(0, 0)
     },
-    selectFood(id) {
-      this.$router.push({ path: '/food', query: { id }})
+    selectFood(id, canBuy) {
+      this.$router.push({ path: '/food', query: { id, canBuy: canBuy ? 1 : 0 }})
     }
   }
 };

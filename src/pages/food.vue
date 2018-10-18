@@ -8,7 +8,7 @@
       </div>
       <div class="price-box">
         <div class="price">￥{{ food.dishesPrice }}</div>
-        <cart-control :food="food"></cart-control>
+        <cart-control :food="food" v-if="$route.query.canBuy"></cart-control>
       </div>
       <div class="desc">
         <p>简介：</p>

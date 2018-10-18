@@ -44,6 +44,8 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'ShopPage',
   data() {
@@ -71,14 +73,17 @@ export default {
       let foods = []
       this.goods.forEach(good => {
         good.dishesList.forEach(food => {
-          if (food.number > 0) {
+          if (food.number > 0 && food.canBuy) {
             foods.push(food)
           }
         })
       })
       this.$store.dispatch('setSelectFoods', foods)
       return foods
-    }
+    },
+    ...mapGetters({
+      'bookTimes': 'getBookTimes'
+    })
   },
   mounted() {
     this.getMealList()
@@ -111,12 +116,31 @@ export default {
             let f = this.$store.state.selectFoods.find(v => v.detailId === food.detailId)
             return {
               ...food,
+              canBuy: this.computeCanBuy(),
               number:  f ? f.number : 0
             }
           })
           return { ...v, dishesList }
         })
       })
+    },
+    computeCanBuy () {
+      let [nHour, nMinu] = new Date().Format('hh:mm').split(':')
+      let [start, end]= this.bookTimes[this.time]
+      let [sHour, sMinu] = start
+      let [eHour, eMinu] = end
+      if (!sHour && !eHour) { // 说明没有设置
+        return true
+      }
+      if (sHour && sHour) { // 都设置了
+        return (sHour * 60 + sMinu * 1) <= (nHour * 60 + nMinu * 1) && (nHour * 60 + nMinu * 1) <= (eHour * 60 + eMinu * 1)
+      }
+      if (sHour) {
+        return (sHour * 60 + sMinu * 1) <= (nHour * 60 + nMinu * 1)
+      }
+      if (eHour) {
+        return (nHour * 60 + nMinu * 1) <= (eHour * 60 + eMinu * 1)
+      }
     }
   }
 }
