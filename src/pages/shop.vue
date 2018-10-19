@@ -111,12 +111,13 @@ export default {
         let {isClose, monthCount, name, score} = data
         this.shopInfo = { isClose, monthCount, name, score }
         let prop = this.selDay == this.today ? 'toDayList' : 'toWeekList'
+        let canBuy = this.computeCanBuy()
         this.goods = data[prop].map(v => {
           let dishesList = v.dishesList.map(food => {
             let f = this.$store.state.selectFoods.find(v => v.detailId === food.detailId)
             return {
               ...food,
-              canBuy: this.computeCanBuy(),
+              canBuy,
               number:  f ? f.number : 0
             }
           })
@@ -127,10 +128,13 @@ export default {
     computeCanBuy () {
       let [nHour, nMinu] = new Date().Format('hh:mm').split(':')
       let [start, end]= this.bookTimes[this.time]
-      let [sHour, sMinu] = start
-      let [eHour, eMinu] = end
+      let [sHour, sMinu] = start.split(':')
+      let [eHour, eMinu] = end.split(':')
       if (!sHour && !eHour) { // 说明没有设置
         return true
+      }
+      if (this.selDay != this.today) {
+        return false
       }
       if (sHour && sHour) { // 都设置了
         return (sHour * 60 + sMinu * 1) <= (nHour * 60 + nMinu * 1) && (nHour * 60 + nMinu * 1) <= (eHour * 60 + eMinu * 1)
