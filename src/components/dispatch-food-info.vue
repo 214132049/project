@@ -65,14 +65,14 @@ export default {
   },
   methods: {
     orderAgain() {
-      let { restaurantId } = this.info
+      let { restaurantSetupId } = this.info
       let bookTimes = {
         1: [getTime('breakfastBookStartTime', this.info), getTime('breakfastBookEndTime', this.info)],
         2: [getTime('lunchBookStartTime', this.info), getTime('lunchBookEndTime', this.info)],
         3: [getTime('dinnerBookStartTime', this.info), getTime('dinnerBookEndTime', this.info)]
       }
       this.$store.dispatch('setBookTimes', bookTimes)
-      this.$router.replace({ path: '/shop', query: { id: restaurantId } })
+      this.$router.replace({ path: '/shop', query: { id: restaurantSetupId } })
     }
   }
 }
