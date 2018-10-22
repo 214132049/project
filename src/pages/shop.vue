@@ -243,7 +243,7 @@ export default {
           }
         }
         &.week {
-          width: 260px;
+          width: 230px;
           color: #333;
           text-align: center;
           .line {
@@ -256,7 +256,7 @@ export default {
           }
           .day {
             display: inline-block;
-            width: 140px;
+            min-width: 150px;
             text-align: center;
             font-size: 30px;
           }

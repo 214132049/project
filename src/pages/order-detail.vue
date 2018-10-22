@@ -48,7 +48,9 @@
             <span class="label">配送地址</span>
             <span>{{ orderInfo.address }}</span>
           </div>
-          <cu-button class="btn" size="large" type="primary" :disabled="orderInfo.restaurantScore">已评价</cu-button>
+          <cu-button class="btn" size="large" type="primary" :disabled="!!orderInfo.restaurantScore">
+            {{ !!orderInfo.restaurantScore ? '已' : '去' }}评价
+          </cu-button>
         </div>
       </template>
     </div>
