@@ -30,6 +30,7 @@ instance.interceptors.response.use(function (response) {
     return Promise.resolve(response.data)
   }
   vm.$toast(response.data.message)
+  vm.$loading.hide()
   return Promise.reject(response)
 }, function (error) {
   return Promise.reject(error)

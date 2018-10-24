@@ -21,8 +21,9 @@
             <h2 class="name">{{food.dishesName}}</h2>
             <div class="count">月售{{food.monthCount}}份</div>
             <div class="price">￥{{food.dishesPrice}}</div>
-            <div class="cartcontrol-wrapper" v-if="food.canBuy">
-              <cart-control :food="food" :disabled="food.nomore"></cart-control>
+            <div class="cartcontrol-wrapper">
+              <cart-control :food="food" :disabled="food.nomore" v-if="food.canBuy"></cart-control>
+              <span class="tip" v-else>不可预订</span>
             </div>
           </div>
         </li>
@@ -141,6 +142,11 @@ export default {
           position: absolute;
           right: 0;
           bottom: 0;
+          .tip {
+            display: inline-block;
+            font-size: 28px;
+            color: #999;
+          }
         }
       }
       &.nomore .content {
