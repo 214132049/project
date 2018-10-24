@@ -10,7 +10,7 @@
                 <p class="name-status">
                   <span class="name">{{ item.restaurantName }}</span>
                   <span class="status" :class="{ highlight: item.status == '已生成' }">
-                    {{ item.status == '完成' ? `已${item.status}` : item.status }}
+                    {{ item.status != '已生成' ? `已${item.status}` : item.status }}
                   </span>
                 </p>
                 <p class="time"><i class="icon-clock"></i>{{ item.date }}</p>

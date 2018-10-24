@@ -49,7 +49,6 @@ export default {
     }
     .right {
       flex: 1;
-      overflow: hidden;
     }
     .shop-name-status {
       display: flex;

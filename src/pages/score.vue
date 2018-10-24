@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     submit() {
-      let foodPoints = this.orderDetails.map(v => `${v.id}-${v._foodPoints}`)
+      let foodPoints = this.orderDetails.filter(v => v._foodPoints).map(v => `${v.id}-${v._foodPoints}`)
       // 这里和别处不一样是因为后端傻逼
       axios.post(process.env.VUE_APP_HOSTURL + 'api/h5/order/sorceOrder', {
         token: window.sessionStorage.getItem("token") || '',
@@ -63,9 +63,13 @@ export default {
       }).then(res => {
         if (res.data.code == 0) {
           this.$toast('评价成功', () => {
-          this.$router.back()
-        })
+            this.$router.back()
+          })
+          return
         }
+        return Promise.reject(res)
+      }).catch(err => {
+        this.$toast(err.data.message)
       })
     }
   }

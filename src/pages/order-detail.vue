@@ -48,7 +48,7 @@
             <span class="label">配送地址</span>
             <span>{{ orderInfo.address }}</span>
           </div>
-          <cu-button class="btn" size="large" type="primary" :disabled="!!orderInfo.restaurantScore">
+          <cu-button class="btn" size="large" type="primary" :disabled="!!orderInfo.restaurantScore" @click="setScore">
             {{ !!orderInfo.restaurantScore ? '已' : '去' }}评价
           </cu-button>
         </div>
@@ -80,6 +80,11 @@ export default {
   methods: {
     cancelOrder () {
       this.$router.replace({ path: '/cancel-order', query: { id: this.orderInfo.id } })
+    },
+    setScore () {
+      let { restaurantScore, id } = this.orderInfo
+      if (!!restaurantScore) return
+      this.$router.push({ path: '/score', query: { orderId: id } })
     },
     finishOrder() {
       this.$api.finishOrder({

@@ -101,6 +101,7 @@ export default {
       this.getMealList()
     },
     getMealList() {
+      this.$loading.show()
       this.$api.getMealList({
         restaurantSetupId: this.$route.query.id,
         releaseType: this.time,
@@ -123,6 +124,7 @@ export default {
           })
           return { ...v, dishesList }
         })
+        this.$loading.hide()
       })
     },
     computeCanBuy () {

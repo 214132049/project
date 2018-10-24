@@ -13,7 +13,7 @@
       </li>
       <li class="dispatch-price" v-if="info.status && info.status != 1 || info.isPack == 1">
         {{ ordering ? '配送费' : '打包配送' }}
-        <span class="price">{{ info.isPack == 1 ? `￥${info.packAmount}` : '否'}}</span>
+        <span class="price">{{ info.isPack == 1 ? `￥${info.packAmount || 0}` : '否'}}</span>
       </li>
       <li class="total-price">
         <cu-button size="small" type="primary" v-if="info.state && info.state != 99" @click="orderAgain">再来一单</cu-button>
@@ -65,14 +65,29 @@ export default {
   },
   methods: {
     orderAgain() {
-      let { restaurantSetupId } = this.info
+      let {
+        restaurantName,
+        restaurantSetupId: id,
+        restaurantImgUrl,
+        restaurantId,
+        packAmount,
+        takeTime
+      } = this.info
+      this.$store.dispatch('setShopInfo', {
+        restaurantName,
+        id,
+        restaurantImgUrl,
+        restaurantId,
+        packAmount,
+        takeTime
+      })
       let bookTimes = {
         1: [getTime('breakfastBookStartTime', this.info), getTime('breakfastBookEndTime', this.info)],
         2: [getTime('lunchBookStartTime', this.info), getTime('lunchBookEndTime', this.info)],
         3: [getTime('dinnerBookStartTime', this.info), getTime('dinnerBookEndTime', this.info)]
       }
       this.$store.dispatch('setBookTimes', bookTimes)
-      this.$router.replace({ path: '/shop', query: { id: restaurantSetupId } })
+      this.$router.replace({ path: '/shop', query: { id } })
     }
   }
 }

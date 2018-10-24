@@ -38,8 +38,8 @@ export default {
       this.$api.cancelOrder({
         cancelReason: this.currentKey,
         orderId: this.$route.query.id
-      }).then(({message}) => {
-        this.$toast(message, () => {
+      }).then(() => {
+        this.$toast('订单取消成功', () => {
           this.$store.dispatch('initState')
           this.$router.back()
         })

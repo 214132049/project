@@ -32,32 +32,26 @@
       loadData() {
         this.$loading.show()
         this.$api.getShopList().then(({ data }) => {
-          this.data = this.data.concat(data)
+          this.data = data.sort((a, b) => a.isClose > b.isClose)
           this.$loading.hide()
         })
       },
       goDetail(shop) {
         let {
           restaurantName,
-          isClose,
-          monthCount,
-          score,
           id,
           restaurantImgUrl,
           restaurantId,
           packAmount,
-          releaseTypeHairStr
+          releaseTypeHairStr: takeTime
         } = shop
         this.$store.dispatch('setShopInfo', {
           restaurantName,
-          isClose,
-          monthCount,
-          score,
           id,
           restaurantImgUrl,
           restaurantId,
           packAmount,
-          releaseTypeHairStr
+          takeTime
         })
         let bookTimes = {
           1: [getTime('breakfastBookStartTime', shop), getTime('breakfastBookEndTime', shop)],
