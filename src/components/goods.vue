@@ -12,7 +12,7 @@
     </scroll>
     <scroll :probe-type="3" class="foods-wrapper" ref="foodsWrapper" :data="foods">
       <ul>
-        <li @click="selectFood(food.detailId)" v-for="(food, index) in foods" :key="index" class="food-item" :class="{ nomore: food.nomore }">
+        <li @click="selectFood(food.detailId, food.canBuy)" v-for="(food, index) in foods" :key="index" class="food-item" :class="{ nomore: food.nomore }">
           <div class="icon">
             <img :src="food.dishesImgUrl" alt="">
             <div class="mask" v-if="food.nomore">缺货</div>
