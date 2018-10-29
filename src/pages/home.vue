@@ -13,7 +13,8 @@
 </template>
 <script>
   let getTime = function(prop, obj) {
-    return obj[prop] ? new Date(obj[prop]).Format('hh:mm') : ''
+    let date = obj[prop] ? obj[prop].replace(/-/g, '/') : ''
+    return date ? new Date(date).Format('hh:mm') : ''
   }
 
   export default {
