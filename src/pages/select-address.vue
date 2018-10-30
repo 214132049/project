@@ -45,21 +45,25 @@ export default {
       align-items: center;
       box-sizing: border-box;
       width: 100%;
-      height: 98px;
-      padding: 0 32px;
+      padding: 20px 32px;
       background: #fff;
-      line-height: 98px;
+      line-height: 1.3;
       color: #333;
       font-size: 34px;
       .icon {
         display: inline-block;
         width: 30px;
         height: 20px;
+        margin-left: 10px;
         background: url('~@/assets/images/ic-right@2x.png') no-repeat center;
         background-size: 100%;
       }
+      & + .address-item {
+        border-bottom: 1px solid #e5e5e5;
+      }
       &.oldAddress {
         margin-bottom: 20px;
+        border-top: 0;
       }
       &:active {
         background: #F2F2F2;

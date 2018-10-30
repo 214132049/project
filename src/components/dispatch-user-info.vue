@@ -2,7 +2,7 @@
   <div class="dispatch-user-info">
     <div class="user-info" @click="selectAddress">
       <template v-if="info.isPack == 1">
-        <p class="name">
+        <p class="name flex">
           {{ info.address }}
           <i class="icon" v-if="ordering"></i>
         </p>
@@ -72,10 +72,17 @@ export default {
     .name {
       font-size:34px;
       color: #333;
+      line-height: 1.3;
+      &.flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
       .icon {
         float: right;
         width: 14px;
         height: 26px;
+        margin-left: 10px;
         background: url('~@/assets/images/order-ic-right@2x.png') no-repeat center;
         background-size: 100%;
       }
