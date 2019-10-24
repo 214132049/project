@@ -83,7 +83,7 @@ export default {
     },
     setScore () {
       let { restaurantScore, id } = this.orderInfo
-      if (!!restaurantScore) return
+      if (restaurantScore) return
       this.$router.push({ path: '/score', query: { orderId: id } })
     },
     finishOrder() {
